@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CS171 Homework 1</title>
+
+  <style type="text/css">
+      table
+      {
+          border-collapse:collapse;
+      }
+      table,th, td, caption
+      {
+          border: 1px solid black;
+      }
+      
+      caption
+      {
+          background-color : white;
+      }
+      
+      td
+      {
+          text-align:center;
+      }
+      
+      td, th, caption
+      {
+          padding:5px;
+      }
+
+      
+      table
+      {
+          width : 350px;
+          display: table;
+          margin: auto;
+      }
+      html
+      {
+          display: table;
+          margin: auto;
+      }
+      .ascending_next
+      {
+          cursor: n-resize;
+      }
+      .descending_next
+      {
+          cursor: s-resize;
+      }
+      .col_1
+      {
+          text-align: left;
+
+      }
+      .col_2
+      {
+          text-align: left;
+
+      }
+      tr.highlight,td.highlight
+      {
+          background:#FFFACD;
+      }
+
+      .actualtable
+      {
+        float: left;
+      }
+
+      u1.one
+      {
+        float: left;
+        background: white;
+        margin: 10px;
+      }
+
+      li
+      {
+        font-family: 'Lato', sans-serif;
+        text-transform: uppercase;
+        font-size: 12px;
+        padding-top: 5px; padding-bottom: 12px; padding-right: 5px;
+        margin: 5px;
+        right: 10px;
+        left: 5px;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      h1
+      {
+          text-align:center;
+          color: black;
+          font-size: 20px;
+          text-transform: uppercase;
+          margin-bottom: 0.25em;
+          padding: 0.25em 0;
+          font-family: 'Lato', sans-serif;
+      }
+      h2
+      {
+        font-size: 20px;
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        text-align: left;
+        margin: 10px;
+
+      }
+
+      h3
+      {
+        font-size: 25px;
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: underline;
+
+      }
+
+      
+  /* YOUR CSS */
+  </style>
+</head>
+<body>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script>
+      d3.select("body").append("h3").html("Unemployment Rates for States");
+      d3.selectAll("*").style("background-color","lightblue");
+      function compareNumbers(a, b) {return parseFloat(a) - parseFloat(b);}
+      function ReversecompareNumbers(a, b) {return parseFloat(b) - parseFloat(a);}
+
+      var width = 90;
+      var height = 10;
+
+  d3.text("unemp_states_us_nov_2013.tsv", function(data){
+      var parsedtsv = d3.tsv.parseRows(data);
+      var header = parsedtsv.shift();
+          
+
+       var caption = d3.select("body").append("u1").attr("class", "one").html("<h2> Table Data: </h2> <ul> <li> Unemployment Data was collected from the <br> BLS website &nbsp;</li> <li> Data was read in and parsed from a TSV file </li></ul><h2> Interactive Data Table Features: </h2> <ul> <li> Mouseover highlighting of cell's row and column &nbsp;</li> <li> Dyanamic sorting of columns on click </li> <li> Cursor indicates whether next click will <br> ascend  direction </li> <li> Rate column colored according to rate value  </li> <li> Vertical bar sized proportional to rate value </li> <li>Created with JavaScript (d3 library), HTML, and CSS </li></ul>" );
+
+
+
+      var table = d3.select("body").append("table").attr("class", "actualtable"),
+          caption = table.append("caption").html("Unemployment Rates for States <br> Monthly Rankings <br> Seasonally Adjusted <br> Dec. 2013")
+          thead = table.append("thead"),
+          tbody = table.append("tbody");
+
+
+
+      var state = false;
+
+          
+      thead.append("tr")
+          .style("background-color","white")
+          .selectAll("th")
+          .data(header)
+          .enter()
+          .append("th")
+          .classed("descending_next", true)
+          .on("click", function(d, i) 
+            {if (i == 1)
+              { if(state == true)
+                  {state = !state; d3.select(this).classed("descending_next", true).classed("ascending_next", false); 
+                  tbody.selectAll("tr").sort(function(a, b) {return d3.ascending(a[i], b[i]);})
+                  .style("background-color", function(row, i) 
+                    {if (i%2===0) {return "#D0D0D0";} else {return "white";}})
+                  }
+                else
+                  {state = !state; d3.select(this).classed("ascending_next", true).classed("descending_next", false); 
+                  tbody.selectAll("tr").sort(function(a, b) {return d3.descending(a[i], b[i]);})
+                  .style("background-color", function(row, i) 
+                    {if (i%2===0) {return "#D0D0D0";} else {return "white";}})}
+              }
+
+              else if (i == 2)
+                {if (state ==true)
+                {state =! state; d3.select(this).classed("ascending_next", false).classed("descending_next", true); 
+                  tbody.selectAll("tr").sort(function(a, b) 
+                    {if (compareNumbers(a[i], b[i]) == 0) {return d3.ascending(a[1], b[1]);}
+                      else {return compareNumbers(a[i], b[i]);}})
+                      .style("background-color", function(d, i)  
+                      {if (i%2===0) {return "#D0D0D0";} else {return "white";}})}
+                else
+                {state =! state; d3.select(this).classed("ascending_next", true).classed("descending_next", false); 
+                tbody.selectAll("tr").sort(function(a, b) 
+                    {if (ReversecompareNumbers(a[i], b[i]) == 0) {return d3.descending(a[1], b[1]);}
+                    else { return ReversecompareNumbers(a[i], b[i]);}})
+                .style("background-color", function(row, i)
+                    {if (i%2===0) {return "#D0D0D0";} else {return "white";}})}}
+              else if (i == 0)
+                    {if (state ==true)
+                    {state =! state; d3.select(this).classed("descending_next", true).classed("ascending_next", false); 
+                    tbody.selectAll("tr").sort(function(a, b)
+                       {if (compareNumbers(a[i], b[i]) == 0) {return d3.ascending(a[1], b[1]);}
+                        else {return compareNumbers(a[i], b[i]);}})
+                      .style("background-color", function(row, i) {if (i%2===0) {return "#D0D0D0";} else {return "white";}})}
+                    else
+                    {state =! state; d3.select(this).classed("ascending_next", true).classed("descending_next", false); 
+                    tbody.selectAll("tr").sort(function(a, b)
+                      {if (ReversecompareNumbers(a[i], b[i]) == 0) {return d3.descending(a[1], b[1]);}
+                        else {return ReversecompareNumbers(a[i], b[i]);}})
+                        .style("background-color", function(row, i) {if (i%2===0) {return "#D0D0D0";} else {return "white";}})}}})
+          .text(function(column) { return column;});
+              
+              
+              
+                
+    
+      var rows = tbody.selectAll("tr")
+      .data(parsedtsv)
+      .enter()
+      .append("tr")
+      .sort(function (a,b) { if (compareNumbers(a[0], b[0]) == 0) {return d3.ascending(a[1], b[1]);} 
+          else {return compareNumbers(a[0], b[0]);}})
+      .style("background-color", function(row, i) {if (i%2===0){return "#D0D0D0";} else{return "white";}});
+
+          
+      var color = d3.scale.linear()
+      .domain([d3.min(parsedtsv, function (d) { return +d[2] }),d3.max(parsedtsv, function (d) { return +d[2] }) ])
+      .interpolate(d3.interpolateRgb)
+      .range(["orangered", "silver"])
+          
+      var cells = rows.selectAll("td")
+      .data(function(row) { return d3.range(Object.keys(row).length).map(function(column, i) {return row[Object.keys(row)[i]];});})
+      .enter()
+      .append("td")
+      .attr("class", function(d, i) {return "col_" + i;})
+      .on("mouseover", function(d,i){ d3.select(this.parentNode).selectAll("td").classed("highlight", true); 
+          d3.selectAll("td.col_" + i).classed("highlight", true);})
+      .on("mouseout", function(d,i){ d3.select(this.parentNode).selectAll("td").classed("highlight", false); 
+          d3.selectAll("td.col_" + i).classed("highlight", false);})
+      .style("background-color", function(d, i){if (i===2) {return color(parseFloat(d));} else {return null;}})    
+      .text(function(d) { return d; });
+     
+
+          
+    rows.insert("td").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("rect")
+    .attr("height", height)
+    .attr("width", function(d) { return parseFloat(d[0]); })
+    .style("fill", "3366CC");
+    
+
+          
+    d3.selectAll("thead")
+    .selectAll("tr")
+    .insert("th")
+    .text("Chart")
+    .classed("descending_next", function(d,i) {if (i == 1) {return false;} else {return true;}})
+    .on("click", function(d, i)
+      {if (state ==true)
+          {state =! state; d3.select(this).classed("descending_next", true).classed("ascending_next", false); 
+          tbody.selectAll("tr").sort(function(a, b) {if (compareNumbers(a[0], b[0]) == 0) {return d3.ascending(a[1], b[1]);}
+              else {return compareNumbers(a[0], b[0]);}})
+                                .style("background-color", function(row, i) 
+                                  {if (i%2===0) {return "#D0D0D0";} else {return "white";}})}
+      else
+          {state =! state; d3.select(this).classed("ascending_next", true).classed("descending_next", false); 
+          tbody.selectAll("tr").sort(function(a, b)
+                    {if (ReversecompareNumbers(a[0], b[0]) == 0) {return d3.descending(a[1], b[1]);}
+                    else {return ReversecompareNumbers(a[0], b[0]);}})
+                                .style("background-color", function(row, i) 
+                                  {if (i%2===0) {return "#D0D0D0";} else {return "white";}})}});
+    
+      });
+      
+      
+      
+  </script>
+</body>
+</html>
