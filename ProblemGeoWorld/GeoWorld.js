@@ -147,8 +147,8 @@ var country_value;
         .enter()
         .append("path")
         .attr("d", path)
-        .attr("class", "country")
-        .on("mouseover", function(d){ console.log(d); tooltip.style("visibility", "visible");
+        .attr("class", "country");
+       /* .on("mouseover", function(d){ console.log(d); tooltip.style("visibility", "visible");
 
                     tooltip.text("You're currently mousing over " + d["country"]["value"] + " and it has an ID of " + d["country"]["id"] + 
                         ". You are currently looking at the indicator for " + d["indicator"]["value"]+ " which has an ID of " +
@@ -163,7 +163,7 @@ var country_value;
                 .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
         
 
-
+*/
 
     var ind;
     var year;

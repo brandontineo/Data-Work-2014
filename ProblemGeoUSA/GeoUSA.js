@@ -1,3 +1,5 @@
+
+// defining the margins, width, and height of page the page and the visualization
 var margin = {
     top: 20,
     right: 50,
@@ -17,24 +19,26 @@ var bbVis = {
 };
 
 
+// appending an SVG canvas to work with
 var canvas = d3.select("#vis").append("svg").attr({
     width: 1300,
     height: height + margin.top + margin.bottom
     })
-
+// apppending a "g" tag to work with
 var svg = canvas.append("g").attr({
         transform: "translate(" + margin.left + "," + (margin.top - 40) + ")"
     });
 
+// creating the map
 var projection = d3.geo.albersUsa().translate([width / 2, height / 2]);//.precision(.1);
 var path = d3.geo.path().projection(projection);
 
 
-
+// loaidng the stations from the CSV file
 function loadStations() {
     d3.csv("../data/NSRDB_StationsMeta.csv",function(error,data){
 
-
+          // description of the visualization
           var tooltip2 = d3.select("body")
           .append("div")
           .style("position", "absolute")
@@ -47,6 +51,7 @@ function loadStations() {
           .attr("class", "tooltip2")
           .html("<h2> Map Data: </h2><ul> <li> The USA map was created using a TopoJSON file.</li> <li> Station data was read in and parsed from a CSV file </li> <li> Solar radiation information was data wrangled from the NSRDB database into a compressed JavaScript object. </li></ul> <h2> Interactive USA Map Features: </h2><ul> <li> On click zoom of map </li> <li> Mouseover tooltips with station information </li> <li> On click detailed visualization of station (bar chart) </li> <li> On zoom and on mouseover highlighting of state  </li> <li> Station circles sized proportional to solar radiation </li> <li>Created with JavaScript (d3 library), HTML, and CSS </li></ul>");
 
+    // data wrangling
     all_array = [];
     for (i in completeDataSet)
     {
@@ -110,9 +115,10 @@ function loadStations() {
           .on("click", function()
           {
 
+          // remove any previous bar chart that was drawn
           updateDetailVis();
 
-
+        // on click we create a bar chart detail visualization
         thisid = d['USAF'];
 
         var x = d3.scale.ordinal()
@@ -222,7 +228,8 @@ function loadStations() {
           }}})});}
 
 
-
+// function to load the stats from a JSON fiile
+// this function calls the loadstations function
 function loadStats() {
 
     d3.json("../data/reducedMonthStationHour2003_2004.json", function(error,data){
@@ -237,7 +244,7 @@ function loadStats() {
 
     })}
 
-
+// actually draws out the map
 d3.json("../data/us-named.json", function(error, data) {
 
   var usMap = topojson.feature(data,data.objects.states).features
@@ -254,14 +261,14 @@ d3.json("../data/us-named.json", function(error, data) {
 });
 
 
-
+// updates the Visualization
 function updateDetailVis() 
 {
   d3.selectAll(".thedetail").remove();
 }
   
 
-
+// zooms the visualization on click
 function zooming(d) {
   var x, y, k;
 

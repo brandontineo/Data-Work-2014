@@ -3,6 +3,8 @@
 <head>
 <script src="http://d3js.org/d3.v3.min.js"></script>
   <style type="text/css">
+
+  /* CSS for this page */
     rect 
     {
         fill: teal;
@@ -71,18 +73,23 @@
 </form>
   <script type="text/javascript">  
 
+
+    // define the size of the page I'm working with
     var margin = {top: 50, bottom: 10, left:400, right: 40};
     var width = 900 - margin.left - margin.right;
     var height = 900 - margin.top - margin.bottom;
 
+    // x and y scales to be used in the visualilization
     var xScale = d3.scale.linear().range([0, width]);
     var yScale = d3.scale.ordinal().rangeRoundBands([0, height], .8, 0);
 
 
-
+    // relevant variables
     var bar_height = 15;
 
     var state = function(d) { return d.State; };
+
+
 
     var svg = d3.select("body").append("svg")
       .attr("width", 600)
@@ -92,38 +99,43 @@
     var g = svg.append("g")
       .attr("transform", "translate("+(margin.left - 275)+","+margin.top+")");
 
-
+    // description of the visualization and the data used in it
     var caption2 = d3.select("body").append("u1").attr("class", "one").html("<h2> Bar Chart Data: </h2> <ul> <li> Unemployment Data was collected from <br> the BLS website &nbsp;</li> <li> Data was read in and parsed from a TSV file </li></ul> <h2> Interactive Bar Chart Features: </h2> <ul> <li> Use of SVG tags to create visual space </li> <li> Use of g tags to group rects and labels </li> <li> Radio button to allow alphabetic vs.<br> numerical sorting </li> <li> Rate column colored according to rate value  </li> <li> Vertical bar sized and colored proportional to <br> rate value </li> <li>Created with JavaScript (d3 library), HTML, & CSS </li></ul>");
 
+    // title for the page
     g.append("text").text("Unemployment Rates for States ").attr("text-anchor", "start").style("font-size", "20pt").style("font-weight", 900).style("text-decoration", "underline");
 
+
+    // d3 calls back to parse the tsv file
     d3.tsv("unemp_states_us_nov_2013.tsv", function(data) {
 
+      // variable to toggle 
+      var what_state = true;
 
       var max = d3.max(data, function(d) { return d.Rate; } );
       var min = 0;
-  
-      var what_state = true;
 
-
+      // giving the previously defined scales a domain
       xScale.domain([min, max]);
       yScale.domain(data.map(state));
 
-
+      // creating g tags
       var groups = g.append("g")
         .selectAll("g")
         .data(data)
         .enter()
         .append("g")
         .attr("transform", function(d, i) { return "translate(0, " + yScale(d.State) +")"; })
-  
+
+
+      //color scale for the bars  
       var color = d3.scale.linear()
       .domain([d3.min(data, function (d) {return +d.Rate }),d3.max(data, function (d) { return +d.Rate}) ])
       .interpolate(d3.interpolateRgb)
       .range(["orangered", "silver"])
 
 
-
+      // appending the text, bars, and the their rating grouped into a g tag which can be translated all at once
       groups
       .append("text")
       .attr("text-anchor", "end")
@@ -150,11 +162,7 @@
         .style("fill", "white");
 
 
-      var color = d3.scale.linear()
-      .domain([d3.min(data, function (d) {return +d.Rate }),d3.max(data, function (d) { return +d.Rate}) ])
-      .interpolate(d3.interpolateRgb)
-      .range(["orangered", "silver"])
-
+      // some functions needed to sort the data alphabetically / numerically
       function compareNumbers(a, b) {return parseFloat(b) - parseFloat(a);}
       function compareNumbers2(a, b) {return parseFloat(a) - parseFloat(b);}
      
@@ -169,8 +177,7 @@
       function data_sort_4 (a,b){ return d3.descending(a.State, b.State);}    
 
 
-
-
+      // function to resort the data on toggle
       function reorder(d,i) 
       {if (i == 1) 
           { if (what_state == true) 
@@ -197,8 +204,10 @@
 
                     }}
 
+      // calling the sorting function on click of an input button
      d3.select("body").selectAll("input").on("click", reorder);
     });
+
   </script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+// deifne the margins, height, width, and position of both the page and the visualization on the page
+
 var bbDetail, bbOverview, dataSet, svg;
 
 var margin = {
@@ -11,6 +13,7 @@ var width = 860 - margin.left - margin.right;
 
 var height = 800 - margin.bottom - margin.top;
 
+// two different visualizations will be on this page
 bbOverview = {
     x: 0,
     y: 10,
@@ -29,17 +32,17 @@ bbDetail = {
 
 dataSet = [];
 
+
+// creating the SVG to work on
 svg = d3.select("#visUN").append("svg").attr({
     width: width + margin.left + margin.right,
     height: height + margin.top + margin.bottom}).append("g").attr({
         transform: "translate(" + margin.left + "," + margin.top + ")"
     }).style("float", "left");
 
-var convertToInt = function(s) 
-{
-    return parseInt(s.replace(/,/g, ""), 10);
-};
 
+// parsing the dates
+var convertToInt = function(s) {return parseInt(s.replace(/,/g, ""), 10);};
 
 var parseDate = d3.time.format("%m/%_d/%y").parse;
 
@@ -47,7 +50,7 @@ var parseDate = d3.time.format("%m/%_d/%y").parse;
 var format = d3.time.format("%B %Y");
 var what = format.parse("September 2009");
 
-
+// description of the visualizations
 var tooltip2 = d3.select("body")
         .append("div")
         .style("position", "absolute")
@@ -61,6 +64,7 @@ var tooltip2 = d3.select("body")
         .html("<u1><h2> Graph Data:</h2><ul> <li> The data for these visualization was scraped from UN Global Pulse Website.</li> <li> Scraped data was then saved to a CSV file </li> <li> Dates were parsed to create data scale. </li></ul> <h2> Interactive Graph Features: </h2><ul> <li> Linking and Brushing between the top and bottom graphs  </li> <li> Highlights of data picks by clicking on blue and yellow rects </li> <li>Created with JavaScript (d3 library), HTML, and CSS </li></ul></u1>");
 
 
+// reading int he data from the CSV file
 var remaining = 1;
 d3.csv("unHealth.csv", function(data) {
         if(! --remaining) {
@@ -68,15 +72,20 @@ d3.csv("unHealth.csv", function(data) {
     }
 });
 
+// main create visualization function
 
 createVis = function(data) {
-   // console.log(data);
+
+    // cleaning the data
     data.forEach(function (d,i) {  d.AnalysisDate = format.parse(d.AnalysisDate) ;})
     data.forEach(function (d,i) {  d.WomensH = convertToInt(d.WomensH);})
 
+    // making a color scale for the data
     var color = d3.scale.category10();
     color.domain(d3.keys(data[0]).filter(function(key) { return key !== "AnalysisDate"; }));
 
+
+    // defininf the x and y axis and their scales
     var xAxis, xScale, yAxis,  yScale;
 
 
@@ -91,6 +100,7 @@ createVis = function(data) {
      .scale(yScale)
      .orient("left");
 
+    // appending the y and x axis
     svg.append("g")
       .attr("class", "y axis ")
       .attr({
@@ -113,25 +123,27 @@ createVis = function(data) {
       .style("text-anchor", "End")
       .text("Womens' Health");
 
-
-  var cities = color.domain().map(function(name) {
+  // wrangling the data into a more useable format
+  var women_obj = color.domain().map(function(name) {
     return {
       name: name,
       values: data.map(function(d) {
       return {date: d.AnalysisDate, population: +d[name]};
       })};});
 
+// creating the lines for the visualization
 var line = d3.svg.line()
     .interpolate("linear")
     .x(function(d) { return xScale(d.date); })
     .y(function(d) { return yScale(d.population); });
 
+// creating the dots for the visualization
 var points = svg.selectAll(".point")
-    .data(cities[0].values)
+    .data(women_obj[0].values)
     .enter()
     .append("svg:circle")
-         .attr("stroke", color(cities[0].name))
-         .attr("fill", color(cities[0].name))
+         .attr("stroke", color(women_obj[0].name))
+         .attr("fill", color(women_obj[0].name))
          .attr("cx", function(d, i) { return xScale(d.date) })
          .attr("cy", function(d, i) { return yScale(d.population)})
          .attr("r", function(d, i) { return 3 });
@@ -139,8 +151,9 @@ var points = svg.selectAll(".point")
 
 var padding = 100;
 
+// creating a g tag
 var city = svg.selectAll(".city")
-   .data(cities)
+   .data(women_obj)
    .enter().append("g")
    .attr("class", "city");
 
@@ -151,17 +164,18 @@ city.append("path")
     .style("stroke", function(d) { return color(d.name); });
 
 
+// defining the brush and its scale
 var xOverviewScale = d3.time.scale().domain(d3.extent(data.map(function (d) 
     { return d.AnalysisDate;}))).range([-5, bbOverview.w]);
-
 
 brush = d3.svg.brush().x(xOverviewScale).on("brush", brushed);
 
 
+// similar to what I did above, but for the detail viz
+
 var color2 = d3.scale.category10();
 color2.domain(d3.keys(data[0]).filter(function(key) { return key !== "AnalysisDate"; }));
 
-// similar to what I did above, but for the detail viz
 
 var xAxis2, xScale2, yAxis2,  yScale2;
 
@@ -204,7 +218,7 @@ yScale2 = d3.scale.linear().range([bbDetail.h +bbDetail.y, bbDetail.y]).domain(d
       .text("Womens' Health");
 
 
-  var cities2 = color.domain().map(function(name) {
+  var women_obj2 = color.domain().map(function(name) {
     return {
       name: name,
       values: data.map(function(d) {
@@ -227,7 +241,7 @@ var area = d3.svg.area()
 
 
 var city2 = svg.selectAll(".city2")
-    .data(cities2)
+    .data(women_obj2)
     .enter().append("g")
     .attr("class", "city2");
 
@@ -245,10 +259,10 @@ city2.append("path")
 
 
 var points2 = svg.selectAll(".point2")
-      .data(cities2[0].values)
+      .data(women_obj2[0].values)
        .enter().append("svg:circle")
-       .attr("stroke", color2(cities[0].name))
-       .attr("fill", color2(cities[0].name))
+       .attr("stroke", color2(women_obj[0].name))
+       .attr("fill", color2(women_obj[0].name))
        .attr("cx", function(d, i) { return xScale2(d.date) })
        .attr("cy", function(d, i) { return yScale2(d.population) })
        .attr("r", function(d, i) { return 3 })
@@ -272,7 +286,7 @@ svg.append("defs").append("clipPath")
     .attr("width", width)
     .attr("height", height);          
 
-
+// brushing function
 function brushed() 
 {
   xScale2.domain(brush.empty() ? xOverviewScale.domain() : brush.extent());
@@ -299,10 +313,10 @@ coincides with the date those new rules went into effect.
 */
 
 // should go back and change these to tooltips. Much cleaner 
-cities = ["Story1", "Feb 2012", "Aug 2012", "Reset Vis"];
+women_obj = ["Story1", "Feb 2012", "Aug 2012", "Reset Vis"];
 
       var legend = svg.selectAll(".city")
-      .data(cities)
+      .data(women_obj)
       .enter()
       .append("g")
       .attr("class", "legend")
@@ -426,7 +440,7 @@ brush.extent([parseDate('7/1/12'),parseDate('9/1/12')]); brushed();
 else if (d=="Reset Vis")
 {
 
-var cities2 = color.domain().map(function(name) {
+var women_obj2 = color.domain().map(function(name) {
     return {
       name: name,
       values: data.map(function(d) {
@@ -470,6 +484,7 @@ svg.selectAll(".storystuff").remove();
 
 }
 });;;
+  
   
   legend.append('rect')
       .attr('x', 00)

@@ -5,6 +5,9 @@
   <title>CS171 Homework 1</title>
 
   <style type="text/css">
+
+  /* CSS for this page */
+
       table
       {
           border-collapse:collapse;
@@ -119,40 +122,48 @@
 
       }
 
-      
-  /* YOUR CSS */
   </style>
 </head>
 <body>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script>
+
+      // title for the page as well as background color
       d3.select("body").append("h3").html("Unemployment Rates for States");
       d3.selectAll("*").style("background-color","lightblue");
+
+      // functions for sorting / comparing numbers
       function compareNumbers(a, b) {return parseFloat(a) - parseFloat(b);}
       function ReversecompareNumbers(a, b) {return parseFloat(b) - parseFloat(a);}
 
+      // dimensions
       var width = 90;
       var height = 10;
 
+
+  // d3 text callback to parse through the TSV
+  // Started with a text callback instead of a TSV callback
   d3.text("unemp_states_us_nov_2013.tsv", function(data){
+
+      // separating the header from the rows
       var parsedtsv = d3.tsv.parseRows(data);
       var header = parsedtsv.shift();
           
-
+      // description of the visualization and where the data came from
        var caption = d3.select("body").append("u1").attr("class", "one").html("<h2> Table Data: </h2> <ul> <li> Unemployment Data was collected from the <br> BLS website &nbsp;</li> <li> Data was read in and parsed from a TSV file </li></ul><h2> Interactive Data Table Features: </h2> <ul> <li> Mouseover highlighting of cell's row and column &nbsp;</li> <li> Dyanamic sorting of columns on click </li> <li> Cursor indicates whether next click will <br> ascend  direction </li> <li> Rate column colored according to rate value  </li> <li> Vertical bar sized proportional to rate value </li> <li>Created with JavaScript (d3 library), HTML, and CSS </li></ul>" );
 
 
-
+      // creating the table
       var table = d3.select("body").append("table").attr("class", "actualtable"),
           caption = table.append("caption").html("Unemployment Rates for States <br> Monthly Rankings <br> Seasonally Adjusted <br> Dec. 2013")
           thead = table.append("thead"),
           tbody = table.append("tbody");
 
 
-
+      // variable to toggle
       var state = false;
 
-          
+      // working with the headers
       thead.append("tr")
           .style("background-color","white")
           .selectAll("th")
@@ -160,7 +171,9 @@
           .enter()
           .append("th")
           .classed("descending_next", true)
-          .on("click", function(d, i) 
+          .on("click", function(d, i)
+
+           // check which column header was clicked and sort the table accordingly 
             {if (i == 1)
               { if(state == true)
                   {state = !state; d3.select(this).classed("descending_next", true).classed("ascending_next", false); 
@@ -208,7 +221,7 @@
               
               
                 
-    
+      // working with the rows
       var rows = tbody.selectAll("tr")
       .data(parsedtsv)
       .enter()
@@ -217,12 +230,13 @@
           else {return compareNumbers(a[0], b[0]);}})
       .style("background-color", function(row, i) {if (i%2===0){return "#D0D0D0";} else{return "white";}});
 
-          
+      // color scale for the visualuzation
       var color = d3.scale.linear()
       .domain([d3.min(parsedtsv, function (d) { return +d[2] }),d3.max(parsedtsv, function (d) { return +d[2] }) ])
       .interpolate(d3.interpolateRgb)
       .range(["orangered", "silver"])
-          
+       
+      // workign with column and rows to highlight on mouseover   
       var cells = rows.selectAll("td")
       .data(function(row) { return d3.range(Object.keys(row).length).map(function(column, i) {return row[Object.keys(row)[i]];});})
       .enter()
