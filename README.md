@@ -25,6 +25,3 @@ Please feel free to clone this repository to take a look at some of my work via 
 ## Exploratory Analysis File
 
     - Debater Data iPython Notebook
-
-
-
