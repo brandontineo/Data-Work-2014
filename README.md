@@ -1,6 +1,6 @@
 # Hello, World! Welcome to my Portfolio! 
 
-Please feel free to clone this repository to take a look at some of my work. Note that this repository is still a work in progress and does not contain all of the projects I have worked on. Please contact me directly for more of my work. I've updated a few of the visualizations to include some information about the way in which the data was acquired and the different features I included.
+Please feel free to clone this repository to take a look at some of my work via localhost:8000. Note that this repository is still a work in progress and does not contain all of the projects I have worked on. Please contact me directly for more of my work. I've updated a few of the visualizations to include some information about the way in which the data was acquired and the different features I included.
 
 ## List of Visualizations
 
