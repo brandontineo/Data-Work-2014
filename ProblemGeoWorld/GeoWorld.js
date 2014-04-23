@@ -1,7 +1,3 @@
-/**
- * Created by hen on 3/8/14.
- */
-
 var margin = {
     top: 50,
     right: 50,
@@ -129,6 +125,8 @@ var updateVis = function (data) {
 
 
 var initVis = function(error, indicators, world, countries){
+
+
 
 var country_name;
 var country_value;
@@ -287,37 +285,9 @@ var ext_color_domain = [0, 50, 150, 350, 750, 1500]
 
 
 
-
-
-// very cool queue function to make multiple calls.. 
-// see 
 queue()
-   // .defer(d3.csv,"../data/worldBank_indicators.csv")
+    .defer(d3.csv,"../data/worldBank_indicators.csv")
     .defer(d3.json,"../data/world_data.json")
-    //.defer(d3.json,"../data/WorldBankCountries.json")
+    .defer(d3.json,"../data/WorldBankCountries.json")
     .await(initVis);
  
-/*
-
-// just for fun 
-var textLabel = svg.append("text").text(projectionMethods[actualProjectionMethod].name).attr({
-    "transform":"translate(-40,-30)"
-})
-
-var changePro = function(){
-    actualProjectionMethod = (actualProjectionMethod+1) % (projectionMethods.length);
-
-    textLabel.text(projectionMethods[actualProjectionMethod].name);
-    path= d3.geo.path().projection(projectionMethods[actualProjectionMethod].method);
-    svg.selectAll(".country").transition().duration(750).attr("d",path);
-};
-
-d3.select("body").append("button").text("Select").on({
-    "click":changePro
-});
-
-
-d3.select("body").append("option").text("helllloooooo").on({
-    "click": 3
-});
-*/
