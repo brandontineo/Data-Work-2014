@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script type="text/javascript" src="../jquery-1.11.0.min.js"></script>
+<script src="../libs/FileSaver.js"></script>
+
+<div id="vis"></div>
+
+
+<script>
+
+
+var sumArray = function (array) {
+  for (
+    var i = 0,             // the iterator
+      sum = 0;             // the total amount
+      i < array.length;    // if statement
+      sum += array[i++]    // add each value
+  );
+  return sum;
+};
+
+
+    d3.json("../data/allData2003_2004.json",function(error,data){
+     //  console.log(data['690150']);
+        global_dict = {};
+
+        var allDates = [];
+        var timeParser = d3.time.format("%b %-d, %Y %X %p").parse;
+
+        formatDate = d3.time.format("%X-%p")
+
+        for(i in data){
+
+            var inner_dict = {};
+            var key = i;
+            var val = data[i];
+            var outter_dict = {};
+
+
+         //   console.log("looking at id " + i);
+            
+            values = [];
+          
+
+            if (val.length === 0)
+            {
+            
+            values = [0];
+            console.log("This array is empty");
+            }
+            else
+            {
+                for (j in val)
+                {
+                    values.push(val[j]['value']);
+                    var thistime = formatDate(timeParser(val[j]['date']));
+                    if (inner_dict[thistime] == undefined)
+                    {
+                        inner_dict[thistime] = [val[j]['value']];
+                    }
+                    else
+                    {
+                        inner_dict[thistime].push(val[j]['value']);
+                    }                  
+                }
+
+
+            }
+    
+            val_sum = sumArray(values);
+            outter_dict["sum"] = val_sum;
+            outter_dict["hourly"] = inner_dict;
+          //  console.log("Sum of all months " + val_sum);
+           // console.log(dict);
+
+            global_dict[i] = outter_dict;
+
+
+    }
+
+
+//console.log(global_dict);
+
+
+for (m in global_dict){
+
+
+    for (k in (global_dict[m]['hourly'])){
+
+        var val_array = global_dict[m]['hourly'][k];
+        var sum_val_array = sumArray(val_array);
+        global_dict[m]['hourly'][k] = sum_val_array;
+        
+
+    }
+
+
+
+}
+
+console.log(global_dict);
+
+
+        saveToFile(global_dict,"reducedMonthStationHour2003_2004.json")
+
+
+
+    })
+
+    var saveToFile = function(object, filename){
+        var blob, blobText;
+        blobText = [JSON.stringify(object)];
+        blob = new Blob(blobText, {
+            type: "text/plain;charset=utf-8"
+        });
+        saveAs(blob, filename);
+    }
+
+
+</script>
+
+
+</body>
+</html>
