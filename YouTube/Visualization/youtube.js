@@ -50,8 +50,14 @@ function MakeCall (genre){
                         var NoData = NaN;
                         var title = $(entry[i]).find("title")[0].textContent;
                         var author = $($(entry[i]).find("author")[0]).find("name")[0].textContent;
-                        var author_url = $($(entry[i]).find("author")[0]).find("uri")[0].textContent;
+                        var video_string = $(entry[i]).find("id")[0].textContent;
+                        var video_array = video_string.split("videos/");
+                        var video_id = video_array[1];
 
+                        if (i == 0)
+                        {
+                        console.log(entry[i]);
+                        }
                         if ((entry[i].getElementsByTagNameNS("*","recorded")[0]) != undefined){
                         var date = entry[i].getElementsByTagNameNS("*","recorded")[0].textContent
                         }
@@ -83,7 +89,7 @@ function MakeCall (genre){
                         var view_count = NoData;
 
                         }
-                    city_info[i] = {title : title, author : author, author_url : author_url, date : date, avg_rating : avg_rating,
+                    city_info[i] = {title : title, author : author, video_id : video_id, date : date, avg_rating : avg_rating,
                         max : max, min : min, num_raters : num_raters, fave_count : fave_count, view_count : view_count}; 
                     }
 
@@ -113,6 +119,7 @@ function MakeCall (genre){
 
 
 var genres = ["Comedy", "Music", "Entertainment", "News", "Sports"];
+
 
 for (i in genres){
     genre = genres[i];

@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../libs/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+</head>
 <body>
+<title> YouTube Visualization </title>
+
 <meta charset="utf-8">
-<style type="text/css">
+<style>
 
-    svg{
-        background: "white";
+    #vis{
+        background-color: #ccc;
+        border-color: black;
+        border-width: 5px;
+        margin-left: 60px;
+        background-color: #f5f5f5;
+
+        
     }
-
     .country{
-        fill: #ccc;
-        stroke:  steelblue;
+        fill: #5fa5db;
+        stroke:  white;
+        opacity : 0.75;
     }
-    text{
+    circle{
+        fill: "white";
+    }
+    text {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 9pt;
         font-weight: bold;
     }
 
-    table{
-        border:none;
+    table {
+
+        border:0px;
+        height:700px;
+        padding:none;
     }
+
+
 
 
       .csvTable table {
@@ -31,14 +52,219 @@
 
     .csvTable {
         font: normal 12px/150% Arial, Helvetica, sans-serif;
-        background: #fff;
         overflow: hidden;
-        border: 1px solid #069;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
+
+    }
+    .tooltip {
+        position: absolute;
+        height: auto;
+        padding: 10px;
+  }
+
+    .tooltip.hidden {
+        display: none;
     }
 
+  .tooltip p {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+        font-color : black;
+  }
+  .update-button {
+    border-color: #d3d3d3;
+    background: #f8f8f8;
+    color: #333;
+    display: inline-block;
+    border: solid 1px transparent;
+    outline: 0;
+    font-weight: bold;
+    font-size: 11px;
+    text-decoration: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+      }
+
+#category-subheader{
+    float: left;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+.clearfix{
+    display: block;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+#table_container{
+    margin-bottom: 30px
+    margin-left: 50px;
+}
+#table_container2, #table_container3
+{
+    margin-bottom: 10px;
+    border: none;
+    float:left;
+    margin-top: 70px;  
+}
+
+
+
+#table_container4{
+    margin-bottom: 20px;
+    margin-top: -10px;
+    margin-left:50px
+}
+
+select{
+    display: block;
+    transition: all 0.3s ease-out;
+    color: black;
+    border-radius: none;
+    cursor: pointer;
+    }
+
+#logo{
+    height: 50px;
+    float: left;
+    padding-left: 100px;
+}
+h1{
+    margin-bottom:0px;
+    margin-left: 50px;
+}
+h2{
+    margin-left:50px;
+    margin-top: 10px;
+}
+
+h3{
+    color: #e52d27;
+    margin-top: -5px;
+}
+#subtitle
+{
+    font-family: 'Coronetscript', cursive;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+#footer {
+    background-color: #e52d27;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    padding: 15px 0px 15px 640px;
+}
+
+object {
+    vertical-align:center;
+    align: center;
+
+}
+
+
+
+center{
+    margin-bottom: -15px;
+}
+
+
+#ytapiplayer{
+    float:left;
+}
+
+#left{
+    float:left;
+    margin-top: -170px;
+    margin-left: 15px;
+}
+
+#right{
+    float:right;
+    margin-top: -170px;
+    margin-right:15px;
+}
+
+#bottom_container{
+    border-top: solid;
+    border-top-color: lightgray;
+    border-bottom: solid;
+    border-bottom-color: lightgray;
+    border-width:thin;
+}
+
+#first_vis, #second_vis{
+    border-top: solid;
+    border-top-color: lightgray;
+    border-width:thin;
+}
+
+#second_vis{
+    border-left:solid;
+    border-left-color: lightgray;
+    border-width:thin;
+}
+#news, #entertainment {
+    height: 13px;
+    float: left;
+    margin-right: 4px;
+    margin-top: 3px;
+}
+#sports{
+    height: 13px;
+    float: left;
+    margin-right: 1px;
+    margin-top: 2px;
+}
+
+#comedy{
+    height: 18px;
+    float: left;
+    margin-right: -1px;
+    margin-top: 0px;
+}
+
+.news-title, .music-title, .comedy-title, .entertainment-title, .sports-title{
+    float:right;
+ 
+}
+
+.glyphicon{
+    float: left;
+    margin-right: 4px;
+}
+
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,.nav-pills > li > a:hover {
+text-decoration: none;
+font-weight: bold;
+border-radius:0px;
+border-bottom-width: 4px;
+border-bottom-style: solid;
+border-bottom-color: #FF6600;
+    color: #000 !important;
+  background-color: transparent !important;
+}
+.nav-pills > li > a{
+    border-radius:0px;
+}
 
 
     .tooltip {
@@ -46,7 +272,7 @@
         width: 200px;
         height: auto;
         padding: 10px;
-        background-color: #D3D3D3;
+        background-color: #fff;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
@@ -66,9 +292,69 @@
         font-size: 16px;
         line-height: 20px;
   }
+  .update-button {
+    border-color: #d3d3d3;
+    background: #f8f8f8;
+    color: #333;
+    display: inline-block;
+    border: solid 1px transparent;
+    outline: 0;
+    font-weight: bold;
+    font-size: 11px;
+    text-decoration: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+      }
 
-
-
+#category-subheader{
+    float: left;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+.firstheader{
+    display: block;
+    background-color: #fdfdfd;
+}
+.cityname{
+    float:left;
+}
+.playcount{
+    float: right;
+    padding-right: 520px;
+}
+.genres{
+    float: left;
+    padding-left: 100px
+}
+#dropdown{
+    padding-top: 10px;
+}
+.navbar{
+    background-color: white;
+}
+.navbar-text{
+    float: middle;
+    padding-left: 500px;
+}
+.navbar-text2{
+    float:right;
+    padding-right: 100px;
+}
+#theotherlogo{
+    float: left;
+}
 </style>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -76,28 +362,105 @@
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script type="text/javascript" src="../libs/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="../libs/colorbrewer.js"></script>
+<script src="../libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="../libs/bootstrap/js/bootstrap.js"></script>
 
-
-
-<div id="table_container" class="csvTable" style="width:130px" style="white" align="center"></div>
-
-
+<span>
+<div class="firstcontainer">
+    <div class="navbar navbar-fixed-top">
+           <a id="logo-container" href="/" title="YouTube home" class="spf-link">
+        <img id="logo" src="../img/youtube.png" alt="YouTube home">
+    </a>
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#vids" id="vidNum" class="vidNum">Number of Videos</a></li>
+                <li><a href="#rating" id="favorites" class="rating">Average Rating</a></li>
+                <li><a href="#count" id="views" class="views">Average View Count</a></li>
+            </ul>
+        <div id="dropdown" class="csvTable" style="white" align="center"></div>  
+    </div>
+  </div>
+</div>
+</span>
 
 <table>
+    <tbody>
     <tr>
-        <td><div id="vis"></div></td>
-        <td><div id="textLabel">
-            <div id="table_container2" class="csvTable" style="width:180px" style="white" align="center"></div>
-            <div id="table_container3" class="csvTable" style="width:180px" style="white" align="center"></div
+        <td id="first_vis">
+         <div id="table_container" class="csvTable"  style="white" align="center"></div><div id="vis"></div>    
+        </td>
+        <td id="second_vis"><div id="textLabel">
+            <div id="table_container3" class="csvTable" style="white" align="center">
+            </div>
+            <div id="table_container2" class="csvTable" style="white" align="center">
+            </div>
+             <button class="btn btn-default dropdown-toggle" type="button" id="lebutton" data-toggle="dropdown">Compare Cities</button>
         </div>
         </td>
     </tr>
+</tbody>
 </table>
 
+<script type="text/javascript" src="swfobject/swfobject.js"></script>    
 
 <script src="YouTubeWorld.js"></script>
 
+<div class="dropdown">
+<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+  <li><a tabindex="-1" href="#">3</a></li>
+  <li><a tabindex="-1" href="#">5</a></li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<div id="bottom_container">
+    <span><h2 class="cityname">Click on a city</h2><h2 class="playcount">City Stats</h2></span>
+<div id="table_container4" class="dropdown" style="width:50px" style="white" align="center">
+</div>
+
+<div id="div1" style="border : solid 0px #ff0000; background : white; color : white; height : auto; overflow-x: scroll; white-space:nowrap; margin-left:50px ; margin-right:50px">
+<h3></h3>
+
+  <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+  <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+    <div id="ytapiplayer">
+  </div>
+
+</div>
+
+
+<img id="left" src="../img/left.png" alt="Scroll Left" style="display:none" onmousedown="toLeft('div1')" onmouseup="clearTimeout(timerDown)"/>
+<img id="right" src="../img/right.png" alt="Scroll Right" style="display:none" onmousedown="toRight('div1')" onmouseup="clearTimeout(timerUp)">
+
+
+<br>
+</div>
 
 </body>
+<div class="footer">
+    <a id="logo-container" href="/" title="YouTube home" class="spf-link">
+        <img id="theotherlogo" src="../img/youtube.png" alt="YouTube home">
+    </a>
+    <p class="navbar-text">A Jordan Dominguez, Brandon Tineo, and Lynda Negron production.</p>
+    <p class="navbar-text2">&copy 2014</p>
+</div>
+
 
 </html>

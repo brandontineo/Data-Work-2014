@@ -1,3 +1,6 @@
+$(document).ready(function () {
+ });
+
 var margin = {
     top: 75,
     right: 50,
@@ -5,11 +8,11 @@ var margin = {
     left: 75
 };
 
-var width = 860 - margin.left - margin.right;
+var width = 800 - margin.left - margin.right;
 var height = 600 - margin.bottom - margin.top;
 var centered;
 
-
+var bar_height = 425;
 
 var bbVis = {
     x: 30,
@@ -18,61 +21,60 @@ var bbVis = {
     h: 275
 };
 
-var dataSet = {};
+/* defaults */
+var selected_city_1 = " ";
+var selected_city_2 = " ";
+var selected_videos = 3;
+var current_selection;
+var VidId;
+var first_time = true;
+var step = 100
+var current_genre = "Comedy";
+var size_by = "Total Entries";
 
-var svg = d3.select("#vis").append("svg").attr({
-    width: width + margin.left + margin.right,
-    height: height + margin.top + margin.bottom
-}).append("g").attr({
-        transform: "translate(" + margin.left + "," + margin.top + ")"
+
+//The svg in which the main visualization (map) will take place
+var svg = d3.select("#vis").append("svg")
+    .attr({
+      width: width + margin.left + margin.right,
+      height: height + margin.top + margin.bottom
+      })
+    .append("g").attr({
+      transform: "translate(" + margin.left + "," + margin.top + ")"
     });
 
 
-/* if we want the bar chart to be on the right hand side of the map */
-var svg2 = d3.select("#textLabel").append("svg").attr({
-    width: width + margin.left + margin.right - 400,
-    height: height + margin.top + margin.bottom
-}).append("g").attr({
-        transform: "translate(" + margin.left + "," + (margin.top - 5) + ")"
+//The svg in which the bar chart displays
+var svg2 = d3.select("#textLabel").append("svg")
+    .attr({
+      width: width + margin.left + margin.right - 400,
+      height: height + margin.top + margin.bottom + 10
+      })
+    .append("g").attr({
+      transform: "translate(" + margin.left + "," + (margin.top - 5) + ")"
     });
-
 
 
 var projectionMethods = [
     {
         name:"mercator",
-        method: d3.geo.mercator().translate([width / 2, height / 2])//.precision(.1);
-    },{
-        name:"equiRect",
-        method: d3.geo.equirectangular().translate([width / 2, height / 2])//.precision(.1);
-    },{
-        name:"stereo",
-        method: d3.geo.stereographic().translate([width / 2, height / 2])//.precision(.1);
-    }
-];
-
-
-var actualProjectionMethod = 0;
-var colorMin = colorbrewer.Greens[3][0];
-var colorMax = colorbrewer.Greens[3][2];
-
-var newCountries = [];
+        method: d3.geo.mercator().translate([width/2, height/ 2])//.precision(.1);
+    }]
 
 var projection = d3.geo.mercator().translate([width / 2, height / 2]).precision(.1)
 var path = d3.geo.path().projection(projectionMethods[0].method);
 
+var circle_scale =  {"Total Entries" : d3.scale.log().domain([0.1,120000]).range([0,10]), 
+  "Average Views" : d3.scale.log().domain([0.1,10000000]).range([0,10]), 
+  "Average Rating" : d3.scale.linear().domain([0,5]).range([0,10])};
 
-var color_domain = [50, 150, 350, 750, 1500];
+var legend_scale =  {"Total Entries" : d3.scale.linear().range([bar_height, 0]).domain([0, 100]), 
+  "Average Views" : d3.scale.linear().range([bar_height, 0]).domain([0, 100]), 
+  "Average Rating" : d3.scale.linear().range([bar_height, 0]).domain([0, 6])};
 
-var color = d3.scale.quantize().range(colorbrewer.Greens[9]).domain(color_domain);
 
-var circle_scale = d3.scale.log()
-  .domain([0.1,120000])
-  .range([0,10]);   
 
-//the current genre, will be changed depending on what the user selects
-var current_genre = "Comedy";
-
+//tooltip 
 var tooltip = d3.select("body")
   .append("div")
   .style("position", "absolute")
@@ -82,30 +84,74 @@ var tooltip = d3.select("body")
   .style("font-size", "15px")
   .attr("class", "tooltip");
 
-var showButton = d3.select("div")
-    .append("button")    
-    .text(" Update Visualization ")
-    .on("click", function() {console.log("Update Hit")});
 
+
+//The genres we are displaying 
 var genre_array = ["Comedy", "Music", "Entertainment", "News", "Sports"];
 
-/* defaults */
-var selected_city_1 = "Abia ";
-var selected_city_2 = "Abia ";
+//Color scale assigning a color for each genre
+var color_scale = d3.scale.ordinal()
+         .range(['#0099cc','#9933cc','#669900','#ff8800','#cc0000'])
+         .domain(genre_array);
 
+
+function formatNumber(x) {
+  if (size_by != "Average Rating")
+  {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  else
+  {
+    return x.toFixed(4)
+  }
+}
 function world_genre_count (genre_data)
 {
+  console.log(size_by);
   genre_count = 0;
+  counter = 0;
   list_of_genre_count = []
   for (j in genre_array)
   {
-    for (i in genre_data[genre_array[j]])
+    for (i in genre_data)
     {
-     genre_count = genre_count + (+genre_data[genre_array[j]][i]["Total Entries"]);
+      if(i == genre_array[j]) {
+        for (k in genre_data[i]) {
+          for (j in genre_data[i][k]) 
+          {
+            genre_count += +genre_data[i][k][size_by]
+          }
+        }    
+      }
+      if (size_by == "Average Rating"){
+        list_of_genre_count.push(genre_count/counter);
+      }
+      else{
+        list_of_genre_count.push(genre_count);
+      }
     }
-    list_of_genre_count.push(genre_count);
   }
   return list_of_genre_count;
+console.log(list_of_genre_count);
+}
+
+function get_world_average (genre_data){
+  world_averages = {};
+  for (g in genre_array){
+    genre_total = 0;
+    genre_count = 0;
+    for (i in genre_data){
+      if (i == genre_array[g]){
+        for (c in genre_data[i]){
+          genre_total += +genre_data[i][c][size_by];
+          genre_count += 1;
+        }
+      }
+    }
+  console.log(genre_total);
+  world_averages[genre_array[g]] = genre_total/genre_count;
+  }
+  return world_averages;
 }
 
 
@@ -119,6 +165,29 @@ function merge (city_data,genre_data){
       for (c1 in genre_data[g]){
         if(c1 == c){
           new_data[c][g] = genre_data[g][c1];
+          var total_ratings = 0;
+          var num_ratings = 0;
+          var total_faves = 0;
+          var num_faves = 0;
+          var total_views = 0;
+          var num_views = 0;
+          for (i in new_data[c][g]){
+            if (new_data[c][g][i]['avg_rating'] != null) {
+              total_ratings += +new_data[c][g][i]['avg_rating'];
+              num_ratings += 1;
+            }
+            if (new_data[c][g][i]['fave_count'] != null) {
+              total_faves += +new_data[c][g][i]['fave_count'];
+              num_faves += 1;
+            }
+            if (new_data[c][g][i]['view_count'] != null) {
+              total_views += +new_data[c][g][i]['view_count'];
+              num_views += 1;
+            }
+          }
+          new_data[c][g]['Average Rating'] = total_ratings / num_ratings;
+          new_data[c][g]['Average Views'] = total_views / num_views;
+          new_data[c][g]['Average Favorites'] = total_faves / num_faves;       
         }
       }
     }
@@ -128,21 +197,21 @@ function merge (city_data,genre_data){
 
 function return_totals (array_of_values)
 {
-      var total = 0;
+  var total = 0;
+  console.log(array_of_values);
 
-      for (var i = 0; i < array_of_values.length; i++) 
-      {
-          total += array_of_values[i] << 0;
-      }
+  for (i in array_of_values) 
+  {
+    total += array_of_values[i] << 0;
+  }
+  console.log(total);
 
-
-      for (var i = 0; i < array_of_values.length; i++) 
-      {
-          array_of_values[i] = (array_of_values[i] / total)*100;
-
-      }
-
-return array_of_values
+  for (i in array_of_values) 
+  {
+    array_of_values[i] = (array_of_values[i] / total)*100;
+  }
+  console.log(array_of_values);
+  return array_of_values
 }
 
 var make_bars = function(d) 
@@ -152,27 +221,34 @@ d3.selectAll(".thedetail").remove();
 /* Building a bar chart */
 
 
-city_total = []
-city_total2 = []
+  city_total = {}
+  city_total2 = {}
 
+  for (i in genre_array)
+   {
+    city_total[genre_array[i]] = (d[genre_array[i]][size_by]);
+    city_total2[genre_array[i]] = (d[genre_array[i]][size_by]);
+   }
+  if (size_by != "Average Rating")
+  {
+    city_total = return_totals(city_total);
+    
+    world_values = return_totals(world_values);
+    console.log(world_values);
 
- for (i in genre_array)
- {
-  city_total.push(d[genre_array[i]]["Total Entries"]);
-  city_total2.push(d[genre_array[i]]["Total Entries"]);
- }
+  } 
 
-  city_total = return_totals(city_total);
-  world_values = return_totals(world_values);
-
+  city_lst = make_list(city_total);
+  world_lst = make_list(world_values);
 
  var x = d3.scale.ordinal()
       .rangeRoundBands([0, 250], .1)
-      .domain([0, bbVis.w]);
+      .domain(genre_array);
 
-  var y = d3.scale.linear()
-      .domain([bbVis.h/2, 0])
-      .range([bbVis.h, 0]);
+
+
+var y = legend_scale[size_by];
+
 
   var xAxis = d3.svg.axis()
       .scale(x)
@@ -183,14 +259,12 @@ city_total2 = []
       .orient("left")
       .ticks(12);
 
-x.domain(genre_array);
 
-y.domain([0, 100]);
 
 /* make an x-axis */
 svg2.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0," + bbVis.h + ")")
+    .attr("transform", "translate(0," + (bar_height) + ")")
     .attr("class", "axis")
     .call(xAxis)
     .attr("class", "thedetail")
@@ -199,7 +273,7 @@ svg2.append("g")
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
     .attr("transform", function(d) {
-        return "rotate(-65)" 
+        return "rotate(-35)" 
         })
     .attr("class", "thedetail")
     ;
@@ -213,41 +287,42 @@ svg2.append("g")
         .attr("class", "thedetail")
         .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
+        .attr("y", -50)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Total Entries %")
+        .text(function () { if (size_by == "Average Rating") {return size_by} else { return size_by + " %"}})
         .attr("class", "thedetail")
         .attr("x", -30);
 
+
 /* make the bars */
     svg2.selectAll(".bar")
-        .data(city_total)
+        .data(city_lst)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("class", "thedetail")
         .attr("x", function (d,i) { return x(genre_array[i])+ 20; })
         .attr("width", x.rangeBand() - 25)
         .attr("y", function(d) {  return y(d); })
-        .attr("height", function(d) { return bbVis.h - y(d); })
-        .attr("fill", "red")
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_total2[i] + " City " + genre_array[i] + " Entries." )})
+        .attr("height", function(d) {console.log(d); return bar_height - y(d); })
+        .style("fill", function(d,i){return color_scale(genre_array[i]);})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(city_total2[i]) + " <strong> city </strong> " + genre_array[i].toLowerCase() + " " + size_by.toLowerCase() + "" )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
 
     svg2.selectAll(".bar")
-        .data(world_values)
+        .data(world_lst)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("class", "thedetail")
         .attr("x", function (d,i) { return x(genre_array[i]); })
         .attr("width", x.rangeBand() - 25)
-        .attr("y", function (d,i) {  return y(d); })
-        .attr("height", function (d,i) { return bbVis.h - y(d); })
-        .attr("fill", "gray")
-        .attr("opacity", 0.50)
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(world_values2[i] + " " + "World " + genre_array[i] + " Entries." )})
+        .attr("y", function (d,i) { return y(d); })
+        .attr("height", function (d,i) { return bar_height - y(d); })
+        .style("fill", function(d,i){return color_scale(genre_array[i])})
+        .style("opacity", 0.25)
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(world_values2[i]) + " " + "<strong>world</strong> " + genre_array[i].toLowerCase() + " " + size_by.toLowerCase() + "")})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
@@ -260,47 +335,72 @@ svg2.append("g")
     .attr("class", "thedetail")
     .attr("x", 80)
     .attr("y", -10)
-    .text(d.name);     
+    .text(d.name);  
+
+
+    var ext_color_domain = [];
+
+    for (i in genre_array)
+    {
+     ext_color_domain.push(color_scale(genre_array[i]));
+    }
+
+    var legend_labels = [d.name + " Data", "World Data", ]
+
+    var legend = svg2.selectAll("g.legend")
+    .data(ext_color_domain)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("class", "thedetail");
+
+    var ls_w = 20, ls_h = 20;
+
+    legend.append("rect")
+    .attr("class", "legendgradient")
+    .attr("x", 45)
+    .attr("y", function(d, i){ return (height - (i*ls_h) - 600);})
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function(d, i) { return ext_color_domain[i]; })
+     .attr("transform", function(d) {
+          return "rotate(90)" 
+          });
+
+    legend.append("rect")
+    .attr("class", "legendgradient")
+    .attr("x", 15)
+    .attr("y", function(d, i){ return (height - (i*ls_h) - 600);})
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function(d, i) { return ext_color_domain[i]; })
+    .attr("opacity", 0.25)
+     .attr("transform", function(d) {
+          return "rotate(90)" 
+          });
 
 
 
-
-var legend_labels = ["World Data", d.name + " Data"]
-var ext_color_domain = ["lightgray", "red"]
-
-  var legend = svg2.selectAll("g.legend")
-  .data(ext_color_domain)
-  .enter().append("g")
-  .attr("class", "legend")
-  .attr("class", "thedetail");
-
-  var ls_w = 20, ls_h = 20;
-
-  legend.append("rect")
-  .attr("x", 180)
-  .attr("y", function(d, i){ return (bbVis.h - (i*ls_h) - 240);})
-  .attr("width", ls_w)
-  .attr("height", ls_h)
-  .style("fill", function(d, i) { return ext_color_domain[i]; })
-  .style("opacity", 0.8);
-
-  legend.append("text")
-  .attr("x", 210)
-  .attr("y", function(d, i){ return (bbVis.h - (i*ls_h) - 224);})
-  .text(function(d, i){ return legend_labels[i]; });
-
-
+    legend.append("text")
+    .attr("x", 210)
+    .attr("y", function(d, i){ return (height - (i*ls_h*1.5) - 414);})
+    .text(function(d, i){ return legend_labels[i]; });
 
 }
 
+function make_list (obj){
+  lst = [];
+  for (i in obj){
+    lst.push(obj[i]);
+  }
+  return lst;
+}
 
-var make_bars2 = function(city1, city2) 
-{
+
+var make_bars2 = function(city1, city2) {
 
 
 d3.selectAll(".thedetail").remove();
 /* Building a bar chart */
-
 
 city_total = []
 city_total2 = []
@@ -311,25 +411,29 @@ city_total4 = []
 
  for (i in genre_array)
  {
-  city_total.push(city1[genre_array[i]]["Total Entries"]);
-  city_total2.push(city1[genre_array[i]]["Total Entries"]);
-  city_total3.push(city2[genre_array[i]]["Total Entries"]);
-  city_total4.push(city2[genre_array[i]]["Total Entries"]);
+  city_total[genre_array[i]] = (city1[genre_array[i]][size_by]);
+  city_total2[genre_array[i]] = (city1[genre_array[i]][size_by]);
+  city_total3[genre_array[i]] = (city2[genre_array[i]][size_by]);
+  city_total4[genre_array[i]] = (city2[genre_array[i]][size_by]);
  }
 
+if (size_by != "Average Rating")
+{
+  world_values = return_totals(world_values);
   city_total = return_totals(city_total);
   city_total3 = return_totals(city_total3);
+}
 
+world_values_lst = make_list(world_values);
+city_values_lst = make_list(city_total);
+city_values_lst_2 = make_list(city_total3);
 
+var y = legend_scale[size_by];
 
 
  var x = d3.scale.ordinal()
       .rangeRoundBands([0, 250], .1)
-      .domain([0, bbVis.w]);
-
-  var y = d3.scale.linear()
-      .domain([bbVis.h/2, 0])
-      .range([bbVis.h, 0]);
+      .domain(genre_array);
 
   var xAxis = d3.svg.axis()
       .scale(x)
@@ -340,14 +444,10 @@ city_total4 = []
       .orient("left")
       .ticks(12);
 
-x.domain(genre_array);
-
-y.domain([0, 100]);
-
 /* make an x-axis */
 svg2.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0," + bbVis.h + ")")
+    .attr("transform", "translate(0," + bar_height + ")")
     .attr("class", "axis")
     .call(xAxis)
     .attr("class", "thedetail")
@@ -356,10 +456,9 @@ svg2.append("g")
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
     .attr("transform", function(d) {
-        return "rotate(-65)" 
+        return "rotate(-35)" 
         })
-    .attr("class", "thedetail")
-    ;
+    .attr("class", "thedetail");
 
 /* make a y-axis */
     svg2.append("g")
@@ -370,49 +469,76 @@ svg2.append("g")
         .attr("class", "thedetail")
         .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
+        .attr("y", -50)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Total Entries %")
+        .text(function () { if (size_by == "Average Rating") {return size_by} else { return size_by + " %"}})
         .attr("class", "thedetail")
         .attr("x", -30);
 
 /* make the bars */
     svg2.selectAll(".bar")
-        .data(city_total)
+        .data(city_values_lst)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("class", "thedetail")
         .attr("x", function (d,i) { return x(genre_array[i])+ 20; })
         .attr("width", x.rangeBand() - 25)
-        .attr("y", function(d) {  return y(d); })
-        .attr("height", function(d) { return bbVis.h - y(d); })
-        .attr("fill", "red")
+        .attr("y", function(d) {  console.log(d); return y(d); })
+        .attr("height", function(d) { return bar_height - y(d); })
+        .style("fill", function(d,i){ return color_scale(genre_array[i]);})
         .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_total2[i] + " City " + genre_array[i] + " Entries." )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
-/* make the bars for total world data -- in progress */
 
-/* these were hard coded just for testing */
-//world_values = [40, 25, 10, 15, 10 ];
-
-    svg2.selectAll(".bar")
-        .data(city_total3)
+    if (city1 == city2)
+    {
+     svg2.selectAll(".bar")
+        .data(world_values_lst)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("class", "thedetail")
         .attr("x", function (d,i) { return x(genre_array[i]); })
         .attr("width", x.rangeBand() - 25)
         .attr("y", function (d,i) {  return y(d); })
-        .attr("height", function (d,i) { return bbVis.h - y(d); })
-        .attr("fill", "gray")
-        .attr("opacity", 0.50)
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_total4[i] + " City " + genre_array[i] + " Entries." )})
+        .attr("height", function (d,i) { return bar_height - y(d); })
+        .style("fill", function(d,i){return color_scale(genre_array[i])})
+        .style("opacity", 0.25)
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(world_values2[i]) + " " + "world " + genre_array[i].toLowerCase() + " entries." )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
+      
+     svg2
+        .append("text")
+        .style("color", "black")
+        .style("font-size", "15px")
+        .attr("class", "thedetail")
+        .attr("x", 80)
+        .attr("y", -10)
+        .text(city1.name);     
 
+    var legend_labels = [city2.name + "Data", "World Data"];
+
+    }
+
+    else
+    {
+    svg2.selectAll(".bar")
+        .data(city_values_lst_2)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("class", "thedetail")
+        .attr("x", function (d,i) { return x(genre_array[i]); })
+        .attr("width", x.rangeBand() - 25)
+        .attr("y", function (d,i) {  return y(d); })
+        .attr("height", function (d,i) { return bar_height - y(d); })
+        .style("fill", function(d,i){return color_scale(genre_array[i])})
+        .style("opacity", 0.4)
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_total4[i] + " City " + genre_array[i] + " Entries." )})
+        .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
+        .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
 
      svg2
@@ -422,41 +548,66 @@ svg2.append("g")
     .attr("class", "thedetail")
     .attr("x", 80)
     .attr("y", -10)
-    .text(city1.name + " vs. " + city2.name);     
+    .text(city2.name + " vs. " + city1.name); 
+
+    var legend_labels = [city1.name + " Data", city2.name+ " Data"]    
+
+    }
+
+
+    var ext_color_domain = [];
+
+    for (i in genre_array)
+    {
+     ext_color_domain.push(color_scale(genre_array[i]));
+    }
+
+
+      var legend = svg2.selectAll("g.legend")
+      .data(ext_color_domain)
+      .enter().append("g")
+      .attr("class", "legend")
+      .attr("class", "thedetail");
+
+      var ls_w = 20, ls_h = 20;
+
+      legend.append("rect")
+      .attr("class", "legendgradient")
+      .attr("x", 45)
+      .attr("y", function(d, i){ return (height - (i*ls_h) - 600);})
+      .attr("width", ls_w)
+      .attr("height", ls_h)
+      .style("fill", function(d, i) { return ext_color_domain[i]; })
+       .attr("transform", function(d) {
+            return "rotate(90)" 
+            });
+
+        legend.append("rect")
+      .attr("class", "legendgradient")
+      .attr("x", 15)
+      .attr("y", function(d, i){ return (height - (i*ls_h) - 600);})
+      .attr("width", ls_w)
+      .attr("height", ls_h)
+      .style("fill", function(d, i) { return ext_color_domain[i]; })
+      .attr("opacity", 0.25)
+       .attr("transform", function(d) {
+            return "rotate(90)" 
+            });
 
 
 
-
-var legend_labels = [city2.name, city1.name]
-var ext_color_domain = ["lightgray", "red"]
-
-  var legend = svg2.selectAll("g.legend")
-  .data(ext_color_domain)
-  .enter().append("g")
-  .attr("class", "legend")
-  .attr("class", "thedetail");
-
-  var ls_w = 20, ls_h = 20;
-
-  legend.append("rect")
-  .attr("x", 180)
-  .attr("y", function(d, i){ return (bbVis.h - (i*ls_h) - 240);})
-  .attr("width", ls_w)
-  .attr("height", ls_h)
-  .style("fill", function(d, i) { return ext_color_domain[i]; })
-  .style("opacity", 0.8);
-
-  legend.append("text")
-  .attr("x", 210)
-  .attr("y", function(d, i){ return (bbVis.h - (i*ls_h) - 224);})
-  .text(function(d, i){ return legend_labels[i]; });
-
-
+      legend.append("text")
+      .attr("x", 210)
+      .attr("y", function(d, i){ return (height - (i*ls_h*1.5) - 414);})
+      .text(function(d, i){ return legend_labels[i]; });
 
 }
 
+
 var make_circles = function(current_genre)
 {
+      d3.selectAll("circle").remove();
+
       svg.selectAll("circle")
          .data(data_list)
            .enter()
@@ -465,25 +616,210 @@ var make_circles = function(current_genre)
             return projection([d["longitude"], d["latitude"]])[0]})
            .attr("cy",function (d) {
             return projection([d["longitude"], d["latitude"]])[1]})
-           .attr("r", function (d){ value = d[current_genre]["Total Entries"] ; 
-              if (value != 0) {scaled_value = circle_scale(d[current_genre]["Total Entries"])} 
-                else scaled_value = 0 ; return scaled_value})
+           .attr("r", function (d){ 
+              value = d[current_genre][size_by]; 
+              if (value != 0) {scaled_value = circle_scale[size_by](d[current_genre][size_by])} 
+              else scaled_value = 0 ; return scaled_value})
            .attr("city",function (d){return d.city})
-           .style("opacity", 0.75)
-           .on("mouseover", function(d){ make_bars(d); console.log(d); tooltip.style("visibility", "visible");
-                    tooltip.html("City: " + d.name + " <br>Total number of videos in the " + current_genre + " genre : " + d[current_genre]["Total Entries"]);})
+           .style("opacity",0.75)
+           .style("fill", function(d){
+              max = 0;
+              max_genre = "";
+              genre_array.forEach(function(g){
+                if(+d[g][size_by] > max){
+                  max = +d[g][size_by];
+                  max_genre = g;
+                }
+              });
+             
+              return color_scale(max_genre);
+           })
+           .on("mouseover", function(d) { 
+               tooltip.style("visibility", "visible");
+              tooltip.html("City: " + d.name + " <br>Total number of videos in the " + current_genre + " genre : " + d[current_genre]["Total Entries"]);
+              tooltip.html("<center><strong> " + d.name + " </strong></center><br>" + size_by + " in the " + current_genre.toLowerCase() + " genre : " + formatNumber(d[current_genre][size_by]));
+            })
+           .on("mousemove", function(){
+              return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
+           .on("mouseout", function(){ 
+              return tooltip.style("visibility", "hidden");})
+               .on("click", function (d) {
 
-           .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
-           .on("mouseout", function(){ return tooltip.style("visibility", "hidden");})
+                make_bars(d);
+
+            d3.select("#left").style("display", "inline")
+            d3.select("#right").style("display", "inline")
+
+            d3.select(".cityname").html(d.name);
+            d3.select(".playcount").html(size_by + ": " + d[current_genre][size_by]);
+            d3.select(".genres").html(current_genre);
+
+            current_selection = d; 
+
+            VidId1 = d[current_genre][0]["video_id"];
+            VidId2 = d[current_genre][1]["video_id"];
+            VidId3 = d[current_genre][2]["video_id"];
+            VidId4 = d[current_genre][3]["video_id"];
+            VidId5 = d[current_genre][4]["video_id"];
+            VidId6 = d[current_genre][5]["video_id"];
+            VidId7 = d[current_genre][6]["video_id"];
+            VidId8 = d[current_genre][7]["video_id"];
+            VidId9 = d[current_genre][8]["video_id"];
+            if (d.name != "Kano ")
+            {
+            VidId10 = d[current_genre][9]["video_id"];
+            }
+            
+
+            if (first_time)
+            {
+            first_time = false;
+
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId1 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId2 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId3 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId4 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId5 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId6 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId7 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId8 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId9 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+            var params = { allowScriptAccess: "always" };
+            var atts = { id: "myytplayer" };
+            swfobject.embedSWF("http://www.youtube.com/v/" + VidId10 + "?enablejsapi=1&playerapiid=ytplayer&version=3",
+                               "ytapiplayer", "375", "250", "0", null, null, params, atts);
+
+            
+            d3.selectAll("object").attr("class", function(d, i) { return "object" + i}).style("padding", "5px");
+
+            array_of_objects = d3.selectAll("object");
+
+            for (i = 0; i < 10; i++)
+            {
+              d3.selectAll(".object" + i).style("display", "none");
+            }
+            
+            for (i= 0; i< selected_videos; i++)
+            {
+              d3.selectAll(".object"+ i).style("display", "inline");
+            }
+
+          }
+          else
+          {
+            array_of_objects = d3.selectAll("object");
+
+            for (i = 0; i < 10; i++)
+            {
+              d3.selectAll(".object" + i).style("display", "none");
+            }
+            
+            for (i= 0; i< selected_videos; i++)
+            {
+              d3.selectAll(".object"+ i).style("display", "inline");
+            }
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==0;}).attr("data", "http://www.youtube.com/v/" + VidId1 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==1;}).attr("data", "http://www.youtube.com/v/" + VidId2 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==2;}).attr("data", "http://www.youtube.com/v/" + VidId3 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==3;}).attr("data", "http://www.youtube.com/v/" + VidId4 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==4;}).attr("data", "http://www.youtube.com/v/" + VidId5 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==5;}).attr("data", "http://www.youtube.com/v/" + VidId6 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==6;}).attr("data", "http://www.youtube.com/v/" + VidId7 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==7;}).attr("data", "http://www.youtube.com/v/" + VidId8 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==8;}).attr("data", "http://www.youtube.com/v/" + VidId9 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+          d3.selectAll("#myytplayer").filter(function(d,i) {return i==9;}).attr("data", "http://www.youtube.com/v/" + VidId10 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+
+          }
+
+           })
 }
 
+
 var initVis = function(error, world, cities, genre_data){
+  world_values = get_world_average(genre_data);
+
+
+                $('.nav-tabs').click(function(e){
+                    var classname = e.target.className;
+                    $('li').removeClass('active');
+                      if (classname == "rating"){
+                        $('li').eq(1).addClass('active');
+                        size_by = "Average Rating"; make_circles(current_genre);
+                        world_values = get_world_average(genre_data);
+                        
+                      }
+                      else if (classname == "views"){
+                        $('li').eq(2).addClass('active');
+                        size_by = "Average Views"; make_circles(current_genre);
+                        world_values = get_world_average(genre_data);
+                        
+                      }
+                      else {
+                        $('li').eq(0).addClass('active');
+                        world_values = get_world_average(genre_data);
+                        size_by = "Total Entries"; make_circles(current_genre);
+                        
+                      }})
+  
+  console.log(genre_array);
+
+
+var genreDrop = d3.select("#dropdown")
+    .data(genre_array)
+    .append("form")
+    .append("select")
+    .on("change", function() {
+      gen = "" + this.options[this.selectedIndex].value;
+      console.log(gen);
+      make_circles(gen);
+    });
+
+var genreOpts = genreDrop.selectAll("option")
+    .data(genre_array)
+    .enter()
+    .append("option")
+    .text(function (d) { return d})
+    .attr("value", function (d) { return d; });
+
+
+world_genre_count(genre_data);
+
+
+
+
+  d3.select("#lebutton").on("click", function() {make_bars2(selected_city_1, selected_city_2)});
 
   merged_data = merge(cities,genre_data);
 
 
-  world_values = world_genre_count(genre_data);
-  world_values2 = world_genre_count(genre_data);
 
      svg.selectAll("path")
         .data(world.features.filter(function(d) {return d.id != -99; }))
@@ -491,11 +827,6 @@ var initVis = function(error, world, cities, genre_data){
         .append("path")
         .attr("d", path)
         .attr("class", "country")
-        .style("fill", "#ccc")
-        .on("mouseover", function(d){ tooltip.style("visibility", "visible");
-                    tooltip.text("You're currently mousing over " + d["properties"]["name"] + "!");})
-        .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
-        .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
         .on("click", zooming)  
       ;
       data_list = []
@@ -506,37 +837,17 @@ var initVis = function(error, world, cities, genre_data){
   make_circles(current_genre);
 
 
-  var yearDrop = d3.select("#table_container")
-    .data(data_list)
-    .append("form")
-    .append("select")
-    .on("change", function() {
-      genre = this.options[this.selectedIndex].value;
-
-      d3.selectAll("circle").remove();
-      d3.selectAll(".thedetail").remove();
-
-      make_circles(genre);
-
-    });
-
-
-var yearOpts = yearDrop.selectAll("option")
-    .data(genre_array)
-    .enter()
-    .append("option")
-      .text(function (d) { return d; })
-      .attr("value", function (d) { return d; });
-
-
-
 
 var city_list = [];
 for(var k in cities) city_list.push(k);
 
+city_list.sort();;
+
+city_list.unshift("<Select a city>")
+
 
   var cityDrop = d3.select("#table_container2")
-    .data(city_list.sort())
+    .data(city_list)
     .append("form")
     .append("select")
     .on("change", function() {
@@ -546,7 +857,6 @@ for(var k in cities) city_list.push(k);
       {
         if (data_list[i]["name"] == selected_city_1)
           {
-           // console.log(data_list[i]);
             selected_city_1 =  data_list[i];
 
           };
@@ -555,7 +865,7 @@ for(var k in cities) city_list.push(k);
 
 
 var cityOpts = cityDrop.selectAll("option")
-    .data(city_list.sort())
+    .data(city_list)
     .enter()
     .append("option")
       .text(function (d) { return d; })
@@ -572,7 +882,6 @@ var cityDrop2 = d3.select("#table_container3")
       {
         if (data_list[i]["name"] == selected_city_2)
           {
-            //console.log(data_list[i]);
             selected_city_2 = data_list[i];
 
           };
@@ -587,13 +896,13 @@ var cityOpts2 = cityDrop2.selectAll("option")
       .text(function (d) { return d; })
       .attr("value", function (d) { return d; });
 
+
+
 /* for default input */
  for (i in data_list)
       {
         if (data_list[i]["name"] == selected_city_2)
-          {
-            //console.log(data_list[i]);
-            selected_city_2 = data_list[i];
+          {            selected_city_2 = data_list[i];
 
           };
       }
@@ -602,22 +911,64 @@ var cityOpts2 = cityDrop2.selectAll("option")
       {
         if (data_list[i]["name"] == selected_city_1)
           {
-            //console.log(data_list[i]);
             selected_city_1 = data_list[i];
 
           };
       }
 
-var showButton = d3.select("#table_container3")
-    .append("button")    
-    .text(" Update Bar Chart ")
-    //.style("height", "130px")
-    .on("click", function() {make_bars2(selected_city_1, selected_city_2)});
+
+number_of_videos = [3, 5, 10];
+ 
+  var vidDrop = d3.select("#table_container4")
+    .data(data_list)
+    .append("form")
+    .append("select")
+    .on("change", function() {
+      selected_videos = this.options[this.selectedIndex].value;
+
+      VidId1 = current_selection[current_genre][0]["video_id"];
+      VidId2 = current_selection[current_genre][1]["video_id"];
+      VidId3 = current_selection[current_genre][2]["video_id"];
+      VidId4 = current_selection[current_genre][3]["video_id"];
+      VidId5 = current_selection[current_genre][4]["video_id"];
+      VidId6 = current_selection[current_genre][5]["video_id"];
+      VidId7 = current_selection[current_genre][6]["video_id"];
+      VidId8 = current_selection[current_genre][7]["video_id"];
+      VidId9 = current_selection[current_genre][8]["video_id"];
+      VidId10 = current_selection[current_genre][9]["video_id"];
+            
+      array_of_objects = d3.selectAll("object");
+
+      for (i = 0; i < 10; i++)
+      {
+        d3.selectAll(".object" + i).style("display", "none");
+      }
+      
+      for (i= 0; i< selected_videos; i++)
+      {
+        d3.selectAll(".object"+ i).style("display", "inline");
+      }
+
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==0;}).attr("data", "http://www.youtube.com/v/" + VidId1 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==1;}).attr("data", "http://www.youtube.com/v/" + VidId2 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==2;}).attr("data", "http://www.youtube.com/v/" + VidId3 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==3;}).attr("data", "http://www.youtube.com/v/" + VidId4 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==4;}).attr("data", "http://www.youtube.com/v/" + VidId5 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==5;}).attr("data", "http://www.youtube.com/v/" + VidId6 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==6;}).attr("data", "http://www.youtube.com/v/" + VidId7 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==7;}).attr("data", "http://www.youtube.com/v/" + VidId8 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==8;}).attr("data", "http://www.youtube.com/v/" + VidId9 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
+      d3.selectAll("#myytplayer").filter(function(d,i) {return i==9;}).attr("data", "http://www.youtube.com/v/" + VidId10 + "?enablejsapi=1&playerapiid=ytplayer&version=3")
 
 
+    });
 
-
-
+var vidOpts = vidDrop.selectAll("option")
+    .data(number_of_videos)
+    .enter()
+    .append("option")
+      .text(function (d) { return d; })
+      .attr("value", function (d) { return d; });
 
 }
 
@@ -641,9 +992,9 @@ function zooming(d) {
     k = 4;
     centered = d;
   } else {
-    x = width / 2;
-    y = height / 2;
-    k = 0.9;
+    x = width / 2 - margin.left;
+    y = height / 2 - margin.top;
+    k = 1;
     centered = null;
   }
 
@@ -655,3 +1006,17 @@ function zooming(d) {
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
       .style("stroke-width", 1.5 / k + "px");
 }
+
+function toLeft(id) {
+    document.getElementById(id).scrollLeft -= step
+    timerDown = setTimeout("toLeft('" + id + "')", 10)
+}
+
+function toRight(id) {
+    document.getElementById(id).scrollLeft += step
+    timerUp = setTimeout("toRight('" + id + "')", 10)
+}
+
+
+
+
