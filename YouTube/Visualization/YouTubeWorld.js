@@ -1012,6 +1012,22 @@ var vidOpts = vidDrop.selectAll("option")
   .text(function(d, i){ return genre_array[i]; });
 
 
+var tooltip2 = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "visible")
+        .style("color", "black")
+        .style("font-size", "15px")
+        .style("top", "88px")
+        .style("left", "60px")
+        .style("height", "15px")
+        .attr("class", "tooltip")
+        .html("<h3 class='cityname text' padding-top='-10px'>Click on a city</h3>");
+
+
+
+
 }
 
 
