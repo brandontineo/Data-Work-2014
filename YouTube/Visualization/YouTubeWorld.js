@@ -102,13 +102,17 @@ var color_scale = d3.scale.ordinal()
 
 function formatNumber(x) {
 
-  if (isInt(x)) 
+  if (isInt(x) && size_by != "Average Views") 
   {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  else if (size == "Average Views")
+  {
+      return x.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");    
+  }
   else
   {
-    return x.toFixed(4)
+      return x.toFixed(4);
   }
 }
 
