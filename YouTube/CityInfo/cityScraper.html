@@ -14,7 +14,7 @@
     var convertToInt;
 
     $.ajax({
-        url: "http://www.tiptopglobe.com/biggest-cities-world",
+        url: "http://www.tiptopglobe.com/biggest-cities-world?p=1",
         type: 'GET',
         cache: false,
         success: function(data) {
@@ -55,7 +55,7 @@
             });
             
 			 
-			   saveToFile(cities,"city_data.csv")
+			   saveToFile(cities,"city_data2.csv")
         },
         error: function() {
             return console.log("error");

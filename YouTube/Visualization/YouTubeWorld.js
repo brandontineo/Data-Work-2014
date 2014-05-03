@@ -95,8 +95,14 @@ var color_scale = d3.scale.ordinal()
          .domain(genre_array);
 
 
+
+  function isInt(n) {
+   return n % 1 === 0;
+}
+
 function formatNumber(x) {
-  if (size_by != "Average Rating")
+
+  if (isInt(x)) 
   {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -105,9 +111,12 @@ function formatNumber(x) {
     return x.toFixed(4)
   }
 }
+
+
+
+
 function world_genre_count (genre_data)
 {
-  console.log(size_by);
   genre_count = 0;
   counter = 0;
   list_of_genre_count = []
@@ -148,9 +157,10 @@ function get_world_average (genre_data){
         }
       }
     }
-  console.log(genre_total);
   world_averages[genre_array[g]] = genre_total/genre_count;
   }
+    console.log(world_averages);
+
   return world_averages;
 }
 
@@ -219,6 +229,7 @@ var make_bars = function(d)
 
 d3.selectAll(".thedetail").remove();
 /* Building a bar chart */
+original_world_values = [];
 
 
   city_total = {}
@@ -234,12 +245,13 @@ d3.selectAll(".thedetail").remove();
     city_total = return_totals(city_total);
     
     world_values = return_totals(world_values);
-    console.log(world_values);
 
   } 
 
   city_lst = make_list(city_total);
+  city_lst2 = make_list(city_total2);
   world_lst = make_list(world_values);
+
 
  var x = d3.scale.ordinal()
       .rangeRoundBands([0, 250], .1)
@@ -304,9 +316,9 @@ svg2.append("g")
         .attr("x", function (d,i) { return x(genre_array[i])+ 20; })
         .attr("width", x.rangeBand() - 25)
         .attr("y", function(d) {  return y(d); })
-        .attr("height", function(d) {console.log(d); return bar_height - y(d); })
+        .attr("height", function(d) { return bar_height - y(d); })
         .style("fill", function(d,i){return color_scale(genre_array[i]);})
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(city_total2[i]) + " <strong> city </strong> " + genre_array[i].toLowerCase() + " " + size_by.toLowerCase() + "" )})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(city_lst[i]) + " <strong> city </strong> " + genre_array[i].toLowerCase() + " " + size_by.toLowerCase() + "" )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
@@ -322,7 +334,7 @@ svg2.append("g")
         .attr("height", function (d,i) { return bar_height - y(d); })
         .style("fill", function(d,i){return color_scale(genre_array[i])})
         .style("opacity", 0.25)
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(world_values2[i]) + " " + "<strong>world</strong> " + genre_array[i].toLowerCase() + " " + size_by.toLowerCase() + "")})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(world_lst[i]) + " " + "<strong>world</strong> " + genre_array[i].toLowerCase() + " " + size_by.toLowerCase() + "")})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
@@ -397,7 +409,7 @@ function make_list (obj){
 
 
 var make_bars2 = function(city1, city2) {
-
+console.log(world_values);
 
 d3.selectAll(".thedetail").remove();
 /* Building a bar chart */
@@ -424,9 +436,12 @@ if (size_by != "Average Rating")
   city_total3 = return_totals(city_total3);
 }
 
+console.log(world_values);
 world_values_lst = make_list(world_values);
+console.log(world_values_lst);
 city_values_lst = make_list(city_total);
 city_values_lst_2 = make_list(city_total3);
+
 
 var y = legend_scale[size_by];
 
@@ -484,10 +499,10 @@ svg2.append("g")
         .attr("class", "thedetail")
         .attr("x", function (d,i) { return x(genre_array[i])+ 20; })
         .attr("width", x.rangeBand() - 25)
-        .attr("y", function(d) {  console.log(d); return y(d); })
+        .attr("y", function(d) { return y(d); })
         .attr("height", function(d) { return bar_height - y(d); })
         .style("fill", function(d,i){ return color_scale(genre_array[i]);})
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_total2[i] + " City " + genre_array[i] + " Entries." )})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_values_lst[i] + " City " + genre_array[i] + " Entries." )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
@@ -505,7 +520,7 @@ svg2.append("g")
         .attr("height", function (d,i) { return bar_height - y(d); })
         .style("fill", function(d,i){return color_scale(genre_array[i])})
         .style("opacity", 0.25)
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(world_values2[i]) + " " + "world " + genre_array[i].toLowerCase() + " entries." )})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(world_values_lst[i]) + " " + "world " + genre_array[i].toLowerCase() + " entries." )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
@@ -536,7 +551,7 @@ svg2.append("g")
         .attr("height", function (d,i) { return bar_height - y(d); })
         .style("fill", function(d,i){return color_scale(genre_array[i])})
         .style("opacity", 0.4)
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_total4[i] + " City " + genre_array[i] + " Entries." )})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_values_lst_2[i] + " City " + genre_array[i] + " Entries." )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
@@ -766,7 +781,6 @@ var make_circles = function(current_genre)
 var initVis = function(error, world, cities, genre_data){
   world_values = get_world_average(genre_data);
 
-
                 $('.nav-tabs').click(function(e){
                     var classname = e.target.className;
                     $('li').removeClass('active');
@@ -774,22 +788,22 @@ var initVis = function(error, world, cities, genre_data){
                         $('li').eq(1).addClass('active');
                         size_by = "Average Rating"; make_circles(current_genre);
                         world_values = get_world_average(genre_data);
+                        d3.selectAll(".thedetail").remove();
                         
                       }
                       else if (classname == "views"){
                         $('li').eq(2).addClass('active');
                         size_by = "Average Views"; make_circles(current_genre);
                         world_values = get_world_average(genre_data);
-                        
+                        d3.selectAll(".thedetail").remove();
                       }
                       else {
                         $('li').eq(0).addClass('active');
                         world_values = get_world_average(genre_data);
                         size_by = "Total Entries"; make_circles(current_genre);
-                        
+                        d3.selectAll(".thedetail").remove();
                       }})
   
-  console.log(genre_array);
 
 
 var genreDrop = d3.select("#dropdown")
@@ -798,8 +812,8 @@ var genreDrop = d3.select("#dropdown")
     .append("select")
     .on("change", function() {
       gen = "" + this.options[this.selectedIndex].value;
-      console.log(gen);
       make_circles(gen);
+      d3.selectAll(".thedetail").remove();
     });
 
 var genreOpts = genreDrop.selectAll("option")
@@ -1016,7 +1030,4 @@ function toRight(id) {
     document.getElementById(id).scrollLeft += step
     timerUp = setTimeout("toRight('" + id + "')", 10)
 }
-
-
-
 
