@@ -52,7 +52,7 @@ function parseLongitude(l){
 
 
 
-d3.csv("city_data.csv",function(data){
+d3.csv("city_data2.csv",function(data){
 	cities = {};
 	data.forEach(function(d,i){
 		city = (d.City).split(":")[0];
@@ -64,7 +64,7 @@ d3.csv("city_data.csv",function(data){
 
 	blob = new Blob([JSON.stringify(cities)],{type : "text/plain;charset=utf-8"});
 	console.log(blob);
-	saveAs(blob,"cities.json");
+	saveAs(blob,"cities2.json");
 
 
 })
