@@ -1022,7 +1022,7 @@ var tooltip2 = d3.select("body")
         .style("top", "88px")
         .style("left", "60px")
         .style("height", "15px")
-        .attr("class", "tooltip")
+        .attr("class", "tooltip3")
         .html("<h3 class='cityname text' padding-top='-10px'>Click on a city</h3>");
 
 
