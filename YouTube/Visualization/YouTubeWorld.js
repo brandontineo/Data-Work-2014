@@ -106,7 +106,7 @@ function formatNumber(x) {
   {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-  else if (size == "Average Views")
+  else if (size_by == "Average Views")
   {
       return x.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");    
   }
