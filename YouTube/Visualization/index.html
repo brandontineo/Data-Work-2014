@@ -51,10 +51,14 @@
     }
 
     .csvTable {
-        font: normal 12px/150% Arial, Helvetica, sans-serif;
-        overflow: hidden;
+        font: normal 9px/150% Arial, Helvetica, sans-serif;
 
     }
+
+    div#table_container3.csvTable, div#table_container4.csvTable{
+        width: 10px;
+    }
+
     .tooltip {
         position: absolute;
         height: auto;
@@ -94,6 +98,15 @@
     box-shadow: 0 1px 0 rgba(0,0,0,0.05);
       }
 
+button{
+    
+    margin-top: 5px;
+    margin-left: 105px;
+}
+
+.container{
+    padding-top: 20px;
+}
 #category-subheader{
     float: left;
     list-style-type: disc;
@@ -118,12 +131,12 @@
 }
 #table_container2, #table_container3
 {
-    margin-bottom: 10px;
+
     border: none;
     float:left;
-    margin-top: 70px;  
+    margin-top: 80px; 
+    margin-left: 30px; 
 }
-
 
 
 #table_container4{
@@ -138,12 +151,16 @@ select{
     color: black;
     border-radius: none;
     cursor: pointer;
+    width: 130px;
     }
+
+
 
 #logo{
     height: 50px;
     float: left;
     padding-left: 100px;
+    padding-top: 20px;
 }
 h1{
     margin-bottom:0px;
@@ -192,13 +209,13 @@ center{
 
 #left{
     float:left;
-    margin-top: -170px;
+    margin-top: -1100px;
     margin-left: 15px;
 }
 
 #right{
     float:right;
-    margin-top: -170px;
+    margin-top: -1100px;
     margin-right:15px;
 }
 
@@ -355,6 +372,18 @@ border-bottom-color: #FF6600;
 #theotherlogo{
     float: left;
 }
+.navbar-text3{
+    padding-right: 100px;
+}
+.youtube-player{
+    padding-left: 100px;
+}
+.h333{
+    padding-top: 50px;
+    padding-left: 300px;
+}
+
+
 </style>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -390,11 +419,11 @@ border-bottom-color: #FF6600;
          <div id="table_container" class="csvTable"  style="white" align="center"></div><div id="vis"></div>    
         </td>
         <td id="second_vis"><div id="textLabel">
-            <div id="table_container3" class="csvTable" style="white" align="center">
+            <div id="table_container3" style="width: 130px" class="csvTable" style="white" align="center">
             </div>
-            <div id="table_container2" class="csvTable" style="white" align="center">
+            <div id="table_container2" style="width: 130px" class="csvTable" style="white" align="center">
             </div>
-             <button class="btn btn-default dropdown-toggle" type="button" id="lebutton" data-toggle="dropdown">Compare Cities</button>
+             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton" data-toggle="dropdown">Compare Cities</button>
         </div>
         </td>
     </tr>
@@ -445,6 +474,23 @@ border-bottom-color: #FF6600;
 
 </div>
 
+<div class="container">
+    <h3 class="h333">A bit of an explanation...</h3>
+<iframe title="YouTube video player" class="youtube-player" type="text/html" 
+    width="640" height="390" src="http://www.youtube.com/embed/lFfXwZtgMAc"
+    frameborder="0" allowFullScreen></iframe>
+<p class="navbar-text3">This project analyzes and breakdowns YouTube activity by major city. Within our visualization, we plot the biggest cities in the world on a map, showing the amount of videos uploaded within that city by major category. We also show how popular those videos are, and are thus able which cities provide the most popular videos of each YouTube category. The data was collected through webscraping and the YouTube API (see thanked sources). The main visualizations include a world map, whose cities' colors and radii are determined by most popular genre according to scaling factor, respectively.</p> 
+<p class="navbar-text3">The visualizations that we included in our project provide a lot 
+of information about the data we collected. First of all, it seems that Latin America really likes and values music a lot. As can be seen through the map, most of Latin America has the music as it’s top category. The type of videos that are considered sports throughout the world varies quite a bit. If we looked at the embedded YouTube videos for different parts of the world we can see that most cities consider videos like soccer or football to be 
+sports videos. However, other cities categorize practical jokes or fights as sports. There is a lot of variety in terms of usage for YouTube across 
+the world. Based on the number of videos uploaded it seems that YouTube is most popular in really urban areas and least popular in less urban areas.</p>
+<p class="navbar-text3">The USA cities included in our visualization seem to enjoy news and entertainment the most. Surprisingly enough, our visualization seems to indicate that music is not as big in the USA as it is in other parts of the world 
+such as Latin America. However, when it comes to sizing by average rating, it seems that music becomes extremely popular around the entire world. The differences that we see across the world in terms of plotted circles and their colors indicates that YouTube users think about total number of entries, what they view, and the way in which they rate videos differently.
+<a href="../processbook.pdf">
+<h3 class="h333">Want to learn even MORE?</h3>
+</a>
+</div>
+
 
 <img id="left" src="../img/left.png" alt="Scroll Left" style="display:none" onmousedown="toLeft('div1')" onmouseup="clearTimeout(timerDown)"/>
 <img id="right" src="../img/right.png" alt="Scroll Right" style="display:none" onmousedown="toRight('div1')" onmouseup="clearTimeout(timerUp)">
@@ -463,4 +509,3 @@ border-bottom-color: #FF6600;
 </div>
 
 </html>
-
