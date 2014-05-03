@@ -988,6 +988,30 @@ var vidOpts = vidDrop.selectAll("option")
       .text(function (d) { return d; })
       .attr("value", function (d) { return d; });
 
+
+ 
+
+  var legend = svg.selectAll("g.legend")
+  .data(genre_array)
+  .enter().append("g")
+  .attr("class", "legend");
+
+  var ls_w = 20, ls_h = 20;
+
+  legend.append("rect")
+  .attr("x", -40)
+  .attr("y", function(d, i){ return (height - (i*ls_h) - 2*ls_h) - 150;})
+  .attr("width", ls_w)
+  .attr("height", ls_h)
+  .style("fill", function(d, i) { return color_scale(d); })
+  .style("opacity", 0.8);
+
+  legend.append("text")
+  .attr("x", -10)
+  .attr("y", function(d, i){ return (height - (i*ls_h) - ls_h - 4) - 150;})
+  .text(function(d, i){ return genre_array[i]; });
+
+
 }
 
 
