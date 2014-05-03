@@ -1017,6 +1017,3 @@ function toRight(id) {
     timerUp = setTimeout("toRight('" + id + "')", 10)
 }
 
-
-
-
