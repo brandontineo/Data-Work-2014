@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script src="../libs/jquery-1.10.1.js"></script>
+    <script src="../libs/jquery.xdomainajax.js"></script>
+    <script src="../libs/d3.v3.min.js"></script>
+    <script src="../libs/FileSaver.js"></script>
+</head>
+<body>
+
+<script>
+    var convertToInt;
+
+    $.ajax({
+        url: "http://en.wikipedia.org/wiki/World_population_estimates",
+        type: 'GET',
+        cache: false,
+        success: function(data) {
+            var root,allData, body, table;
+            root = $("<div></div>")
+            root.html(data.responseText)
+
+            var content = root.find(".wikitable"); // find all the nodes that have ID "content"
+           var firsttitle = content.find("th:first"); // search in all "content" nodes for nodes of class ".mw-headline"
+
+            //var next_titles = content.find("[title]"); // search in all "content" nodes for nodes of class ".mw-headline"
+
+           var headers = [];
+
+            headers.push(firsttitle[0].textContent.replace(/ /g,'').replace(/(\r\n|\n|\r)/gm,""))
+
+        $.each(content.find("[title]"), function(index,value){ headers.push(value.text);});
+
+        csvformat2 = [headers.slice(0,5).join()];
+
+        var therows = content.find("tr:has(td)");
+
+       
+
+        var therows2 = therows.find("td")
+      
+
+
+
+      var year=[];
+      var col2=[];
+      var col3=[];
+      var col4=[];
+      var col5=[];
+      var col6=[];
+      var k =0;
+      var thisyear=null;
+
+      for (var i=0; i<1079; i++)
+      {
+        if (i%12 === 0)
+        {
+          year.push(convertToInt($(therows2[i]).text().trim()));
+
+         // console.log(convertToInt($(therows2[i]).text().trim().replace("–", "-")));
+        }
+        else if (i%12 === 1)
+        {
+          if (($(therows2[i]).text().trim()) === "")
+            { col2.push("")}
+          else
+            {col2.push(convertToInt($(therows2[i]).text().trim()));}
+        }
+        else if (i%12 === 2)
+        {
+          if (($(therows2[i]).text().trim()) === "")
+            { col3.push("")}
+          else
+            {col3.push(convertToInt($(therows2[i]).text().trim()));}
+
+        }
+        else if (i%12 === 3)
+        {
+          if (($(therows2[i]).text().trim()) === "")
+            { col4.push("")}
+          else
+            {col4.push(convertToInt($(therows2[i]).text().trim()));}
+        }
+        else if (i%12 === 4)
+        {
+          if (($(therows2[i]).text().trim()) === "")
+            { col5.push("")}
+          else
+            {col5.push(convertToInt($(therows2[i]).text().trim()));}
+
+        }  
+        else if (i%12 === 5)
+        {
+          if (($(therows2[i]).text().trim()) === "")
+            { col6.push("")}
+          else
+            {col6.push(convertToInt($(therows2[i]).text().trim()));}
+    
+        }                              
+      }
+
+      finaldata = [];
+
+      finaldata.push("year, USCensus,PopulationBureau,UN,HYDE,Maddison");
+
+      for(var i=0; i<90; i++)
+      {   
+            if (i>9)
+            {
+              if (col2[i] != "" || col3[i] != "" || col4[i] != "" || col5[i] != "" || col6[i] != "")
+            {
+            newarray = [year[i], col2[i], col3[i], col4[i], col5[i], col6[i]];
+            //console.log(newarray)
+            finaldata.push(newarray.join());
+            }
+          }
+      }
+
+
+
+
+     // var $tds = $('body div.content');
+    //  console.log($tds);
+
+    //csvformat2 = []
+    //csvformat2.push(csvformat);
+    //console.log(csvformat2);
+           
+
+ 
+    			
+    saveToFile(finaldata, "finaldata.csv")
+			//saveToFile(["Hello World"],"test.txt")
+        },
+        error: function() {
+            return console.log("error");
+        }
+    });
+
+    convertToInt = function(s) {
+        return parseInt(s.replace(/,/g, ""), 10);
+    };
+	
+    /* takes an array of strings
+       and writes them line by line into a file given by filename
+     */
+    var saveToFile = function(arrayOfLines, fileName) {
+       /* adds linebreaks at the end*/
+       var blob, blobText;
+       blobText = arrayOfLines.map(function(d) {
+         if (d.endsWith("\n")) {
+           return d;
+         } else {
+           return d + "\n";
+         }
+       });
+       blob = new Blob(blobText, {
+         type: "text/plain;charset=utf-8"
+       });
+       return saveAs(blob, fileName);
+     };
+
+     String.prototype.endsWith = function(suffix) {
+       return this.indexOf(suffix, this.length - suffix.length) !== -1;
+     };
+	
+
+
+</script>
+
+
+</body>
+</html>
