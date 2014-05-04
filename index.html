@@ -5,7 +5,8 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="libs/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="libs/animate.css" rel="stylesheet" type="text/css">
 </head>
 
 <meta charset="utf-8">
@@ -24,11 +25,44 @@ body{
 	margin-right: 50px;
 	margin-bottom: 50px;
 	margin-top: 20px;
+	float:center;
 }
 
 ul, li{
 	/* margin-left:230px;*/
 	margin-bottom: 5px;
+}
+
+.main_container{
+
+	background-color: steelblue;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin:10px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+    padding:10px;
+    float:left;
+}
+.second_container{
+
+	background-color: steelblue;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin:10px;
+    margin-bottom: 50px;
+    margin-left: 160px;
+    padding:10px;
+    float:left;
+
 }
 
 .section1{
@@ -40,10 +74,12 @@ ul, li{
     -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     margin: 10px;
-    padding:10px;
-    width: 350px;
+    width: 330px;
     height: 300px;
     float:left;
+    border-style:solid; 
+	border-color:white;
+   
 
 }
 
@@ -56,10 +92,11 @@ ul, li{
     -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     margin: 10px;
-    padding:10px;
-    width: 350px;
+    width: 330px;
     height:300px;
     float:left;
+    border-style:solid; 
+	border-color:#E0E0E0;
 
 }
 
@@ -73,12 +110,34 @@ ul, li{
     -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     margin:10px;
-    margin-bottom: 50px;
+    float:left;
+    width: 330px;
+    height:300px;
+    border-style:solid; 
+	border-color:white;
+}
+
+
+.section5{
+	background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin:10px;
     padding:10px;
     float:left;
-    width: 350px;
-    height:300px;
+    border-style:solid; 
+	border-color:white;
 }
+
+.section1:hover, .section2:hover, .section3:hover, .section5:hover{
+	border-style:solid; 
+	border-color:yellow;
+}
+
 </style>
 
 
@@ -87,10 +146,11 @@ ul, li{
 
 <p>Please feel free to clone this repository. Note that this repository is still a work in progress and does not contain all of the projects I have worked on. Please contact me directly for more of my work. I've updated a few of the visualizations to include some information about the way in which the data was acquired and the different features I included.</p>
 
-<div class="section1">
+
+<div class="main_container">
+
+<div class="section1 bounceInLeft animated fast">
 <h2><em>Visualizations</em></h2>
-
-
 <ul>
 <li><a href="YouTube/Visualization/index.html">YouTube Usage Around the World Project</a></li>	 
 <li><a href="USA_Unemployment_Vis/bar.html">Bar Graph of Unemployment<a></li>
@@ -98,13 +158,13 @@ ul, li{
 <li><a href="Estimated_Population_Vis/differenceGraph.html">World Population Estimates</a></li>
 <li><a href="Women's_Health_Vis/unHealth.html">Women's Health Visualization</a></li>
 <li><a href="ProblemGeoUSA/GeoUSA.html">Solar Radiation Across USA</a></li>
-<li><a href="ProblemGeoWorld/GeoWorld.html">World Visualization of Banks and Indicators (still in progress)</a></li>
+<li><a href="ProblemGeoWorld/GeoWorld.html">World Bank Visualization (still in progress)</a></li>
 </ul>
 
 </div>
 
-<div class="section2">
-<h2><em>Web Scraping / Data Wrangling Work</em></h2>
+<div class="section2 bounceInDown animated fast">
+<h2><em>Web Scraping / Data Wrangling</em></h2>
 
 <ul>
 <li><a href="http://en.wikipedia.org/wiki/World_population_estimates">Scraping Wikipedia Table</a><a href="https://github.com/brandontineo/Data-Work-2014/blob/gh-pages/Estimated_Population_Vis/dataExportWiki.html"><strong>&nbsp;Code</strong></a></li>	 
@@ -121,16 +181,25 @@ ul, li{
 
 </div>
 
-<div class="section3">
+<div class="section3 bounceInRight animated fast">
 
 <h2><em>Client Websites</em></h2>
 
 <ul>
 <li><a href="http://www.paperconservator.com/">www.paperconservator.com</a></li>	 
-<li><a href="">www.flashphotocenters.com (Still Under Construction)<a></li>
+<li><a href="">www.flashphotocenters.com (Still Under Construction)</a></li>
 </ul>
 
 </div>
+
+
+</div>
+
+<div class="second_container bounceInUp animated fast"> 
+<div class="section5"><p><strong>Projects are coded using the following tools: CSS, HTML, JavaScript (D3 library), JQuery, Bootstrap, and Python.</p></strong></div>
+
+</div>
+
 
 
 </body>
