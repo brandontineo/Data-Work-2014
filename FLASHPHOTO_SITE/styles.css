@@ -238,6 +238,10 @@ img:hover { text-decoration: none; }
 	/*border-right: 1px solid #ededed; */
 }
 
+#site-bigcontain{
+	margin-top: 10px !important;
+}
+
 /* -------------------------------------------
     Here be content styling. This can contain
     a lot of elements. Remember that this has
@@ -282,7 +286,7 @@ img:hover { text-decoration: none; }
 }
 
 #site-sidebar{
-	margin-top: 95px;
+	margin-top: 70px;
 }
 
 /* ----------------------------------------
