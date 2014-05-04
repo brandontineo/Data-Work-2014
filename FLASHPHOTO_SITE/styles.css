@@ -180,7 +180,7 @@ img:hover { text-decoration: none; }
 	padding-right: 0;
 	color: black;
 	border-right: 1px solid #222;
-	height:1400px; /* why doesn't auto work? */
+	height:auto; /* why doesn't auto work? */
 }
 
 .noSidebar #site-mainColumn {} /* Not commonly used. Use bigcontain instead. - Daniel 7/29/08 */
@@ -369,7 +369,7 @@ img:hover { text-decoration: none; }
 }
 
 #site-head {
-	background: black;
+	background: black url(images/negative.png) no-repeat;
 }
 
 #site-smalltitle {
@@ -404,7 +404,8 @@ a:hover, a:focus {
 
 #site-footer {
 	background: black;
-	border-color: #95cbed;
+	border-weight: 0.1px;
+	border-color: #222;
 	color: #8badcf;
 }
 
