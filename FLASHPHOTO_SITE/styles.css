@@ -49,8 +49,6 @@ img:hover { text-decoration: none; }
 #site-head {
 	position: relative;
 	padding: 55px 0 45px;
-	border-width: 0 0 10px;
-	border-style: solid;
 	height: 80px;
 	overflow: hidden;
 }
@@ -62,7 +60,8 @@ img:hover { text-decoration: none; }
 	height:auto;
 }
 #site-blockContainer{
-	margin-left: 200px;
+	margin-left: 100px;
+	margin-right: -100px !important;
 }
 
 #site-title {
@@ -121,10 +120,10 @@ img:hover { text-decoration: none; }
 }   
 
 #site-mainnavwrap {
-	font-size: 1.2em;
+	font-size: 1.0em;
 	font-weight: bold;
 	cursor: default;
-	height: 120px;
+	height: auto;
 	overflow:hidden;
 }
 
@@ -133,14 +132,14 @@ img:hover { text-decoration: none; }
 #site-nav-menu ul {
 	padding-left: 0;
 	padding-right:0;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	list-style: none;
 }
 
 #site-nav-menu .site-nav-level-0 {
 	line-height: 2.5em;
-	margin: 0 0 0 .75em;
+	margin: 0 0 0 -0.75em;
 
 }
 
@@ -149,18 +148,18 @@ img:hover { text-decoration: none; }
 }
 
 #site-nav-menu a {
-	border: 0;
+	border:0px;
 	padding: .75em;
 	text-decoration: none;
 	background-color: white;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px; 
+    -webkit-box-shadow: 4px 4px 10px #00DEFF;
+    -moz-box-shadow: 4px 4px 10px #00DEFF;
+    box-shadow: 4px 4px 10px #00DEFF;
    	border-style:solid; 
-	border-color:lightgray;
+	border-color:black;
 	margin-top: 10px;
 }
 
@@ -179,8 +178,8 @@ img:hover { text-decoration: none; }
 
 #site-blockContainer {
 	padding-right: 0;
-	background: #fff url(img/side-bg.png) repeat-y right;
-	border-right: 1px solid #ededed;
+	color: black;
+	border-right: 1px solid #222;
 	height:1400px; /* why doesn't auto work? */
 }
 
@@ -304,7 +303,7 @@ img:hover { text-decoration: none; }
 	padding: 2.5em 0;
 	padding-top: 20px;
 	width: 300px;
-	border-left: 1px solid #ededed;
+	border-left: 1px solid #222;
 
 	background-color: white;
     -webkit-border-radius: 10px;
@@ -366,8 +365,7 @@ img:hover { text-decoration: none; }
 }
 
 #site-head {
-	background: #001d36 url(../img/blue-top.png) no-repeat;
-	border-color: #95cbed;
+	background: black;
 }
 
 #site-smalltitle {
@@ -375,7 +373,11 @@ img:hover { text-decoration: none; }
 }
 
 #site-mainnavwrap {
-	background: #d2eeff;
+	background: black;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #222;
+	border-bottom-color:#222;
 }
 
 #site-nav-menu a {
@@ -397,7 +399,7 @@ a:hover, a:focus {
 }
 
 #site-footer {
-	background: #001d36;
+	background: black;
 	border-color: #95cbed;
 	color: #8badcf;
 }
