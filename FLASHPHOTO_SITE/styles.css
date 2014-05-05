@@ -178,7 +178,7 @@ img:hover { text-decoration: none; }
 
 #site-blockContainer {
 	padding-right: 0;
-	color: black;
+	color: white;
 	border-right: 1px solid #222;
 	height:auto; /* why doesn't auto work? */
 }
