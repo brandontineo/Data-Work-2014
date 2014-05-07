@@ -28,16 +28,22 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         var map = new google.maps.Map(map_canvas, map_options)
+      
+	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+	var marker = new google.maps.Marker({
+	  position: new google.maps.LatLng(37.655359, -122.412720),
+	  map: map,
+	  icon: iconBase + 'schools_maps.png'
+	});
+
+
       }
       google.maps.event.addDomListener(window, 'load', initialize);
 
 
-	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-	var marker = new google.maps.Marker({
-	  position: myLatLng,
-	  map: map,
-	  icon: iconBase + 'schools_maps.png'
-	});
+	
+
+
 
 
     </script>
