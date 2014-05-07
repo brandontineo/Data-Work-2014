@@ -36,22 +36,20 @@
 	<div id="site-mainnavwrap">
 	    <div id="site-nav-menu">
 		    <ul class="site-nav-level-0">
-			    <li><a href="" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Home</a></li>
+			    <li><a href="index.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Home</a></li>
 				<li><a href="restoration.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Restoration/Manipulation</a></li>
 				<li><a href="Passport.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Passport Photos</a></li>
 				<li><a href="portrait.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Portrait Studio</a></li>
 				<li><a href="specialevents.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Special Events</a></li>
-			
-				
 				<li><a href="" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Other Services</a></li>
-			
 				<li><a href="" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Location</a></li>
 		
 			</ul>
 		</div>
 	</div>
     
-    <div id="site-blockContainer">
+    
+  <div id="site-blockContainer">
 
 		<div id="site-bigcontain">
 			
@@ -60,79 +58,38 @@
 				<div class="site-paragraphtop"></div>
 				<h3 class="site-title"><a name="595086287"></a>
 					<p align="center">
-					<font size ="5" color="yellow" face="Book Antiqua"><u><em>~Celebrating 20 Years of&nbsp; Business in the Bay Area~</em></u></font>
+					
 					</p>
 				</h3>
 				<div class="site-text">
 					<p align="center">
-									<div class="picture_container">
-									<img border="0" width="590" src="images/FrontStore.jpg" height="376" style="margin: 8px; width: 590px; height: 376px" class="FrontPic">
-								</div>
-								<em>
-								<strong>
-									<font size="5" color="yellow" face="Book Antiqua">
-									<font color="yellow">At our new location: 217 Maple Ave, SSF, CA 94080</font>
-								</strong>
-							</em>
-						</font>
+
 					</p>
 					<p align="center">
-						<em>
-							<font size="5" color="yellow" face="Book Antiqua">
-								<strong>offering more services than&nbsp;ever ====&gt;</strong>
-							</font>
-						</em>
+						
 					</p>
 					<p align="center">
-						<em>
-							<font size="4" face="Andale Mono">
-								<div class="picture_container2">
-								<img border="0" width="590" src="images/InsideStore.jpg" height="393" style="margin: 8px; width: 590px; height: 393px" class="fw_image_freewebs fwSizeProp">
-							</div>
-							</font>
-						</em>
+						
 					</p>
 					<p align="center">
-						<em>
-							<font size="5" color="#ff0000" face="Book Antiqua">
-								<font size="4" color="white" face="Andale Mono">
-									<strong>Our professional photographers are dedicated to taking the best quality photos. Capturing your best angle and position is our goal.</strong>
-								</font>
-							</font>
-						</em>
+						
 					</p>
 
 					<img src="images/Filmstrip.png">
 					
-					<font size="5" color="#0000ff" face="Book Antiqua" style="background-color: #ffffff">
-						<em>
-							<strong>
-							</strong>
-						</em>
-					</font>
-				</p>
+					
+				
 				<p align="center">
-					<font size="5" color="#0000ff" face="Book Antiqua" style="background-color: #ffffff">
-						<em>
-						</em>
-					</font>
+	
 				</p>
 				
-				<p align="center">&nbsp;</p>
+
 				<p align="center">
-					<strong>
-						<em>
-							<font size="5" color="#0000ff" face="Book Antiqua"></font>
-						</em>
-					</strong>
-				</p><p align="center">
-				<strong>
-					<em>
-						<font size="5" color="#0000ff" face="Book Antiqua">
-						</font>
-					</em>
-				</strong>
-			</p>
+		
+				</p>
+				<p align="center">
+				
+				</p>
 		</div>
 			<div class="site-paragraphbottom"></div>
 			</div>
@@ -142,10 +99,7 @@
 
 		<div id="site-sidebar">
 
-<!--
-			  
--->
-			<div id="site-sidebarbegin"></div>
+		<div id="site-sidebarbegin"></div>
 			
   			<div id="boxad">
 			</div>
@@ -239,49 +193,24 @@
 <p> FLASHPHOTO Copyright &copy;2014 Photos may not be reproduced in any manner without permission of photographer </p>
 </div>
 
+<script> d3.select("*").style("background-color", "black"); </script>
+
+
+
 
 </body>
 
-  <script type="text/javascript">  
-function changeImage()
-{
-    var img = d3.select(".FrontPic")[0][0];
+<script type="text/javascript">
+ var toggle = true;
 
-    console.log(img.src);
-    img.src = images[x];
-    x++;
-
-    if(x >= images.length){
-        x = 0;
-    } 
-
-    fadeImg(img, 100, true);
-    setTimeout("changeImage()", 5000);
-}
-
-function fadeImg(el, val, fade){
-    if(fade === true){
-        val--;
-    }else{
-        val ++;
-    }
-
-    if(val > 0 && val < 100){
-      /*  el.style.opacity = val / 100; */
-        setTimeout(function(){fadeImg(el, val, fade);}, 100);
-    }
-}
-
-var images = [],
-x = 0;
-
-images[0] = "images/FrontStore2.jpg";  
-images[1] = "images/FrontStore3.jpg";
-images[2] = "images/FrontStore.jpg";
-setTimeout("changeImage()", 5000);
-
-
-d3.select("*").style("background-color", "black");
+function appear()
+	{ if (toggle == true){
+		toggle = !toggle;
+		document.getElementById('addQuestionChoices').style.display="block";}
+	else{
+		toggle = !toggle;
+		document.getElementById('addQuestionChoices').style.display="none";}
+	}
 </script>
 
 </html>
