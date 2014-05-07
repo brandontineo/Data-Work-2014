@@ -197,9 +197,7 @@ img:hover { text-decoration: none; }
 	margin-left: 110px;
 	color: white;
 	border-right: 1px solid #222;
-	height:4500px;
-	overflow-x:hidden;
-	overflow-y:hidden; /* why doesn't auto work? */
+	height:auto;
 }
 
 .noSidebar #site-mainColumn {} /* Not commonly used. Use bigcontain instead. - Daniel 7/29/08 */
@@ -259,7 +257,25 @@ img:hover { text-decoration: none; }
    
 }
 
-.picture_container:hover, .picture_container2:hover{
+.picture_container4{
+
+	background-color: steelblue;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin:10px;
+    margin-bottom: 20px;
+    padding:10px;
+    border-style:solid; 
+	border-color:lightgray;
+	width:1000px;
+   
+}
+
+.picture_container:hover, .picture_container2:hover, .picture_container3:hover, .picture_container4:hover{
 	border-style:solid; 
 	border-color:yellow;
 
