@@ -16,7 +16,32 @@
 
 
 </head>
-<div></div>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+      function initialize() {
+        var map_canvas = document.getElementById('map_canvas');
+        var map_options = {
+          center: new google.maps.LatLng(37.655359, -122.412720),
+          zoom: 18,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(map_canvas, map_options)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+
+	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+	var marker = new google.maps.Marker({
+	  position: myLatLng,
+	  map: map,
+	  icon: iconBase + 'schools_maps.png'
+	});
+
+
+    </script>
+
 
 <body class="hasOneColumn hasSidebar navtype-Top translate-en">
 
@@ -52,7 +77,53 @@
   <div id="site-blockContainer">
 
 		<div id="site-bigcontain">
-			
+<br>
+<br>
+<h3 class="site-title"><font size="5" color="white">CONTACT DETAILS</font></h3>		
+<div class="picture_container2">
+<table style="width: 100%;">
+	<tbody>
+		<tr>
+			<td style="color:white" class="dp-td-contact-data" id="table-data">
+				Address:
+				<br>
+       			217 Maple Ave 
+       			<br>
+            	South San Francisco CA 94080, USA
+          </div>
+        
+          <br>
+          <br>
+          <div>Hours of operation: </div>
+      <div>MON: 9:00am-4:00pm 
+		<br>
+		<br>TUES-FRI: 9:00am-7:00pm 
+		<br>
+		<br>SAT: 10:00am-7:00pm 
+		<br>
+		<br>SUN: 1:00pm-4:00pm
+		<br>
+		</div>
+      	<br>
+      	<br>
+         <div>Phone:</div>
+         <div>650 737-6044</div>
+     		</td>
+     	</tr>
+     </tbody>
+ </table>
+</div>
+
+<br>
+<br>
+<h3 class="site-title"><font size="5" color="white">MAP OF LOCATION</font></h3>		
+
+
+<div class="picture_container" id="map_canvas"></div>
+
+<br>
+
+
 			<div id="site-mainColumn">
 			<div class="site-paragraph">
 				<div class="site-paragraphtop"></div>

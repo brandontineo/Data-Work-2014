@@ -11,6 +11,8 @@ html, body {
 	padding: 0;
 }
 
+
+
 html {
 	font: normal .9em/1.5em Helvetica, Arial, sans-serif;
 	color: #222;
@@ -452,6 +454,12 @@ text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #00DEFF, 0 0 
 }
 
 
+ 
+ #map_canvas 
+ {
+        width: 620px;
+        height: 400px;
+ }
 
 
 
