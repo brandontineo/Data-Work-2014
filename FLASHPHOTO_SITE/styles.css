@@ -1,458 +1,216 @@
-/* -----------------------------------------
-    Welcome to the Webs Base Stylesheet
-    This Sheet Contains Every Class You may
-     need when editing/building templates,
-    as well as standardizes all styles such
-     as font definitions. - Daniel 7/29/08
-   ------------------------------------------ */
-
-html, body {
-	margin: 0;
-	padding: 0;
-}
-
-html {
-	font: normal .9em/1.5em Helvetica, Arial, sans-serif;
-	color: #222;
-}
-
-#addQuestionChoices{display:none;}
-
-.heading{
-
-	color:lightsteelblue;
-}
-
-
-.formSpan {
-	display: block;
-	margin-bottom: 1.25em;
-	/* This is universal. Do not change it. - Daniel 7/29/08 */
-}
-
-.site-odd, .site-secondary {
-	background-color: #eceeef;
-}
-
-.site-even, .site-primary {
-	background-color: #fff;
-}
-
-a img { border: 0px; text-decoration: none; }
-img {
-	border:0px;
-}
-
-img:hover { text-decoration: none; }
-
-#site-container {}
-
-/* ------------------------------------------
-     Head Elements Here. Remember, absolute
-      positioning can be used to position
-    title, smalltitle, and logo only if head
-    is positioned relative. - Daniel 7/29/08
-   ------------------------------------------ */
-
-#site-head {
-	position: relative;
-	padding: 55px 0 45px;
-	height: 80px;
-	overflow: hidden;
-}
-
-#site-title, #site-nav-menu, #site-blockContainer {
-	margin:auto;
-	padding: 0 .75em;
-	width: 990px;
-	height:auto;
-}
-#site-blockContainer{
-	margin-left: 100px;
-	margin-right: -100px !important;
-}
-
-#site-title {
-	padding: 0 .33em;
-	font-size: 4.25em;
-	line-height: 1em;
-	letter-spacing: -.06em;
-	color: #fff;
-}
-
-#site-titlelink {
-	/*color: #fff; */
-	text-decoration: none;
-	position: relative; z-index: 1;
-    border-bottom: 0px !important;
-}
-
-
-
-.site-logo {
-	position: absolute;
-	height: 140px;
-	width: 100%;
-    top: 0;
-    right: 0;
-    background-position: right top;
-}
-
-/* -----------------------------------------
-      blockContainer holds everything from
-      here to the footer. - Daniel 7/29/08
-   ----------------------------------------- */
-
-#site-blockContainer {
-	color: #222;
-	overflow: hidden;
-}
-
-#site-container a, #site-container a:hover, #site-container a:visited {
-	text-decoration: none;
-
-}
-
-/* -----------------------------------------
-    All Navigation Styling Here. In case of
-     vertical navigation, add .hasSidebar
-        cases for all affected elements.
-                -Daniel 7/29/08
-   ----------------------------------------- */
-
-.lastbullet{
-	padding-top: 10px;
-}   
-
-#site-mainnavwrap {
-	font-size: 1.0em;
-	font-weight: bold;
-	cursor: default;
-	height: auto;
-	overflow:hidden;
-}
-
-#site-nav-menu {}
-
-#site-nav-menu ul {
-	padding-left: 0;
-	padding-right:0;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	list-style: none;
-}
-
-#site-nav-menu .site-nav-level-0 {
-	line-height: 2.5em;
-	margin: 0 0 0 -0.75em;
-
-}
-
-#site-nav-menu li {
-	display: inline;
-}
-
-#site-nav-menu a {
-	border:0px;
-	padding: .75em;
-	text-decoration: none;
-	background-color: white;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px; 
-    -webkit-box-shadow: 4px 4px 10px #00DEFF;
-    -moz-box-shadow: 4px 4px 10px #00DEFF;
-    box-shadow: 4px 4px 10px #00DEFF;
-   	border-style:solid; 
-	border-color:black;
-	margin-top: 10px;
-}
-
-#site-nav-menu a:hover, #site-nav-menu a:focus {}
-
-#site-nav-menu .site-nav-level-0 ul a:hover { background-color: #000; color: #fff; }
-
-.navtype-Top #site-nav-menu li:hover > .site-nav-level-2 { left: 94%; top: -2px; }
-.navtype-Top #site-nav-menu .sfhover .sfhover .site-nav-level-2 { left: 94%; top: -2px; margin-left: -10px;	 }
-
-/* ------------------------------------------
-    Body structure is in here. Everything in
-    this section needs to be styled for both
-    hasSidebar & noSidebar - Daniel 7/29/08
-   ------------------------------------------ */
-
-#site-blockContainer {
-	padding-right: 0;
-	color: white;
-	border-right: 1px solid #222;
-	height:auto; /* why doesn't auto work? */
-}
-
-.noSidebar #site-mainColumn {} /* Not commonly used. Use bigcontain instead. - Daniel 7/29/08 */
-
-.hasSidebar #site-mainColumn {}
-
-.noSidebar #site-bigcontain {}
-
-.picture_container{
-
-	background-color: lightgray;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    margin:10px;
-    margin-bottom: 20px;
-    padding:10px;
-    border-style:solid; 
-	border-color:steelblue;
-   
-}
-.picture_container2{
-
-	background-color: steelblue;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    margin:10px;
-    margin-bottom: 20px;
-    padding:10px;
-    border-style:solid; 
-	border-color:lightgray;
-   
-}
-
-
-.picture_container3{
-
-	background-color: white;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    margin:10px;
-    margin-bottom: 20px;
-    padding:10px;
-    border-style:solid; 
-	border-color:red;
-   
-}
-
-.picture_container:hover, .picture_container2:hover{
-	border-style:solid; 
-	border-color:yellow;
-
-}
-
-#site-bigcontain {
-	float: left;
-	width:659px;
-	height:auto;
-	margin: 2.5em 0 0;
-	padding-right: 20px;
-	margin-right: 20px;
-	/*border-right: 1px solid #ededed; */
-
-}
-
-
-
-#site-bigcontain{
-	margin-top: 10px !important;
-}
-
-/* -------------------------------------------
-    Here be content styling. This can contain
-    a lot of elements. Remember that this has
-     elements appearing in the main body and
-         in the sidebar. - Daniel 7/29/08
-   ------------------------------------------- */
-
-#site-bigcontain .site-paragraph {
-	margin-bottom: 2.5em;
-}
-
-#site-bigcontain .site-title, #site-sidebar .site-title {
-	margin: 0 0 .5em;
-	font-size: 1.4em;
-}
-
-#site-bigcontain .site-text {}
-
-#site-sidebar .site-paragraph {
-	margin: 13px;
-}
-
-#site-sidebar .site-title {
-	font-size: 1.1em;
-    border-bottom: 1px solid #DFDFDF;
-    margin-bottom: 12px;
-    color:#000;
-}
-
-#site-sidebar .site-title a,
-#site-sidebar .site-title a:hover,
-#site-sidebar .site-title a:visited {
-	color: #000;
-}
-
-#site-sidebar .site-text, #site-sidebar .site-text p {
-    margin-top: 0px;
-    color:#000;
-    padding-top:4px;
-    padding-bottom:6px;
-    font-size:0.95em;
-}
-
-#site-sidebar{
-	margin-top: 70px;
-}
-
-/* ----------------------------------------
-    This is the structural styling for the
-          sidebar. - Daniel 7/29/08
-   ----------------------------------------- */
-
-/* On Boxad templates, the ad is in the sidebar. Don't default to display: none; - Daniel 7/29/08 */
-.noSidebar #site-sidebar {}
-
-.noSidebar #site-sidebar .site-paragraph {
-	display: none;
-}
-
-#site-sidebar {
-	float: right;
-	margin-left: -301px;
-	padding: 2.5em 0;
-	padding-top: 20px;
-	width: 300px;
-	border-left: 1px solid #222;
-
-	background-color: white;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
- 
-   border-style:solid; 
-	border-color:lightgray;
-
-}
-
-#boxad {
-	margin: 0;
-	padding: 0;
-}
-
-#site-sidebarbegin {}
-
-#site-sidebarend {}
-
-/* --------------------------------------------
-    Footer styling is in here. -Daniel 7/29/08
-   -------------------------------------------- */
-
-.clears {
-	clear: both;
-}
-
-#site-footer {
-	border-width: 10px 0 0;
-	border-style: solid;
-	text-align: center;
-    float: left;
-    clear: both;
-    width: 100%;
-}
-
-#site-footer p {
-	margin: 0;
-	padding: 1em;
-}
-
-#site-footer a {
-	color: #fff;
-}
-
-.site-footertext {}
-
-/* The following two elements are technically in the source file, but not fully functional. - Daniel 7/29/08 */
-
-#free-website {}
-
-#wildfire {
-	float: none !important;
-	text-align: right !important;
-}
-
-#site-head {
-	background: black url(images/negative.png) no-repeat;
-}
-
-#site-smalltitle {
-	color: #98cbff;
-	float: left;
-	margin:auto;
-	padding: 0 .75em;
-	height:auto;
-	padding: 0 .7em;
-	font-size: 1.4em;
-
-}
-
-#site-mainnavwrap {
-	background: black;
-	border-top-style: solid;
-	border-bottom-style: solid;
-	border-top-color: #222;
-	border-bottom-color:#222;
-}
-
-#site-nav-menu a {
-	color: #548eab;
-}
-
-#site-nav-menu a:hover, #site-nav-menu a:focus {
-	background: #f0f9ff
-}
-
-a, a:visited {
-	color: #005081;
-	border-bottom-color: #cddde7;
-}
-
-a:hover, a:focus {
-	color: #001b2b;
-	border-color: #81abc6;
-}
-
-#site-footer {
-	background: black;
-	border-weight: 0.1px;
-	border-color: #222;
-	color: #8badcf;
-}
-
-
-.NEONbluetxt {
-font-family: "Brush Script MTs",Monospace;
-color: #fff;
-text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0 150px #00DEFF;
-}
-
-
-
-
-
-
-
-
+<html>
+<head>
+	<title>Home - FLASHPHOTO PHOTOGRAPHY</title>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<meta property="og:site_name" content="FLASHPHOTO PHOTOGRAPHY">
+	<meta property="og:title" content="Home">
+
+
+	<link href="styles.css" rel="stylesheet" type="text/css"/ media="screen">
+	<link href="animate.css" rel="stylesheet" type="text/css"/ media="screen">
+
+
+
+</head>
+<div></div>
+
+<body class="hasOneColumn hasSidebar navtype-Top translate-en">
+
+
+<div id="site-container">
+	<div id="site-head">
+		<h1 class="NEONbluetxt" id="site-title"><a id="site-titlelink" href="/"><u3>FLASHPHOTO PHOTOGRAPHY</a></h1>
+		<br>
+		<div style="margin-left:130px">
+		<h2 id="site-smalltitle">217 MAPLE AVE SOUTH SAN FRANCISCO</h2>
+		<h2 id="site-smalltitle">650 737-6044</h2>
+	</div>
+		<br>
+		<div id="logo-div" class="site-logo"></div>
+	</div>
+
+	<div id="site-mainnavwrap">
+	    <div id="site-nav-menu">
+		    <ul class="site-nav-level-0">
+			    <li><a href="index.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Home</a></li>
+				<li><a href="restoration.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Restoration/Manipulation</a></li>
+				<li><a href="Passport.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Passport Photos</a></li>
+				<li><a href="portrait.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Portrait Studio</a></li>
+				<li><a href="specialevents.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Special Events</a></li>
+				<li><a href="otherservices.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Other Services</a></li>
+				<li><a href="location.html" onmouseover="this.className='flash animated'" onmouseout="this.className=''">Location</a></li>
+		
+			</ul>
+		</div>
+	</div>
+    
+    
+  <div id="site-blockContainer">
+
+		<div id="site-bigcontain">
+			
+			<div id="site-mainColumn">
+			<div class="site-paragraph">
+				<div class="site-paragraphtop"></div>
+				<h3 class="site-title"><a name="595086287"></a>
+					<p align="center">
+					
+					</p>
+				</h3>
+				<div class="site-text">
+					<p align="center">
+
+					</p>
+					<p align="center">
+						
+					</p>
+					<p align="center">
+						
+					</p>
+					<p align="center">
+						
+					</p>
+
+					<img src="images/Filmstrip.png">
+					
+					
+				
+				<p align="center">
+	
+				</p>
+				
+
+				<p align="center">
+		
+				</p>
+				<p align="center">
+				
+				</p>
+		</div>
+			<div class="site-paragraphbottom"></div>
+			</div>
+			</div>
+
+		</div>
+
+		<div id="site-sidebar">
+
+		<div id="site-sidebarbegin"></div>
+			
+  			<div id="boxad">
+			</div>
+			
+			<div class="site-paragraph">
+				<div class="site-paragraphtop"></div>
+				<h3 class="site-title"><a href="">Recent Photos</a></h3>
+				<div class="site-text"> 
+					<table cellspacing="0" cellpadding="0" border="0" class="site-list-grid">
+						<tbody>
+							<tr>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172565454" title="null" class="site-photo " src="images/thumb1.jpg"></a></td>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172566398" title="null" class="site-photo " src="images/thumb2.jpg"></a></td>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172565531" title="null" class="site-photo " src="images/thumb3.jpg"></a></td>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172565954" title="null" class="site-photo " src="images/thumb4.jpg"></a></td>
+							</tr>
+							<tr>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172565454" title="null" class="site-photo " src="images/thumb5.jpg"></a></td>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172566398" title="null" class="site-photo " src="images/thumb6.jpg"></a></td>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172565531" title="null" class="site-photo " src="images/thumb7.jpg"></a></td>
+								<td align="center" width="25%"><a href="/"><img size="square" style="width:48px;height:48px;width:60px;height:60px;margin:2px 2;" pid="172565954" title="null" class="site-photo " src="images/thumb8.jpg"></a></td>
+							</tr>
+						</tbody>
+					</table>
+					 </div>
+				<div class="site-paragraphbottom"></div>
+			</div>
+			
+			<div class="site-paragraph">
+				<div class="site-paragraphtop"></div>
+				
+				<div class="site-text">
+					<h1 align="center">
+						<font size="5" color="#0000ff"><u>Services We Offer:</u></font>
+					</h1>
+					<p align="center">
+					<font size="4">
+						<strong>Passport Photos<br>
+							<font color="#0000ff">Photo Resotration<br>
+							</font>Portrait Studio<br>
+						</strong>
+					</font>
+					<font size="4" color="#0000ff">
+						<strong>Digital Camera<br>
+						</strong>
+					</font>
+					<font size="4">
+						<strong>Party Favors<br>
+							<font color="#0000ff">Framing<br>
+							</font>Digital Prints<br>
+							<font color="#0000ff">Transfer to DVD<br>
+							</font>Photo Developing<br>
+							<font color="#0000ff">Reprints from Negatives<br></font>
+						</strong>
+					</font>
+					<font size="4">
+						<strong>Photo T-Shirt / Photo Mug<br>
+						</strong>
+					</font>
+					<font size="4">
+						<strong>
+							<font color="#0000ff">Photo Manipulation<br>
+							</font>Fingerprinting<br>
+							<font color="#0000ff">Copy Prints/Enlargements<br>
+							</font>Slides to Prints<br>
+						</strong>
+					</font>
+						<font size="4" color="#0000ff">
+							<strong>Prints to Slides<br>
+								<font color="#000000">Lamination-Copies</font>
+							</strong>
+						</font><br>
+						</p><p align="center">
+							<strong>
+								<font size="4" color="#0000ff">
+								</font>
+							</strong>
+						</p><p align="center">
+						</p><p>&nbsp;</p>
+				</div>
+				<div class="site-paragraphbottom"></div>
+			</div>
+			
+			<div id="site-sidebarend"></div>
+		</div>
+
+	</div>
+</div>
+
+<div id="site-footer">
+<p> FLASHPHOTO Copyright &copy;2014 Photos may not be reproduced in any manner without permission of photographer </p>
+</div>
+
+<script> d3.select("*").style("background-color", "black"); </script>
+
+
+
+
+</body>
+
+<script type="text/javascript">
+ var toggle = true;
+
+function appear()
+	{ if (toggle == true){
+		toggle = !toggle;
+		document.getElementById('addQuestionChoices').style.display="block";}
+	else{
+		toggle = !toggle;
+		document.getElementById('addQuestionChoices').style.display="none";}
+	}
+</script>
+
+</html>
