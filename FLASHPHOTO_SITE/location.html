@@ -119,8 +119,16 @@
 <br>
 <h3 class="site-title"><font size="5" color="white">MAP OF LOCATION</font></h3>		
 
-
-<div class="picture_container" id="map_canvas"></div>
+<div class="picture_container">
+<div id="map_canvas"></div>
+<h2 style="color:black">Get Directions</h2>
+<form action="http://maps.google.com/maps" method="get" target="_blank">
+<p style="color:black">Enter your starting address:</p>
+<input type="text" name="saddr" />
+<input type="hidden" name="daddr" value="217 Maple Ave, South San Francisco, CA 94080" />
+<input type="submit" value="Get Directions" />
+</form>	
+</div>
 
 <h3 class="site-title"><font size="5" color="white">STREETVIEW</font></h3>	
 <div class="picture_container">
