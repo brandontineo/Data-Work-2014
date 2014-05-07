@@ -191,6 +191,17 @@ img:hover { text-decoration: none; }
 	height:auto; /* why doesn't auto work? */
 }
 
+
+#site-blockContainer2{
+	padding-right: 0px;
+	margin-left: 110px;
+	color: white;
+	border-right: 1px solid #222;
+	height:4500px;
+	overflow-x:hidden;
+	overflow-y:hidden; /* why doesn't auto work? */
+}
+
 .noSidebar #site-mainColumn {} /* Not commonly used. Use bigcontain instead. - Daniel 7/29/08 */
 
 .hasSidebar #site-mainColumn {}
