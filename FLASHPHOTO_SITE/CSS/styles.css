@@ -31,6 +31,48 @@ html {
 	margin:2px 2px;
 }
 
+.FrontPic
+{
+	margin: 8px; 
+	width: 590px; 
+	height: 376px;
+}
+
+.location
+{
+	margin-left:130px;
+}
+
+.passport_logo{
+	width: 100%;
+	border:0px;
+}
+
+.specialeventpic1{
+	margin: 8px;
+	margin-top: 25px; 
+	width: 303px; 
+	height: 455px;
+	float:right;
+	border:0px;
+}
+
+.specialeventspic2{
+	margin: 8px; 
+	width: 229px; 
+	height: 344px;
+	float:left;
+}
+
+.specialeventspic3{
+	margin:8px; 
+	width: 182px; 
+	height: 273px;
+	float:right;
+}
+
+
+
 table{
 	cellspacing:0px; 
 	padding:0px;
@@ -40,6 +82,10 @@ table{
 td{
 	align:center;
 	width:25%;
+}
+
+.table-data{
+	color:white; 
 }
 
 a img { border: 0px; text-decoration: none; }
