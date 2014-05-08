@@ -109,7 +109,7 @@ img:hover { text-decoration: none; }
 	position: relative;
 	padding: 55px 0 45px;
 	height: 80px;
-	overflow: hidden;
+	/*overflow: hidden; */
 }
 
 #site-title, #site-nav-menu, #site-blockContainer {
@@ -432,7 +432,7 @@ img:hover { text-decoration: none; }
 }
 
 #site-head {
-	background: black url(../images/negative.png) no-repeat;
+	background: black url(../images/IE.png) no-repeat;
 }
 
 #site-smalltitle {
