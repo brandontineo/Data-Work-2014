@@ -1,11 +1,3 @@
-/* -----------------------------------------
-    Welcome to the Webs Base Stylesheet
-    This Sheet Contains Every Class You may
-     need when editing/building templates,
-    as well as standardizes all styles such
-     as font definitions. - Daniel 7/29/08
-   ------------------------------------------ */
-
 html, body {
 	margin: 0;
 	padding: 0;
@@ -29,16 +21,8 @@ html {
 .formSpan {
 	display: block;
 	margin-bottom: 1.25em;
-	/* This is universal. Do not change it. - Daniel 7/29/08 */
 }
 
-.site-odd, .site-secondary {
-	background-color: #eceeef;
-}
-
-.site-even, .site-primary {
-	background-color: #fff;
-}
 
 a img { border: 0px; text-decoration: none; }
 img {
@@ -53,13 +37,6 @@ img:hover { text-decoration: none; }
 	overflow:hidden;
 
 }
-
-/* ------------------------------------------
-     Head Elements Here. Remember, absolute
-      positioning can be used to position
-    title, smalltitle, and logo only if head
-    is positioned relative. - Daniel 7/29/08
-   ------------------------------------------ */
 
 #site-head {
 	position: relative;
@@ -106,10 +83,7 @@ img:hover { text-decoration: none; }
     background-position: right top;
 }
 
-/* -----------------------------------------
-      blockContainer holds everything from
-      here to the footer. - Daniel 7/29/08
-   ----------------------------------------- */
+
 
 #site-blockContainer {
 	color: #222;
@@ -121,12 +95,6 @@ img:hover { text-decoration: none; }
 
 }
 
-/* -----------------------------------------
-    All Navigation Styling Here. In case of
-     vertical navigation, add .hasSidebar
-        cases for all affected elements.
-                -Daniel 7/29/08
-   ----------------------------------------- */
 
 .lastbullet{
 	padding-top: 10px;
@@ -140,7 +108,6 @@ img:hover { text-decoration: none; }
 	overflow:hidden;
 }
 
-#site-nav-menu {}
 
 #site-nav-menu ul {
 	padding-left: 0;
@@ -176,18 +143,13 @@ img:hover { text-decoration: none; }
 	margin-top: 10px;
 }
 
-#site-nav-menu a:hover, #site-nav-menu a:focus {}
 
 #site-nav-menu .site-nav-level-0 ul a:hover { background-color: #000; color: #fff; }
 
 .navtype-Top #site-nav-menu li:hover > .site-nav-level-2 { left: 94%; top: -2px; }
 .navtype-Top #site-nav-menu .sfhover .sfhover .site-nav-level-2 { left: 94%; top: -2px; margin-left: -10px;	 }
 
-/* ------------------------------------------
-    Body structure is in here. Everything in
-    this section needs to be styled for both
-    hasSidebar & noSidebar - Daniel 7/29/08
-   ------------------------------------------ */
+
 
 #site-blockContainer {
 	padding-right: 0;
@@ -205,11 +167,7 @@ img:hover { text-decoration: none; }
 	height:auto;
 }
 
-.noSidebar #site-mainColumn {} /* Not commonly used. Use bigcontain instead. - Daniel 7/29/08 */
 
-.hasSidebar #site-mainColumn {}
-
-.noSidebar #site-bigcontain {}
 
 .picture_container{
 
@@ -277,6 +235,7 @@ img:hover { text-decoration: none; }
 	border-color:red;
 	padding:10px;
 	width:700px;
+	margin-left:45px;
    
 }
 
@@ -303,12 +262,6 @@ img:hover { text-decoration: none; }
 	margin-top: 10px !important;
 }
 
-/* -------------------------------------------
-    Here be content styling. This can contain
-    a lot of elements. Remember that this has
-     elements appearing in the main body and
-         in the sidebar. - Daniel 7/29/08
-   ------------------------------------------- */
 
 #site-bigcontain .site-paragraph {
 	margin-bottom: 2.5em;
@@ -319,7 +272,6 @@ img:hover { text-decoration: none; }
 	font-size: 1.4em;
 }
 
-#site-bigcontain .site-text {}
 
 #site-sidebar .site-paragraph {
 	margin: 13px;
@@ -350,13 +302,7 @@ img:hover { text-decoration: none; }
 	margin-top: 70px;
 }
 
-/* ----------------------------------------
-    This is the structural styling for the
-          sidebar. - Daniel 7/29/08
-   ----------------------------------------- */
 
-/* On Boxad templates, the ad is in the sidebar. Don't default to display: none; - Daniel 7/29/08 */
-.noSidebar #site-sidebar {}
 
 .noSidebar #site-sidebar .site-paragraph {
 	display: none;
@@ -388,14 +334,6 @@ img:hover { text-decoration: none; }
 	padding: 0;
 }
 
-#site-sidebarbegin {}
-
-#site-sidebarend {}
-
-/* --------------------------------------------
-    Footer styling is in here. -Daniel 7/29/08
-   -------------------------------------------- */
-
 .clears {
 	clear: both;
 }
@@ -420,11 +358,6 @@ img:hover { text-decoration: none; }
 	color: #fff;
 }
 
-.site-footertext {}
-
-/* The following two elements are technically in the source file, but not fully functional. - Daniel 7/29/08 */
-
-#free-website {}
 
 #wildfire {
 	float: none !important;
@@ -486,8 +419,6 @@ font-family: "Brush Script MTs",Monospace;
 color: #fff;
 text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0 150px #00DEFF;
 }
-
-
  
  #map_canvas 
  {
