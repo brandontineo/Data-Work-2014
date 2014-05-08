@@ -23,6 +23,24 @@ html {
 	margin-bottom: 1.25em;
 }
 
+.thumbs{
+	width:48px;
+	height:48px;
+	width:60px;
+	height:60px;
+	margin:2px 2px;
+}
+
+table{
+	cellspacing:0px; 
+	padding:0px;
+	border:0px;
+}
+
+td{
+	align:center;
+	width:25%;
+}
 
 a img { border: 0px; text-decoration: none; }
 img {
