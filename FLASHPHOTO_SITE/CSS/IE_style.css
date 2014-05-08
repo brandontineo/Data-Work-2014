@@ -4,8 +4,8 @@ html, body {
 	background-color: black;
 }
 
-head{
-	margin-bottom: 20px;
+#site-head{
+	margin-bottom: 60px;
 }
 
 html {
