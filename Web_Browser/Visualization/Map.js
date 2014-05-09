@@ -214,7 +214,7 @@ var cleaning_and_aggregation = function(object)
         clean_object[country]["IE"] = parseFloat(object[country]["IE"]) + parseFloat(object[country][browser]);
       }
       else if (browser == "Android" || browser == "Nokia" || browser == "Blackberry" || browser == "Openwave Mobile Browser" 
-        || browser == "SonyEricsson")
+        || browser == "SonyEricsson" || browser == "Samsung" || browser =="Motorola Internet Browser")
       {
         clean_object[country]["Mobile"] = parseFloat(object[country][browser]) + parseFloat(clean_object[country]["Mobile"]);
       }
@@ -226,7 +226,9 @@ var cleaning_and_aggregation = function(object)
         || browser == "Iron" || browser == "Maxthon" || browser == "NetFront" || browser == "Obigo" 
         || browser == "Openwave Mobile Browser" || browser == "Phantom" || browser == "Puffin" 
         || browser == "QQ Browser" || browser == "Silk" || browser == "Sogou Explorer" || browser == "UC Browser"
-        || browser == "Unknown" || browser == "Yandex Browser")
+        || browser == "Unknown" || browser == "Yandex Browser" || browser == "Maxthon" || browser == "SeaMonkey" 
+        || browser == "AppleWebKit" || browser == "Windows Media Player" || browser == "Sony PS3" 
+        || browser == "Bolt" || browser == "The World" || browser == "Chromium" || browser =="Kindle" || browser=="Pale Moon")
       {
         clean_object[country]["Other"] = parseFloat(clean_object[country]["Other"]) + parseFloat(object[country][browser]);
       }
@@ -312,13 +314,10 @@ colorDict["None"] = "#808080"; //grey
 var make_piechart = function(country_obj, country_name)
 {
 
-
+console.log("MAKING PIE CHART");
 
 d3.selectAll(".arc").remove();
 //d3.selectAll(".arc").remove();
-
-
-
 
 
 for (browser in country_obj)
@@ -422,19 +421,26 @@ var colorMap = function(d, merged_data)
 
 
 
-var initVis = function(error, world, cities, usage){
+var initVis = function(error, world, cities, usage1, usage2, usage3, usage4, usage5, usage6, usage7, usage8, usage9){
+{
 
-var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data(world, usage))));
+year_selected = usage1;
+
+yeararray = ["Jan2010", "June2010", "Jan2011", "June2011", "Jan2012", "June2012", "Jan2013", "June2013", "Jan2014"];
+
+var yearDict = {};
+
+yearDict["Jan2010"] = usage1; 
+yearDict["June2010"] = usage2; 
+yearDict["Jan2011"] = usage3; 
+yearDict["June2011"] = usage4; 
+yearDict["Jan2012"] = usage5;
+yearDict["June2012"] = usage6;
+yearDict["Jan2013"] = usage7; 
+yearDict["June2013"] = usage8;
+yearDict["Jan2014"] = usage9;
 
 
-  var tooltip = d3.select("body")
-          .append("div")
-          .style("position", "absolute")
-          .style("z-index", "10")
-          .style("visibility", "hidden")
-          .style("color", "black")
-          .style("font-size", "15px")
-          .attr("class", "tooltip");
 
         var tooltip2 = d3.select("body")
           .append("div")
@@ -447,6 +453,27 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
           .style("top", "100px").style("left", "970px")
           .html("<svg id='pie_chart_place'><svg>");
 
+var updateVis = function(year_selected)
+
+{
+
+d3.selectAll("path").remove();
+d3.selectAll("form").remove();
+d3.selectAll(".thedetail").remove();
+
+
+var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data(world, year_selected))));
+
+  var tooltip = d3.select("body")
+          .append("div")
+          .style("position", "absolute")
+          .style("z-index", "10")
+          .style("visibility", "hidden")
+          .style("color", "black")
+          .style("font-size", "15px")
+          .attr("class", "tooltip");
+
+
 
 
 
@@ -457,7 +484,7 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
         .attr("d", path)
         .attr("class", "country")
         .style("fill", function(d) {
-          console.log(merged_data[d["properties"]["name"]][color_option]);
+         
 
           return colorMap(d, merged_data);
           
@@ -534,10 +561,12 @@ for (i in merged_data)
 
 
 
-  var countryDrop = d3.select("#table_container2")
+  var countryDrop = d3.select("#table_container1")
     .data(all_keys)
     .append("form")
+    .attr("class", "dropdown")
     .append("select")
+    .attr("class", "dropdown")
     .on("change", function() {
       country_name = this.options[this.selectedIndex].value;
 
@@ -576,7 +605,7 @@ var countryOpts = countryDrop.selectAll("option")
     });
 
 
-var countryOpts = countryDrop.selectAll("option")
+var countryOpts2 = countryDrop.selectAll("option")
     .data(color_display)
     .enter()
     .append("option")
@@ -587,10 +616,55 @@ var countryOpts = countryDrop.selectAll("option")
 }
 
 
+
+  var yearDrop = d3.select("#table_container3")
+    .data(yeararray)
+    .append("form2")
+    .append("select")
+    .on("change", function() {
+      year_selected = this.options[this.selectedIndex].value;
+
+      
+      updateVis(yearDict[year_selected])
+
+        });
+    
+
+
+var yearOpts2 = yearDrop.selectAll("option")
+    .data(yeararray)
+    .enter()
+    .append("option")
+      .text(function (d) { return d; })
+      .attr("value", function (d) { return d; });
+
+
+d3.selectAll("dropdown").remove()
+
+
+}
+
+updateVis(year_selected);
+
+}
+
+
+
+
+
+
 queue()
     .defer(d3.json,"../data/world_data.json")
     .defer(d3.json, "../CityInfo/cities.json")
-    .defer(d3.csv, "../data/Usage_Data.csv")
+    .defer(d3.csv, "../data/Jan2010.csv")
+    .defer(d3.csv, "../data/June2010.csv")
+    .defer(d3.csv, "../data/Jan2011.csv")
+    .defer(d3.csv, "../data/June2011.csv")
+    .defer(d3.csv, "../data/Jan2012.csv")
+    .defer(d3.csv, "../data/June2012.csv")
+    .defer(d3.csv, "../data/Jan2013.csv")
+    .defer(d3.csv, "../data/June2013.csv")
+    .defer(d3.csv, "../data/Jan2014.csv")
     .await(initVis);
 
 
