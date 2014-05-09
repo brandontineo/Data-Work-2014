@@ -52,8 +52,6 @@ var projectionMethods = [
 
 
 var actualProjectionMethod = 0;
-var colorMin = colorbrewer.Greens[3][0];
-var colorMax = colorbrewer.Greens[3][2];
 
 var newCountries = [];
 
@@ -61,9 +59,21 @@ var projection = d3.geo.mercator().translate([width / 2, height / 2]).precision(
 var path = d3.geo.path().projection(projectionMethods[0].method);
 
 
-var color_domain = [50, 150, 350, 750, 1500];
+var color_domain = [10, 20, 30, 40, 45];
+var color_domain_green = [10, 20, 30, 40, 50, 60];
+var color_domain_red = [10, 20, 30];
+console.log(colorbrewer)
 
-var color = d3.scale.quantize().range(colorbrewer.Greens[9]).domain(color_domain);
+var green_color = d3.scale.quantize().range(colorbrewer.Greens[8]).domain(color_domain_green);
+var orange_color = d3.scale.quantize().range(colorbrewer.Oranges[4]).domain(color_domain);
+var blue_color = d3.scale.quantize().range(colorbrewer.Blues[5]).domain(color_domain);
+var red_color = d3.scale.quantize().range(colorbrewer.Reds[5]).domain(color_domain_red);
+var yellow_color = d3.scale.quantize().range(colorbrewer.YlOrBr[5]).domain(color_domain);
+var purple_color = d3.scale.quantize().range(colorbrewer.Purples[9]).domain(color_domain);
+//var green_color = d3.scale.quantize().range(colorbrewer.Greens[5]).domain(color_domain);
+var grey_color = d3.scale.quantize().range(colorbrewer.Greys[5]).domain(color_domain);
+
+
 
 
 /* function to match between two states that 
@@ -257,12 +267,17 @@ var sorting_object = function(object)
       object[country] = [];
       object[country]["Most_Popular"] = "None";
       object[country]["Least_Popular"] = "None";
+      object[country]["Most_Popular_N"] = "20";
+      object[country]["Least_Popular_N"] = "20";
+
     }
     else
     {
       object[country] = sorted_list;
       object[country]["Most_Popular"] = sorted_list[0][0];
       object[country]["Least_Popular"] = sorted_list[6][0];
+      object[country]["Most_Popular_N"] = sorted_list[0][1];
+      object[country]["Least_Popular_N"] = sorted_list[6][1];
     }
   }
   return object;
@@ -274,9 +289,9 @@ var colorDict = {};
 colorDict["Firefox"] = "#e59400"; //orange
 colorDict["IE"] = "#1E90FF"; //blue
 colorDict["Safari"] = "yellow"; //pink
-colorDict["Opera"] = "#B22222"; //red
+colorDict["Opera"] = "#4B0082";//purple 
 colorDict["Chrome"] = "#00933B"; //green
-colorDict["Mobile"] = "#4B0082"; //puple
+colorDict["Mobile"] = "#B22222"; //red
 colorDict["Other"] = "#FFFAF0"; //white
 colorDict["None"] = "#808080"; //grey
 
@@ -382,8 +397,9 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
           .style("color", "black")
           .style("font-size", "15px")
           .attr("class", "tooltip2")
-          .style("top", "200px").style("left", "970px")
+          .style("top", "100px").style("left", "970px")
           .html("<svg id='pie_chart_place'><svg>");
+
 
 
 
@@ -394,7 +410,41 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
         .attr("d", path)
         .attr("class", "country")
         .style("fill", function(d) {
-          return colorDict[merged_data[d["properties"]["name"]]["Most_Popular"]];
+          console.log(merged_data[d["properties"]["name"]]["Most_Popular"]);
+
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "Chrome")
+          {
+            return green_color(merged_data[d["properties"]["name"]]["Most_Popular_N"]);
+          }
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "IE")
+          {
+            return blue_color(merged_data[d["properties"]["name"]]["Most_Popular_N"]);
+          }
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "Mobile")
+          {
+            return red_color(merged_data[d["properties"]["name"]]["Most_Popular_N"]);
+          }
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "Opera")
+          {
+            return purple_color(merged_data[d["properties"]["name"]]["Most_Popular_N"]);
+          }
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "Safari")
+          {
+            return yellow_color(merged_data[d["properties"]["name"]]["Most_Popular_N"]);
+          }
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "None")
+          {
+            return grey_color(merged_data[d["properties"]["name"]]["Most_Popular_N"]);
+          }
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "Firefox")
+          {
+            return orange_color(merged_data[d["properties"]["name"]]["Most_Popular_N"]);
+          }
+          if (merged_data[d["properties"]["name"]]["Most_Popular"] == "Other")
+          {
+            return colorDict[merged_data[d["properties"]["name"]]["Most_Popular"]];
+          }
+
         }
 
           )
