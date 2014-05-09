@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script src="../libs/jquery-1.10.1.js"></script>
+    <script src="../libs/jquery.xdomainajax.js"></script>
+    <script src="../libs/d3.v3.min.js"></script>
+    <script src="../libs/FileSaver.js"></script>
+</head>
+<body>
+
+<script>
+    var convertToInt;
+
+    $.ajax({
+        url: "http://www.tiptopglobe.com/biggest-cities-world",
+        type: 'GET',
+        cache: false,
+        success: function(data) {
+            var cities = ["City,Latitude,Longitude"];
+            var root = $("<div></div>");
+            root.html(data.responseText);
+            var table = root.find("table.forumline");
+            var rows = table.find("tr");
+            var a = rows.find("a");
+            $.each(rows,function(i,v){
+              var text = "";
+              if (i > 0 && i < 3){
+              var cells = v.cells
+              console.log(cells);
+              text += a[i - 1].text.trim() + ",";
+              console.log(text);
+              $.each(cells,function(j,d){
+                if (j == 5 || j == 6){
+                  text += (d.textContent).trim() + ",";  
+                  console.log(text);           } 
+              })
+              cities.push(text);
+              }
+             else if (i > 3){
+                var cells = v.cells
+                console.log(cells);
+                text += a[i - 2].text.trim() + ",";
+                console.log(text);
+                $.each(cells,function(j,d){
+                  if (j == 5 || j == 6){
+                    text += (d.textContent).trim() + ",";  
+                    console.log(text);}
+
+              });
+              console.log(text);
+              cities.push(text);
+              }
+            });
+            
+			 
+			   saveToFile(cities,"city_data.csv")
+        },
+        error: function() {
+            return console.log("error");
+        }
+    });
+
+    convertToInt = function(s) {
+        return parseInt(s.replace(/,/g, ""), 10);
+    };
+	
+    /* takes an array of strings
+       and writes them line by line into a file given by filename
+     */
+    var saveToFile = function(arrayOfLines, fileName) {
+       /* adds linebreaks at the end*/
+       var blob, blobText;
+       blobText = arrayOfLines.map(function(d) {
+         if (d.endsWith("\n")) {
+           return d;
+         } else {
+           return d + "\n";
+         }
+       });
+       blob = new Blob(blobText, {
+         type: "text/plain;charset=utf-8"
+       });
+       return saveAs(blob, fileName);
+     };
+
+     String.prototype.endsWith = function(suffix) {
+       return this.indexOf(suffix, this.length - suffix.length) !== -1;
+     };
+	
+
+
+
+</script>
+
+
+</body>
+</html>

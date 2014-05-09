@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<body>
+<meta charset="utf-8">
+<style type="text/css">
+
+    svg{
+        background: white;
+    }
+
+    .country{
+        stroke:  black;
+        stroke-width: 0.65px;
+    }
+    text{
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 12pt;
+        font-weight: bold;
+    }
+
+    table{
+        border:none;
+    }
+
+
+      .csvTable table {
+        border-collapse: collapse;
+        text-align: left;
+        width: 100%;
+    }
+
+    .csvTable {
+        font: normal 12px/150% Arial, Helvetica, sans-serif;
+        background: #fff;
+        overflow: hidden;
+        border: 1px solid #069;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+
+
+    .tooltip {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        padding: 10px;
+        background-color: #D3D3D3;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+  }
+
+  .tooltip.hidden {
+        display: none;
+  }
+
+  .tooltip p {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+  }
+
+
+      .tooltip2 {
+        position: absolute;
+        width: 400px;
+        height: 500px;
+        padding: 5px;
+        background-color: lightgrayx;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+       
+        pointer-events: none;
+  }
+
+
+
+</style>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script type="text/javascript" src="../libs/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../libs/colorbrewer.js"></script>
+<script type="text/javascript" src="../libs/underscore.js"></script>
+
+
+<table>
+    <tr>
+        <td><div id="vis"></div></td>
+        <td>
+            <div id="table_container2" class="csvTable"  style="white" align="center"></div><div id="vis"></div>
+            <div id="textLabel"></div></td>
+
+    </tr>
+</table>
+
+
+
+<script src="Map.js"></script>
+
+</body>
+
+</html>
