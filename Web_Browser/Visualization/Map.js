@@ -42,6 +42,15 @@ var svg2 = d3.select("#textLabel").append("svg").attr({
         transform: "translate(" + margin.left + "," + margin.top + ")"
     });
 
+  // appending and translating the main SVG
+    svg3 = d3.select("#lineVis").append("svg").attr({
+        width: width + margin.left + margin.right,
+        height: height - 100
+    }).append("g").attr({
+            transform: "translate(" + margin.left + "," + 5 + ")"
+        });
+
+
 var projectionMethods = [
     {
         name:"mercator",
@@ -57,6 +66,8 @@ var projectionMethods = [
 
 
 var actualProjectionMethod = 0;
+
+var selected_country;
 
 var newCountries = [];
 
@@ -108,16 +119,6 @@ var match_countries = function(string1, string2){
   }
 }
 }
-
-/* // Some testing for my function
-test1 = match_string("hello how are you", "goodbye sir, have a great day!");
-console.log(test1);
-test2 = match_string("hello how are you", "goodbye to you sir!");
-console.log(test2);
-test3 = match_string("Republic of Ghana", "Ghana");
-console.log(test3);
-*/
-
 
 var merge_data = function (world, usage)
 {
@@ -373,10 +374,8 @@ var labelr = 170;
         // pythagorean theorem for hypotenuse
         h = Math.sqrt(x*x + y*y);
         return "translate(" + (x/h * labelr) +  ',' + (y/h * labelr) +  ")";})
-      .attr("dy", ".35em")
       .style("text-anchor", "middle")
       .text(function (d,i) { return values[i] + "%"; });
-
 
 
 }
@@ -467,6 +466,8 @@ for (i = 0 ;  i <53 ; i ++)
 }
 
 
+
+
 console.log(yearDict);
 
         var tooltip2 = d3.select("body")
@@ -480,6 +481,111 @@ console.log(yearDict);
           .style("top", "100px").style("left", "970px")
           .html("<svg id='pie_chart_place'><svg>");
 
+var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data(world, year_selected))));
+
+var lineDict = [];
+
+console.log(yeararray);
+
+for (i in usage_list)
+{
+  //console.log(i);
+  //console.log(yeararray);
+  lineDict.push([yeararray[i], (percentages(cleaning_and_aggregation(merge_data(world, usage_list[i]))))['World']]);
+  //console.log(this_year_data['World']);
+}
+
+console.log(lineDict);
+
+
+console.log(yeararray);
+
+  // defining the X and Y scale for the graph
+  var xAxis, xScale, yAxis,  yScale;
+
+    xScale = d3.scale.ordinal().domain(yeararray.map(function (d, i) { return d; })).rangePoints([1, bbVis.w]);
+    yScale = d3.scale.linear().range([bbVis.h -10, 0]).domain([0, 100]);
+   
+
+      xAxis = d3.svg.axis()
+      .scale(xScale)
+      .orient("bottom");
+
+      yAxis = d3.svg.axis()
+       .scale(yScale)
+       .orient("left");
+
+// appending x axis
+ svg3.append("g")
+      .attr("class", "x axis")
+      .attr({"transform": "translate(" + (bbVis.x - margin.left + 50) + "," + (bbVis.y + bbVis.h + margin.top) + ")",})
+      .call(xAxis)
+            .selectAll("text")  
+            .style("text-anchor", "end")
+            .style("font-size", "14px")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-65)"});
+ 
+
+
+// appending y axis
+  svg3.append("g")
+      .attr("class", "y axis")
+      .attr({"transform": "translate(" + (margin.left) + "," + (margin.top) + ")",})
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -150)
+      .attr("x", -150)
+      .attr("dy", ".71em")
+      .style("text-anchor", "End")
+      .text("Percentages");
+
+
+/* WRANGLING
+
+console.log(data);
+
+  var cities = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {date: d.year, population: +d[name]};
+      })
+    };
+  });
+
+  console.log(cities);
+
+
+  */
+
+
+
+/*
+
+var line = d3.svg.line()
+    .interpolate("linear")
+    .x(function(d) { return xScale(d.date); })
+    .y(function(d) { return yScale(d.population); });
+
+  svg3.append("path")
+    //  .datum(lineDict)
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .style("fill", "none")
+      .style("stroke", function(d) { return colorDict(d.name); });
+
+*/
+
+
+
+
+
+
+
 var updateVis = function(year_selected, year_title)
 
 {
@@ -489,7 +595,15 @@ d3.selectAll("form").remove();
 d3.selectAll(".thedetail").remove();
 
 
-var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data(world, year_selected))));
+
+
+if (selected_country != undefined)
+{
+
+selected_country = _.object(merged_data[country_name]);
+make_piechart(selected_country, country_name);
+
+}
 
   var tooltip = d3.select("body")
           .append("div")
@@ -720,22 +834,21 @@ if (running == false) {
    running = true; 
 
 
-setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
-setTimeout(function() { updateVis(usage2, "June 2010"); }, 500);
-setTimeout(function() { updateVis(usage3, "January 2011"); }, 1000);
-setTimeout(function() { updateVis(usage4, "June 2011"); }, 1500);
-setTimeout(function() { updateVis(usage5, "January 2012"); }, 2000);
-setTimeout(function() { updateVis(usage6, "June 2012"); }, 2500);
-setTimeout(function() { updateVis(usage7, "January 2013"); }, 3000);
-setTimeout(function() { updateVis(usage8, "June 2013"); }, 3500);
-setTimeout(function() { updateVis(usage9, "January 2014"); }, 4000);
-setTimeout(function() { running = false; }, 4000);
+timerID1 = setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
+timerID2 = setTimeout(function() { updateVis(usage2, "June 2010"); }, 500);
+timerID3 = setTimeout(function() { updateVis(usage3, "January 2011"); }, 1000);
+timerID4 = setTimeout(function() { updateVis(usage4, "June 2011"); }, 1500);
+timerID5 = setTimeout(function() { updateVis(usage5, "January 2012"); }, 2000);
+timerID6 = setTimeout(function() { updateVis(usage6, "June 2012"); }, 2500);
+timerID7 = setTimeout(function() { updateVis(usage7, "January 2013"); }, 3000);
+timerID8 = setTimeout(function() { updateVis(usage8, "June 2013"); }, 3500);
+timerID9 = setTimeout(function() { updateVis(usage9, "January 2014"); }, 4000);
+timerID10 = setTimeout(function() { running = false; }, 4000);
 
 }
 
+
 });
-
-
 
 
 d3.select("#lebutton3").on("click", function() {

@@ -7,6 +7,10 @@
     svg{
         background: white;
     }
+    .axis path,
+    .axis line {
+     fill: none;
+     stroke: black; }
 
     .country{
         stroke:  black;
@@ -16,6 +20,10 @@
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 12pt;
         font-weight: bold;
+    }
+
+    .y.axis{
+        border-right; solid;
     }
 
     table{
@@ -130,11 +138,13 @@
              <br>
               <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton4" data-toggle="dropdown">History Every Month (Fast)</button>
              <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton3" data-toggle="dropdown">History Every Month (Normal)</button>
+
             <div id="vis"></div>
             <div id="textLabel"></div></td>
 
     </tr>
 </table>
+ <div id="lineVis"></div>
 
 
 
