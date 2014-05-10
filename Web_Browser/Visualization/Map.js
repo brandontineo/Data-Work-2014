@@ -689,18 +689,36 @@ d3.selectAll("dropdown").remove()
 
 }
 
+
+var running = false;
+
 d3.select("#lebutton2").on("click", function() {
+
+ if (running == false) { 
+
+ running = true; 
 
 setTimeout(function() { updateVis(year_selected, "January 2010"); }, 100);
 setTimeout(function() { updateVis(usage3, "January 2011"); }, 500);
 setTimeout(function() { updateVis(usage5, "January 2012"); }, 900);
 setTimeout(function() { updateVis(usage7, "January 2013"); }, 1300);
 setTimeout(function() { updateVis(usage9, "January 2014"); }, 1700);
+setTimeout(function() { running = false; }, 1700);
+
+
+
+}
+
 });
 
 
 
 d3.select("#lebutton").on("click", function() {
+
+if (running == false) {  
+
+   running = true; 
+
 
 setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
 setTimeout(function() { updateVis(usage2, "June 2010"); }, 500);
@@ -711,10 +729,21 @@ setTimeout(function() { updateVis(usage6, "June 2012"); }, 2500);
 setTimeout(function() { updateVis(usage7, "January 2013"); }, 3000);
 setTimeout(function() { updateVis(usage8, "June 2013"); }, 3500);
 setTimeout(function() { updateVis(usage9, "January 2014"); }, 4000);
+setTimeout(function() { running = false; }, 4000);
+
+}
+
 });
 
 
+
+
 d3.select("#lebutton3").on("click", function() {
+
+  if (running == false) {  
+
+   running = true; 
+
 
 setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
 setTimeout(function() { updateVis(usage2, "February 2010"); }, 500);
@@ -769,10 +798,18 @@ setTimeout(function() { updateVis(usage50, "February 2014"); }, 24500);
 setTimeout(function() { updateVis(usage51, "March 2014"); }, 25000);
 setTimeout(function() { updateVis(usage52, "April 2014"); }, 25500);
 setTimeout(function() { updateVis(usage53, "May 2014"); }, 26000);
+setTimeout(function() { running = false; }, 26000);
+
+}
 
 });
 
 d3.select("#lebutton4").on("click", function() {
+
+    if (running == false) {  
+
+   running = true; 
+
 
 setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
 setTimeout(function() { updateVis(usage2, "February 2010"); }, 300);
@@ -827,6 +864,9 @@ setTimeout(function() { updateVis(usage50, "February 2014"); }, 9900);
 setTimeout(function() { updateVis(usage51, "March 2014"); }, 10100);
 setTimeout(function() { updateVis(usage52, "April 2014"); }, 10300);
 setTimeout(function() { updateVis(usage53, "May 2014"); }, 10500);
+setTimeout(function() { running = false; }, 10500);
+
+}
 
 });
 
