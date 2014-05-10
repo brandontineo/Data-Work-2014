@@ -7,10 +7,6 @@
     svg{
         background: white;
     }
-    .axis path,
-    .axis line {
-     fill: none;
-     stroke: gray; }
 
     .country{
         stroke:  black;
@@ -20,10 +16,6 @@
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 12pt;
         font-weight: bold;
-    }
-
-    .y.axis{
-        border-right; solid;
     }
 
     table{
@@ -64,24 +56,6 @@
         pointer-events: none;
   }
 
-   .tooltip3 {
-        position: absolute;
-        width: 200px;
-        height: auto;
-        padding: 10px;
-        background-color: black;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        pointer-events: none;
-  }
-
-
-
-
   .tooltip.hidden {
         display: none;
   }
@@ -105,14 +79,6 @@
     pointer-events: none;
   }
 
-  .city_name{
-    background-color: white;
-    padding: 10px;
-    border: solid;
-    border-color: black;
-    border-width: 1px;
-  }
-
 
 
 </style>
@@ -129,27 +95,19 @@
     <tr>
         <td><div id="vis"></div>
             <div id="table_container1" class="csvTable"  style="white" align="center"></div>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="LineButton" data-toggle="dropdown">Generate Line Graph</button>
         </td>
         <td>
             <div id="table_container2" class="csvTable"  style="white" align="center"></div>
             <div id="table_container3" class="csvTable"  style="white" align="center"></div>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton" data-toggle="dropdown">History Every 6 Months</button>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton2" data-toggle="dropdown">History By Year</button>
-             <br>
-              <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton4" data-toggle="dropdown">History Every Month (Fast)</button>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton3" data-toggle="dropdown">History Every Month (Normal)</button>
-
             <div id="vis"></div>
             <div id="textLabel"></div></td>
 
     </tr>
 </table>
- <div id="lineVis"></div>
 
 
 
-<script src="Map.js"></script>
+<script src="Maps2.js"></script>
 
 </body>
 

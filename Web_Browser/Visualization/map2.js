@@ -19,10 +19,6 @@ var bbVis = {
 };
 
 
-browser_array = ["None", "Other", "Mobile", "Safari", "Opera", "IE", "Firefox", "Chrome"]
-browser_array2 = ["Other", "Mobile", "Safari", "Opera", "IE", "Firefox", "Chrome"]
-
-
 var country_name;
 var year_selected_text = "January 2010";
 var selected_country;
@@ -81,7 +77,7 @@ var color_domain_green = [10, 20, 30, 40, 50, 60];
 var color_domain_red = [10, 20, 30];
 var color_domain_brown = [0, 5];
 
-//console.log(colorbrewer)
+console.log(colorbrewer)
 
 var green_color = d3.scale.quantize().range(colorbrewer.Greens[8]).domain(color_domain_green);
 var orange_color = d3.scale.quantize().range(colorbrewer.Oranges[4]).domain(color_domain);
@@ -479,7 +475,7 @@ for (i = 0 ;  i <53 ; i ++)
 }
 
 
-//console.log(yearDict);
+console.log(yearDict);
 
         var tooltip2 = d3.select("body")
           .append("div")
@@ -498,21 +494,17 @@ for (i = 0 ;  i <53 ; i ++)
 var createLineGraph = function()
 {
 
-
   d3.selectAll("lineDetail").remove();
-var lineDict = {};
+var lineDict = [];
 
-//console.log(yeararray);
+console.log(yeararray);
 
 for (i in usage_list)
 {
   //console.log(i);
   //console.log(yeararray);
- // lineDict.push([yeararray[i], (percentages(cleaning_and_aggregation(merge_data(world, usage_list[i]))))['World']]);
-
-  inner_dict = percentages(cleaning_and_aggregation(merge_data(world, usage_list[i])))['World'];
-  inner_dict["year"] = yeararray[i];
-  lineDict[i] = inner_dict;
+  lineDict.push([yeararray[i], (percentages(cleaning_and_aggregation(merge_data(world, usage_list[i]))))['World']]);
+  //console.log(this_year_data['World']);
 }
 
 console.log(lineDict);
@@ -567,16 +559,14 @@ console.log(yeararray);
       .text("Percentages");
 
 
-/* WRANGLING */
+/* WRANGLING
 
+console.log(data);
 
-
-
-  var cities = browser_array2.map(function(name) {
-    console.log(name);
+  var cities = color.domain().map(function(name) {
     return {
       name: name,
-      values: lineDict.map(function(d) {
+      values: data.map(function(d) {
         return {date: d.year, population: +d[name]};
       })
     };
@@ -585,7 +575,8 @@ console.log(yeararray);
   console.log(cities);
 
 
-  
+  */
+
 
 
 /*
@@ -616,7 +607,7 @@ var updateVis = function(year_selected, year_title)
 
 {
 
-d3.selectAll(".country").remove();
+d3.selectAll("path").remove();
 d3.selectAll("form").remove();
 d3.selectAll(".thedetail").remove();
 
@@ -812,6 +803,7 @@ var countryOpts2 = countryDrop.selectAll("option")
       var color_option_val = "Most Popular N"
       updateVis(yearDict[year_selected_text], year_selected_text)
         
+
         });
     
 
