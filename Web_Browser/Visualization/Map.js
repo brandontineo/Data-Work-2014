@@ -20,6 +20,7 @@ var bbVis = {
 
 
 var country_name;
+var year_selected_text = "January 2010";
 
 var color_option = "Most Popular";
 var color_option_val = "Most Popular N"
@@ -314,7 +315,6 @@ colorDict["None"] = "#808080"; //grey
 var make_piechart = function(country_obj, country_name)
 {
 
-console.log("MAKING PIE CHART");
 
 d3.selectAll(".arc").remove();
 //d3.selectAll(".arc").remove();
@@ -337,13 +337,12 @@ for(var key in country_obj) {
 }
 
 
-console.log(keys);
-console.log(values);
-
   radius = Math.min(300, 300) / 2;
   var arc = d3.svg.arc()
     .outerRadius(radius - 10)
     .innerRadius(0);
+
+
 
 var pie = d3.layout.pie()
     .sort(null)
@@ -357,7 +356,7 @@ var pie = d3.layout.pie()
       .attr("transform", "translate(" + 200 + "," + 250 + ")");
 
 
-d3.select("#pie_chart_place").append("text").attr("class", "arc").html(country_name).attr("transform", "translate(" +50 + "," +50 + ")");    
+d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +50 + "," +50 + ")");    
 
 
   g.append("path")
@@ -420,27 +419,55 @@ var colorMap = function(d, merged_data)
 }
 
 
+Months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-var initVis = function(error, world, cities, usage1, usage2, usage3, usage4, usage5, usage6, usage7, usage8, usage9){
+Years = [2010, 2011, 2012, 2013, 2014];
+
+yeararray = []
+
+for (year in Years)
 {
+    for (month in Months)
+    {
+      yeararray.push(Months[month] + " " + Years[year]);
+    }
+}
+
+for (i = 0; i < 7 ; i++)
+{
+yeararray.pop();
+}
+
+
+
+
+
+
+var initVis = function(error, world, cities, usage1, usage2, usage3, usage4, usage5, usage6, usage7, usage8, usage9, usage10, usage11, usage12, usage13, usage14, usage15, usage16, usage17, usage18, usage19, usage20, usage21, usage22, usage23, usage24, usage25, usage26, usage27, usage28, usage29, usage30, usage31, usage32, usage33, usage34, usage35, usage36, usage37, usage38, usage39, usage40, usage41, usage42, usage43, usage44, usage45, usage46, usage47, usage48, usage49, usage50, usage51, usage52, usage53){
+{
+
 
 year_selected = usage1;
 
-yeararray = ["Jan2010", "June2010", "Jan2011", "June2011", "Jan2012", "June2012", "Jan2013", "June2013", "Jan2014"];
+
+var usage_list = [usage1, usage2, usage3, usage4, usage5, usage6, usage7, usage8, 
+usage9, usage10, usage11, usage12, usage13, usage14, usage15, usage16, usage17, 
+usage18, usage19, usage20, usage21, usage22, usage23, usage24, usage25, usage26, 
+usage27, usage28, usage29, usage30, usage31, usage32, usage33, usage34, usage35, 
+usage36, usage37, usage38, usage39, usage40, usage41, usage42, usage43, usage44,
+ usage45, usage46, usage47, usage48, usage49, 
+usage50, usage51, usage52, usage53];
+
 
 var yearDict = {};
 
-yearDict["Jan2010"] = usage1; 
-yearDict["June2010"] = usage2; 
-yearDict["Jan2011"] = usage3; 
-yearDict["June2011"] = usage4; 
-yearDict["Jan2012"] = usage5;
-yearDict["June2012"] = usage6;
-yearDict["Jan2013"] = usage7; 
-yearDict["June2013"] = usage8;
-yearDict["Jan2014"] = usage9;
+for (i = 0 ;  i <53 ; i ++)
+{
+  yearDict[yeararray[i]] = usage_list[i];
+}
 
 
+console.log(yearDict);
 
         var tooltip2 = d3.select("body")
           .append("div")
@@ -453,7 +480,7 @@ yearDict["Jan2014"] = usage9;
           .style("top", "100px").style("left", "970px")
           .html("<svg id='pie_chart_place'><svg>");
 
-var updateVis = function(year_selected)
+var updateVis = function(year_selected, year_title)
 
 {
 
@@ -476,6 +503,21 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
 
 
 
+var tooltip3 = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "visible")
+        .style("color", "black")
+        .style("font-size", "15px")
+        .style("top", "0px")
+        .style("left", "30px")
+        .style("height", "0px")
+        .attr("class", "tooltip3")
+        .attr("class", "thedetail")
+        .html("<h1 class='thedetail city_name'>" + year_title + "</h1>").attr("class", "thedetail");
+
+
 
     var country_paths = svg.selectAll("path")
         .data(world.features.filter(function(d) {return d.id != -99; }))
@@ -489,17 +531,17 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
           return colorMap(d, merged_data);
           
         })
-        .on("mouseover", function(d){tooltip.style("visibility", "visible");
+        .on("mouseover", function(d){ country_name = d["properties"]["name"];
+
+          selected_country = _.object(merged_data[country_name]);
+
+          make_piechart(selected_country, country_name); tooltip.style("visibility", "visible");
                     tooltip.text("You're currently mousing over " + d["properties"]["name"] + "!");})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
         .on("click", function(d){ zooming(d) ; 
 
-          country_name = d["properties"]["name"];
-
-          selected_country = _.object(merged_data[country_name]);
-
-          make_piechart(selected_country, country_name);
+          
       });
       
 
@@ -510,6 +552,7 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
         data_list.push({city : x, latitude : cities[x].latitude, longitude : cities[x].longitude});
       }
 
+/*
       svg.selectAll("circle")
          .data(data_list)
            .enter()
@@ -520,7 +563,7 @@ var merged_data = sorting_object(percentages(cleaning_and_aggregation(merge_data
            .attr("city",function (d){return d.city})
            .style("opacity", 0.75);
 
-
+*/
     browser_array = ["None", "Other", "Mobile", "Safari", "Opera", "IE", "Firefox", "Chrome"]
     ext_color_domain = [];
 
@@ -622,10 +665,12 @@ var countryOpts2 = countryDrop.selectAll("option")
     .append("form2")
     .append("select")
     .on("change", function() {
-      year_selected = this.options[this.selectedIndex].value;
+      year_selected_text = this.options[this.selectedIndex].value;
 
-      
-      updateVis(yearDict[year_selected])
+      var color_option = "Most Popular";
+      var color_option_val = "Most Popular N"
+      updateVis(yearDict[year_selected_text], year_selected_text)
+        
 
         });
     
@@ -644,7 +689,154 @@ d3.selectAll("dropdown").remove()
 
 }
 
-updateVis(year_selected);
+d3.select("#lebutton2").on("click", function() {
+
+setTimeout(function() { updateVis(year_selected, "January 2010"); }, 100);
+setTimeout(function() { updateVis(usage3, "January 2011"); }, 500);
+setTimeout(function() { updateVis(usage5, "January 2012"); }, 900);
+setTimeout(function() { updateVis(usage7, "January 2013"); }, 1300);
+setTimeout(function() { updateVis(usage9, "January 2014"); }, 1700);
+});
+
+
+
+d3.select("#lebutton").on("click", function() {
+
+setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
+setTimeout(function() { updateVis(usage2, "June 2010"); }, 500);
+setTimeout(function() { updateVis(usage3, "January 2011"); }, 1000);
+setTimeout(function() { updateVis(usage4, "June 2011"); }, 1500);
+setTimeout(function() { updateVis(usage5, "January 2012"); }, 2000);
+setTimeout(function() { updateVis(usage6, "June 2012"); }, 2500);
+setTimeout(function() { updateVis(usage7, "January 2013"); }, 3000);
+setTimeout(function() { updateVis(usage8, "June 2013"); }, 3500);
+setTimeout(function() { updateVis(usage9, "January 2014"); }, 4000);
+});
+
+
+d3.select("#lebutton3").on("click", function() {
+
+setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
+setTimeout(function() { updateVis(usage2, "February 2010"); }, 500);
+setTimeout(function() { updateVis(usage3, "March 2010"); }, 1000);
+setTimeout(function() { updateVis(usage4, "April 2010"); }, 1500);
+setTimeout(function() { updateVis(usage5, "May 2010"); }, 2000);
+setTimeout(function() { updateVis(usage6, "June 2010"); }, 2500);
+setTimeout(function() { updateVis(usage7, "July 2010"); }, 3000);
+setTimeout(function() { updateVis(usage8, "August 2010"); }, 3500);
+setTimeout(function() { updateVis(usage9, "September 2010"); }, 4000);
+setTimeout(function() { updateVis(usage10, "October 2010"); }, 4500);
+setTimeout(function() { updateVis(usage1, "November 2010"); }, 5000);
+setTimeout(function() { updateVis(usage12, "December 2010"); }, 5500);
+setTimeout(function() { updateVis(usage13, "January 2011"); }, 6000);
+setTimeout(function() { updateVis(usage14, "February 2011"); }, 6500);
+setTimeout(function() { updateVis(usage15, "March 2011"); }, 7000);
+setTimeout(function() { updateVis(usage16, "April 2011"); }, 7500);
+setTimeout(function() { updateVis(usage17, "May 2011"); }, 8000);
+setTimeout(function() { updateVis(usage18, "June 2011"); }, 8500);
+setTimeout(function() { updateVis(usage19, "July 2011"); }, 9000);
+setTimeout(function() { updateVis(usage20, "August 2011"); }, 9500);
+setTimeout(function() { updateVis(usage21, "September 2011"); }, 10000);
+setTimeout(function() { updateVis(usage22, "October 2011"); }, 10500);
+setTimeout(function() { updateVis(usage23, "November 2011"); }, 11000);
+setTimeout(function() { updateVis(usage24, "December 2011"); }, 11500);
+setTimeout(function() { updateVis(usage25, "January 2012"); }, 12000);
+setTimeout(function() { updateVis(usage26, "February 2012"); }, 12500);
+setTimeout(function() { updateVis(usage27, "March 2012"); }, 13000);
+setTimeout(function() { updateVis(usage28, "April 2012"); }, 13500);
+setTimeout(function() { updateVis(usage29, "May 2012"); }, 14000);
+setTimeout(function() { updateVis(usage30, "June 2012"); }, 14500);
+setTimeout(function() { updateVis(usage31, "July 2012"); }, 15000);
+setTimeout(function() { updateVis(usage32, "August 2012"); }, 15500);
+setTimeout(function() { updateVis(usage33, "September 2012"); }, 16000);
+setTimeout(function() { updateVis(usage34, "October 2012"); }, 16500);
+setTimeout(function() { updateVis(usage35, "November 2012"); }, 17000);
+setTimeout(function() { updateVis(usage36, "December 2012"); }, 17500);
+setTimeout(function() { updateVis(usage37, "January 2013"); }, 18000);
+setTimeout(function() { updateVis(usage38, "February 2013"); }, 18500);
+setTimeout(function() { updateVis(usage39, "March 2013"); }, 19000);
+setTimeout(function() { updateVis(usage40, "April 2013"); }, 19500);
+setTimeout(function() { updateVis(usage41, "May 2013"); }, 20000);
+setTimeout(function() { updateVis(usage42, "June 2013"); }, 20500);
+setTimeout(function() { updateVis(usage43, "July 2013"); }, 21000);
+setTimeout(function() { updateVis(usage44, "August 2013"); }, 21500);
+setTimeout(function() { updateVis(usage45, "September 2013"); }, 22000);
+setTimeout(function() { updateVis(usage46, "October 2013"); }, 22500);
+setTimeout(function() { updateVis(usage47, "November 2013"); }, 23000);
+setTimeout(function() { updateVis(usage48, "December 2013"); }, 23500);
+setTimeout(function() { updateVis(usage49, "January 2014"); }, 24000);
+setTimeout(function() { updateVis(usage50, "February 2014"); }, 24500);
+setTimeout(function() { updateVis(usage51, "March 2014"); }, 25000);
+setTimeout(function() { updateVis(usage52, "April 2014"); }, 25500);
+setTimeout(function() { updateVis(usage53, "May 2014"); }, 26000);
+
+});
+
+d3.select("#lebutton4").on("click", function() {
+
+setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
+setTimeout(function() { updateVis(usage2, "February 2010"); }, 300);
+setTimeout(function() { updateVis(usage3, "March 2010"); }, 500);
+setTimeout(function() { updateVis(usage4, "April 2010"); }, 700);
+setTimeout(function() { updateVis(usage5, "May 2010"); }, 900);
+setTimeout(function() { updateVis(usage6, "June 2010"); }, 1100);
+setTimeout(function() { updateVis(usage7, "July 2010"); }, 1300);
+setTimeout(function() { updateVis(usage8, "August 2010"); }, 1500);
+setTimeout(function() { updateVis(usage9, "September 2010"); }, 1700);
+setTimeout(function() { updateVis(usage10, "October 2010"); }, 1900);
+setTimeout(function() { updateVis(usage1, "November 2010"); }, 2100);
+setTimeout(function() { updateVis(usage12, "December 2010"); }, 2300);
+setTimeout(function() { updateVis(usage13, "January 2011"); }, 2500);
+setTimeout(function() { updateVis(usage14, "February 2011"); }, 2700);
+setTimeout(function() { updateVis(usage15, "March 2011"); }, 2900);
+setTimeout(function() { updateVis(usage16, "April 2011"); }, 3100);
+setTimeout(function() { updateVis(usage17, "May 2011"); }, 3300);
+setTimeout(function() { updateVis(usage18, "June 2011"); }, 3500);
+setTimeout(function() { updateVis(usage19, "July 2011"); }, 3700);
+setTimeout(function() { updateVis(usage20, "August 2011"); }, 3900);
+setTimeout(function() { updateVis(usage21, "September 2011"); }, 4100);
+setTimeout(function() { updateVis(usage22, "October 2011"); }, 4300);
+setTimeout(function() { updateVis(usage23, "November 2011"); }, 4500);
+setTimeout(function() { updateVis(usage24, "December 2011"); }, 4700);
+setTimeout(function() { updateVis(usage25, "January 2012"); }, 4900);
+setTimeout(function() { updateVis(usage26, "February 2012"); }, 5100);
+setTimeout(function() { updateVis(usage27, "March 2012"); }, 5300);
+setTimeout(function() { updateVis(usage28, "April 2012"); }, 5500);
+setTimeout(function() { updateVis(usage29, "May 2012"); }, 5700);
+setTimeout(function() { updateVis(usage30, "June 2012"); }, 5900);
+setTimeout(function() { updateVis(usage31, "July 2012"); }, 6100);
+setTimeout(function() { updateVis(usage32, "August 2012"); }, 6300);
+setTimeout(function() { updateVis(usage33, "September 2012"); }, 6500);
+setTimeout(function() { updateVis(usage34, "October 2012"); }, 6700);
+setTimeout(function() { updateVis(usage35, "November 2012"); }, 6900);
+setTimeout(function() { updateVis(usage36, "December 2012"); }, 7100);
+setTimeout(function() { updateVis(usage37, "January 2013"); }, 7300);
+setTimeout(function() { updateVis(usage38, "February 2013"); }, 7500);
+setTimeout(function() { updateVis(usage39, "March 2013"); }, 7700);
+setTimeout(function() { updateVis(usage40, "April 2013"); }, 7900);
+setTimeout(function() { updateVis(usage41, "May 2013"); }, 8100);
+setTimeout(function() { updateVis(usage42, "June 2013"); }, 8300);
+setTimeout(function() { updateVis(usage43, "July 2013"); }, 8500);
+setTimeout(function() { updateVis(usage44, "August 2013"); }, 8700);
+setTimeout(function() { updateVis(usage45, "September 2013"); }, 8900);
+setTimeout(function() { updateVis(usage46, "October 2013"); }, 9100);
+setTimeout(function() { updateVis(usage47, "November 2013"); }, 9300);
+setTimeout(function() { updateVis(usage48, "December 2013"); }, 9500);
+setTimeout(function() { updateVis(usage49, "January 2014"); }, 9700);
+setTimeout(function() { updateVis(usage50, "February 2014"); }, 9900);
+setTimeout(function() { updateVis(usage51, "March 2014"); }, 10100);
+setTimeout(function() { updateVis(usage52, "April 2014"); }, 10300);
+setTimeout(function() { updateVis(usage53, "May 2014"); }, 10500);
+
+});
+
+
+
+
+
+
+
+updateVis(year_selected, year_selected_text);
 
 }
 
@@ -657,14 +849,58 @@ queue()
     .defer(d3.json,"../data/world_data.json")
     .defer(d3.json, "../CityInfo/cities.json")
     .defer(d3.csv, "../data/Jan2010.csv")
+    .defer(d3.csv, "../data/Feb2010.csv")
+    .defer(d3.csv, "../data/Mar2010.csv")
+    .defer(d3.csv, "../data/April2010.csv")
+    .defer(d3.csv, "../data/May2010.csv")
     .defer(d3.csv, "../data/June2010.csv")
+    .defer(d3.csv, "../data/July2010.csv")
+    .defer(d3.csv, "../data/Aug2010.csv")
+    .defer(d3.csv, "../data/Sept2010.csv")
+    .defer(d3.csv, "../data/Oct2010.csv")
+    .defer(d3.csv, "../data/Nov2010.csv")
+    .defer(d3.csv, "../data/Dec2010.csv")
     .defer(d3.csv, "../data/Jan2011.csv")
+    .defer(d3.csv, "../data/Feb2011.csv")
+    .defer(d3.csv, "../data/Mar2011.csv")
+    .defer(d3.csv, "../data/April2011.csv")
+    .defer(d3.csv, "../data/May2011.csv")
     .defer(d3.csv, "../data/June2011.csv")
+    .defer(d3.csv, "../data/July2011.csv")
+    .defer(d3.csv, "../data/Aug2011.csv")
+    .defer(d3.csv, "../data/Sept2011.csv")
+    .defer(d3.csv, "../data/Oct2011.csv")
+    .defer(d3.csv, "../data/Nov2011.csv")
+    .defer(d3.csv, "../data/Dec2011.csv")
     .defer(d3.csv, "../data/Jan2012.csv")
+    .defer(d3.csv, "../data/Feb2012.csv")
+    .defer(d3.csv, "../data/Mar2012.csv")
+    .defer(d3.csv, "../data/April2012.csv")
+    .defer(d3.csv, "../data/May2012.csv")
     .defer(d3.csv, "../data/June2012.csv")
+    .defer(d3.csv, "../data/July2012.csv")
+    .defer(d3.csv, "../data/Aug2012.csv")
+    .defer(d3.csv, "../data/Sept2012.csv")
+    .defer(d3.csv, "../data/Oct2012.csv")
+    .defer(d3.csv, "../data/Nov2012.csv")
+    .defer(d3.csv, "../data/Dec2012.csv")
     .defer(d3.csv, "../data/Jan2013.csv")
+    .defer(d3.csv, "../data/Feb2013.csv")
+    .defer(d3.csv, "../data/Mar2013.csv")
+    .defer(d3.csv, "../data/April2013.csv")
+    .defer(d3.csv, "../data/May2013.csv")
     .defer(d3.csv, "../data/June2013.csv")
+    .defer(d3.csv, "../data/July2013.csv")
+    .defer(d3.csv, "../data/Aug2013.csv")
+    .defer(d3.csv, "../data/Sept2013.csv")
+    .defer(d3.csv, "../data/Oct2013.csv")
+    .defer(d3.csv, "../data/Nov2013.csv")
+    .defer(d3.csv, "../data/Dec2013.csv")
     .defer(d3.csv, "../data/Jan2014.csv")
+    .defer(d3.csv, "../data/Feb2014.csv")
+    .defer(d3.csv, "../data/Mar2014.csv")
+    .defer(d3.csv, "../data/April2014.csv")
+    .defer(d3.csv, "../data/May2014.csv")
     .await(initVis);
 
 
