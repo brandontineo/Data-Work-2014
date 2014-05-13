@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <style type="text/css">
 
+
     svg{
         background: white;
     }
@@ -51,10 +52,10 @@
 
     .tooltip {
         position: absolute;
-        width: 200px;
+        width: auto;
         height: auto;
         padding: 10px;
-        background-color: #D3D3D3;
+        background-color: white;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
@@ -113,6 +114,31 @@
     border-width: 1px;
   }
 
+.lineVis, .lineSearch
+{
+    float:left;
+}
+
+.lineSearch{
+    height: 500px;
+    width: 500px;
+}
+
+#vis, #lineVis
+{
+    -ms-transform: scale(0.85); /* IE 9 */
+    -webkit-transform: scale(0.85); /* Chrome, Safari, Opera */
+    transform: scale(0.85);
+}
+
+#lineVis{
+     margin-top: -35px;
+     margin-left: -75px;
+}
+
+#textLabel{
+    height: 400px;
+}
 
 
 </style>
@@ -125,11 +151,13 @@
 <script type="text/javascript" src="../libs/underscore.js"></script>
 
 
+
+
 <table>
     <tr>
         <td><div id="vis"></div>
             <div id="table_container1" class="csvTable"  style="white" align="center"></div>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="LineButton" data-toggle="dropdown">Generate Line Graph</button>
+            
         </td>
         <td>
             <div id="table_container2" class="csvTable"  style="white" align="center"></div>
@@ -145,12 +173,24 @@
 
     </tr>
 </table>
- <div id="lineVis"></div>
+
+
+ <div id="lineVis"> </div>
+ 
+
+ <!-- <iframe id="lineSearch" width="1024" height="768" src="http://www.bbc.com" style="-webkit-transform:scale(0.5);-moz-transform-scale(0.5);"></iframe> -->
+
+
+
+
 
 
 
 <script src="Map.js"></script>
 
 </body>
+
+->
+</footer>
 
 </html>

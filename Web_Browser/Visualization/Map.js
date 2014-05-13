@@ -5,8 +5,8 @@ var margin = {
     left: 50
 };
 
-var width = 960 - margin.left - margin.right;
-var height = 700 - margin.bottom - margin.top;
+var width = 900 - margin.left - margin.right;
+var height = 650 - margin.bottom - margin.top;
 var centered;
 
 
@@ -33,10 +33,10 @@ var color_option_val = "Most Popular N"
 var dataSet = {};
 
 var svg = d3.select("#vis").append("svg").attr({
-    width: width + margin.left + margin.right,
-    height: height + margin.top + margin.bottom
+    width: width, //+ margin.left + margin.right,
+    height: height, //+ margin.top + margin.bottom
 }).append("g").attr({
-        transform: "translate(" + margin.left + "," + margin.top + ")"
+        transform: "translate(" + 0 + "," + (margin.top + 40) + ")"
     });
 
 
@@ -47,12 +47,7 @@ var svg2 = d3.select("#textLabel").append("svg").attr({
         transform: "translate(" + margin.left + "," + margin.top + ")"
     });
 
-    svg3 = d3.select("#lineVis").append("svg").attr({
-        width: width + margin.left + margin.right,
-        height: height - 100
-    }).append("g").attr({
-            transform: "translate(" + margin.left + "," + 5 + ")"
-        });
+
 
 var projectionMethods = [
     {
@@ -91,6 +86,19 @@ var yellow_color = d3.scale.quantize().range(colorbrewer.Yellows[5]).domain(colo
 var purple_color = d3.scale.quantize().range(colorbrewer.Purples[9]).domain(color_domain);
 var brown_color = d3.scale.quantize().range(colorbrewer.Browns[5]).domain(color_domain_brown);
 var grey_color = d3.scale.quantize().range(colorbrewer.Greys[5]).domain(color_domain);
+
+
+
+  var tooltip = d3.select("body")
+          .append("div")
+          .style("position", "absolute")
+          .style("z-index", "1")
+          .style("visibility", "hidden")
+          .style("color", "black")
+          .style("font-size", "20px")
+          .attr("class", "tooltip");
+
+
 
 
 
@@ -349,7 +357,7 @@ for(var key in country_obj) {
 }
 
 
-  radius = Math.min(300, 300) / 2;
+  radius = Math.min(200, 200) / 2;
   var arc = d3.svg.arc()
     .outerRadius(radius - 10)
     .innerRadius(0);
@@ -365,17 +373,17 @@ var pie = d3.layout.pie()
       .data(pie(values))
     .enter().append("g")
       .attr("class", "arc")
-      .attr("transform", "translate(" + 200 + "," + 250 + ")");
+      .attr("transform", "translate(" + 200 + "," + 175 + ")");
 
 
-d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +50 + "," +50 + ")");    
+d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +25 + "," + 330 + ")");    
 
 
   g.append("path")
       .attr("d", arc)
       .style("fill", function (d,i) { return colorDict[keys[i]];});     
 
-var labelr = 170;
+var labelr = 120;
   g.append("text")
       .attr("class", "thedetail")
       .attr("transform", function(d) {
@@ -484,41 +492,60 @@ for (i = 0 ;  i <53 ; i ++)
         var tooltip2 = d3.select("body")
           .append("div")
           .style("position", "absolute")
-          .style("z-index", "10")
+          .style("z-index", "1")
           .style("visibility", "visble")
           .style("color", "black")
           .style("font-size", "15px")
           .attr("class", "tooltip2")
-          .style("top", "100px").style("left", "970px")
-          .html("<svg id='pie_chart_place'><svg>");
+          .style("height", "350px")
+          .style("top", "140px").style("left", "770px")
+          .html("<svg id='pie_chart_place' style='height:350px;'><svg>");
+
+
+        var tooltipSearch = d3.select("body")
+          .append("div")
+          .style("position", "absolute")
+          .style("z-index", "10")
+          .style("visibility", "visble")
+          .style("color", "black")
+          .style("font-size", "15px")
+          .style("width", "0px")
+          .style("top", "540px").style("left", "670px");
 
 
 
-
-var createLineGraph = function()
+var createLineGraph = function(lineDisplayOption)
 {
 
 
-  d3.selectAll("lineDetail").remove();
+
+d3.selectAll(".lineDetail").remove();
+
+    svg3 = d3.select("#lineVis").append("svg").attr({
+        width: width + margin.left + margin.right,
+        height: height - 100
+    }).attr("class", "lineDetail").append("g");
 var lineDict = {};
-
-//console.log(yeararray);
-
-for (i in usage_list)
-{
-  //console.log(i);
-  //console.log(yeararray);
- // lineDict.push([yeararray[i], (percentages(cleaning_and_aggregation(merge_data(world, usage_list[i]))))['World']]);
-
-  inner_dict = percentages(cleaning_and_aggregation(merge_data(world, usage_list[i])))['World'];
-  inner_dict["year"] = yeararray[i];
-  lineDict[i] = inner_dict;
-}
-
-console.log(lineDict);
 
 
 console.log(yeararray);
+for (k in usage_list)
+{
+
+  inner_dict = percentages(cleaning_and_aggregation(merge_data(world, usage_list[k])))[lineDisplayOption];
+  inner_dict["year"] = yeararray[k];
+  lineDict[k] = inner_dict;
+}
+
+lineList = []
+for (i in lineDict)
+{
+  lineList.push(lineDict[i])
+}
+
+console.log(lineList);
+
+
 
   // defining the X and Y scale for the graph
   var xAxis, xScale, yAxis,  yScale;
@@ -536,23 +563,23 @@ console.log(yeararray);
        .orient("left");
 
 // appending x axis
- svg3.append("g")
+ d3.select(".lineDetail").append("g")
       .attr("class", "x axis")
       .attr("class", "lineDetail")
-      .attr({"transform": "translate(" + (bbVis.x - margin.left + 50) + "," + (bbVis.y + bbVis.h + margin.top) + ")",})
+      .attr({"transform": "translate(" + (margin.left) + "," + (bbVis.y + bbVis.h + margin.top) + ")",})
       .call(xAxis)
             .selectAll("text")  
             .style("text-anchor", "end")
-            .style("font-size", "14px")
+            .style("font-size", "11px")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", function(d) {
                 return "rotate(-65)"});
  
-
+ //.attr({"transform": "translate(" + (margin.left) + "," + (margin.top) + ")",})
 
 // appending y axis
-  svg3.append("g")
+   d3.select(".lineDetail").append("g")
       .attr("class", "y axis")
       .attr("class", "lineDetail")
       .attr({"transform": "translate(" + (margin.left) + "," + (margin.top) + ")",})
@@ -570,44 +597,78 @@ console.log(yeararray);
 /* WRANGLING */
 
 
-
-
-  var cities = browser_array2.map(function(name) {
-    console.log(name);
+  var browsers = browser_array2.map(function(name) { //console.log(name);
     return {
       name: name,
-      values: lineDict.map(function(d) {
-        return {date: d.year, population: +d[name]};
+      values: lineList.map(function(d) { 
+        return {date: d.year, usage: +d[name], browser_name: name};
       })
     };
   });
 
-  console.log(cities);
 
+  console.log(browsers);
 
-  
-
-
-/*
 
 var line = d3.svg.line()
     .interpolate("linear")
     .x(function(d) { return xScale(d.date); })
-    .y(function(d) { return yScale(d.population); });
+    .y(function(d) { return yScale(d.usage); });
 
-  svg3.append("path")
-    //  .datum(lineDict)
-      .attr("class", "line")
+
+  var browser =  d3.select(".lineDetail").selectAll(".browser")
+      .data(browsers)
+       .enter().append("g")
+      .attr("class", "browser")
+       .attr({"transform": "translate(" + (margin.left) + "," + (margin.top) + ")",});
+
+     // console.log(city);
+
+  browser.append("path")
+      .attr("browser", "line")
       .attr("d", function(d) { return line(d.values); })
       .style("fill", "none")
-      .style("stroke", function(d) { return colorDict(d.name); });
+      .style("stroke", function(d) { return colorDict[d.name]; });
+ 
 
 
-*/
+
+
+
+
+for (var y =0 ; y <7; y++)
+{
+
+      var points =  d3.select(".lineDetail").selectAll(".point")
+        .data(browsers[y].values)
+      .enter().append("svg:circle")
+         .attr("stroke", colorDict[browsers[y].name])
+         .attr("fill", colorDict[browsers[y].name])
+         .attr("cx", function(d, i) { return xScale(d.date) })
+         .attr("cy", function(d, i) { return yScale(d.usage) })
+         .attr("r", function(d, i) { return 4 })
+          .attr({"transform": "translate(" + (margin.left) + "," + (margin.top) + ")",})
+          .on("mouseover", function(d){ console.log(d); tooltip.style("visibility", "visible"); tooltip.html("<strong>" + d.usage + "%</strong>");})
+        .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
+        .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+        .on("click", function (d) {console.log(d.date)
+
+          tooltipSearch.html("<iframe id='lineSearch' width='600' height='475' src='http://www.bing.com/search?q=" + lineDisplayOption + "+" + d.date + "+" + d.browser_name + "+web+browser' style='-webkit-transform:scale(0.75);-moz-transform-scale(0.5);''></iframe>");
+
+
+
+        });
+      
+}
+
+
+ d3.select(".lineDetail").append("text").html(lineDisplayOption + " Data").attr({"transform": "translate(" + (margin.left*8) + "," + (margin.top) + ")",});
+
+
+
 
 
 }
-
 
 
 
@@ -632,31 +693,21 @@ make_piechart(selected_country, country_name);
 }
 
 
-  var tooltip = d3.select("body")
-          .append("div")
-          .style("position", "absolute")
-          .style("z-index", "10")
-          .style("visibility", "hidden")
-          .style("color", "black")
-          .style("font-size", "15px")
-          .attr("class", "tooltip");
-
-
-
 
 var tooltip3 = d3.select("body")
         .append("div")
         .style("position", "absolute")
-        .style("z-index", "10")
+        .style("z-index", "1")
         .style("visibility", "visible")
         .style("color", "black")
         .style("font-size", "15px")
-        .style("top", "0px")
-        .style("left", "30px")
+        .style("top", "30px")
+        .style("left", "65px")
         .style("height", "0px")
         .attr("class", "tooltip3")
-        .attr("class", "thedetail")
-        .html("<h1 class='thedetail city_name'>" + year_title + "</h1>").attr("class", "thedetail");
+        .attr("class", "thedetail");
+
+        tooltip3.html("<h2 class='thedetail city_name'>" + year_title + "</h2>").attr("class", "thedetail");
 
 
 
@@ -676,11 +727,8 @@ var tooltip3 = d3.select("body")
 
           selected_country = _.object(merged_data[country_name]);
 
-          make_piechart(selected_country, country_name); tooltip.style("visibility", "visible");
-                    tooltip.text("You're currently mousing over " + d["properties"]["name"] + "!");})
-        .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
-        .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-        .on("click", function(d){ zooming(d) ; 
+          make_piechart(selected_country, country_name);})
+        .on("click", function(d){ zooming(d); 
 
           
       });
@@ -693,18 +741,6 @@ var tooltip3 = d3.select("body")
         data_list.push({city : x, latitude : cities[x].latitude, longitude : cities[x].longitude});
       }
 
-/*
-      svg.selectAll("circle")
-         .data(data_list)
-           .enter()
-           .append("circle")
-           .attr("cx", function (d) {return projection([d["longitude"], d["latitude"]])[0]})
-           .attr("cy",function (d) {return projection([d["longitude"], d["latitude"]])[1]})
-           .attr("r", function (d){ return 5})
-           .attr("city",function (d){return d.city})
-           .style("opacity", 0.75);
-
-*/
     browser_array = ["None", "Other", "Mobile", "Safari", "Opera", "IE", "Firefox", "Chrome"]
     ext_color_domain = [];
 
@@ -724,14 +760,14 @@ var tooltip3 = d3.select("body")
 
   legend.append("rect")
   .attr("x", 20)
-  .attr("y", function(d, i){ return (height - (i*ls_h) - 2*ls_h) - 150;})
+  .attr("y", function(d, i){ return (height - (i*ls_h) - 2*ls_h) - 70;})
   .attr("width", ls_w)
   .attr("height", ls_h)
   .style("fill", function(d, i) { return ext_color_domain[i]; })
 
   legend.append("text")
   .attr("x", 50)
-  .attr("y", function(d, i){ return (height - (i*ls_h) - ls_h - 4) - 150;})
+  .attr("y", function(d, i){ return (height - (i*ls_h) - ls_h - 4) - 70;})
   .text(function(d, i){ return browser_array[i]; });
 
 
@@ -754,9 +790,18 @@ for (i in merged_data)
     .on("change", function() {
       country_name = this.options[this.selectedIndex].value;
 
+console.log(country_name);
+
+
       selected_country = _.object(merged_data[country_name]);
 
-      make_piechart(selected_country, country_name);});
+      make_piechart(selected_country, country_name);
+
+      createLineGraph(country_name);
+
+    });
+
+
 
 
 var countryOpts = countryDrop.selectAll("option")
@@ -839,10 +884,10 @@ d3.select("#lebutton2").on("click", function() {
  running = true; 
 
 setTimeout(function() { updateVis(year_selected, "January 2010"); }, 100);
-setTimeout(function() { updateVis(usage3, "January 2011"); }, 500);
-setTimeout(function() { updateVis(usage5, "January 2012"); }, 900);
-setTimeout(function() { updateVis(usage7, "January 2013"); }, 1300);
-setTimeout(function() { updateVis(usage9, "January 2014"); }, 1700);
+setTimeout(function() { updateVis(usage13, "January 2011"); }, 500);
+setTimeout(function() { updateVis(usage25, "January 2012"); }, 900);
+setTimeout(function() { updateVis(usage37, "January 2013"); }, 1300);
+setTimeout(function() { updateVis(usage49, "January 2014"); }, 1700);
 setTimeout(function() { running = false; }, 1700);
 
 
@@ -861,14 +906,14 @@ if (running == false) {
 
 
 setTimeout(function() { updateVis(usage1, "January 2010"); }, 100);
-setTimeout(function() { updateVis(usage2, "June 2010"); }, 500);
-setTimeout(function() { updateVis(usage3, "January 2011"); }, 1000);
-setTimeout(function() { updateVis(usage4, "June 2011"); }, 1500);
-setTimeout(function() { updateVis(usage5, "January 2012"); }, 2000);
-setTimeout(function() { updateVis(usage6, "June 2012"); }, 2500);
-setTimeout(function() { updateVis(usage7, "January 2013"); }, 3000);
-setTimeout(function() { updateVis(usage8, "June 2013"); }, 3500);
-setTimeout(function() { updateVis(usage9, "January 2014"); }, 4000);
+setTimeout(function() { updateVis(usage6, "June 2010"); }, 500);
+setTimeout(function() { updateVis(usage13, "January 2011"); }, 1000);
+setTimeout(function() { updateVis(usage18, "June 2011"); }, 1500);
+setTimeout(function() { updateVis(usage25, "January 2012"); }, 2000);
+setTimeout(function() { updateVis(usage30, "June 2012"); }, 2500);
+setTimeout(function() { updateVis(usage37, "January 2013"); }, 3000);
+setTimeout(function() { updateVis(usage42, "June 2013"); }, 3500);
+setTimeout(function() { updateVis(usage49, "January 2014"); }, 4000);
 setTimeout(function() { running = false; }, 4000);
 
 }
@@ -1012,17 +1057,6 @@ setTimeout(function() { running = false; }, 10500);
 
 
 
-d3.select("#LineButton").on("click", function() {
-
-
-createLineGraph();
-
-
-});
-
-
-
-
 
 
 
@@ -1104,7 +1138,7 @@ function zooming(d) {
     k = 4;
     centered = d;
   } else {
-    x = width / 2 - margin.left;
+    x = width / 2 ;
     y = height / 2 - margin.top;
     k = 1;
     centered = null;
