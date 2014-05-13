@@ -35,16 +35,8 @@ var dataSet = {};
 var svg = d3.select("#vis").append("svg").attr({
     width: width, //+ margin.left + margin.right,
     height: height, //+ margin.top + margin.bottom
-}).append("g").attr({
+}).style("z-index", "10").append("g").attr({
         transform: "translate(" + 0 + "," + (margin.top + 40) + ")"
-    });
-
-
-var svg2 = d3.select("#textLabel").append("svg").attr({
-    width: 500,
-    height: height + margin.top + margin.bottom
-}).append("g").attr({
-        transform: "translate(" + margin.left + "," + margin.top + ")"
     });
 
 
@@ -373,10 +365,10 @@ var pie = d3.layout.pie()
       .data(pie(values))
     .enter().append("g")
       .attr("class", "arc")
-      .attr("transform", "translate(" + 200 + "," + 175 + ")");
+      .attr("transform", "translate(" + 150 + "," + 175 + ")");
 
 
-d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +25 + "," + 330 + ")");    
+d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +80 + "," + 20 + ")").style("float","center");    
 
 
   g.append("path")
@@ -498,8 +490,9 @@ for (i = 0 ;  i <53 ; i ++)
           .style("font-size", "15px")
           .attr("class", "tooltip2")
           .style("height", "350px")
-          .style("top", "140px").style("left", "770px")
-          .html("<svg id='pie_chart_place' style='height:350px;'><svg>");
+          .style("width", "300px")
+          .style("top", "140px").style("left", "820px")
+          .html("<svg id='pie_chart_place' style='height:350px; width:300px''><svg>");
 
 
         var tooltipSearch = d3.select("body")
@@ -701,7 +694,7 @@ var tooltip3 = d3.select("body")
         .style("visibility", "visible")
         .style("color", "black")
         .style("font-size", "15px")
-        .style("top", "30px")
+        .style("top", "45px")
         .style("left", "65px")
         .style("height", "0px")
         .attr("class", "tooltip3")
@@ -756,18 +749,18 @@ var tooltip3 = d3.select("body")
   .enter().append("g")
   .attr("class", "legend");
 
-  var ls_w = 25, ls_h = 25;
+  var ls_w = 20, ls_h = 20;
 
   legend.append("rect")
   .attr("x", 20)
-  .attr("y", function(d, i){ return (height - (i*ls_h) - 2*ls_h) - 70;})
+  .attr("y", function(d, i){ return (height - (i*ls_h) - 2*ls_h) - 110;})
   .attr("width", ls_w)
   .attr("height", ls_h)
   .style("fill", function(d, i) { return ext_color_domain[i]; })
 
   legend.append("text")
   .attr("x", 50)
-  .attr("y", function(d, i){ return (height - (i*ls_h) - ls_h - 4) - 70;})
+  .attr("y", function(d, i){ return (height - (i*ls_h) - ls_h - 4) - 110;})
   .text(function(d, i){ return browser_array[i]; });
 
 

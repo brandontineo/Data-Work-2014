@@ -1,8 +1,27 @@
 <!DOCTYPE html>
 <html>
+
+
+<div class="headerDiv">
+</div>
+
 <body>
 <meta charset="utf-8">
 <style type="text/css">
+
+
+.headerDiv{
+    height:51px;
+    border-bottom:solid;
+    border-width:1.5px;
+    border-color: grey;
+}
+
+tbody{
+    border-bottom:solid;
+    border-width:1px;
+    border-color: grey;
+}
 
 
     svg{
@@ -31,23 +50,35 @@
         border:none;
     }
 
+td{
+    border-right:solid;
+    border-width:1.5px;
+    border-color: grey;
+}
 
-      .csvTable table {
-        border-collapse: collapse;
-        text-align: left;
-        width: 100%;
+select{
+    -webkit-appearance: menulist;
+    box-sizing: border-box;
+    align-items: center;
+    height: 30px;
+    display: block;
+    transition: all 0.3s ease-out;
+    color: black;
+    border-radius: none;
+    cursor: pointer;
+    width: 160px;
+    display: inline-block;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #555555;
+    vertical-align: middle;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+}
     }
-
-    .csvTable {
-        font: normal 12px/150% Arial, Helvetica, sans-serif;
-        background: #fff;
-        overflow: hidden;
-        border: 1px solid #069;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-    }
-
 
 
     .tooltip {
@@ -112,6 +143,26 @@
     border: solid;
     border-color: black;
     border-width: 1px;
+     -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+    background-color:#ededed;
+    text-indent:0;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#777777;
+    font-family:Arial;
+    height:40px;
+    line-height:50px;
+    width:auto;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ffffff;
+}
+
   }
 
 .lineVis, .lineSearch
@@ -126,9 +177,9 @@
 
 #vis, #lineVis
 {
-    -ms-transform: scale(0.85); /* IE 9 */
-    -webkit-transform: scale(0.85); /* Chrome, Safari, Opera */
-    transform: scale(0.85);
+    -ms-transform: scale(0.80); /* IE 9 */
+    -webkit-transform: scale(0.80); /* Chrome, Safari, Opera */
+    transform: scale(0.80);
 }
 
 #lineVis{
@@ -139,6 +190,83 @@
 #textLabel{
     height: 400px;
 }
+
+#table_container1{
+    z-index: 20;
+    margin-top: 140px;
+   
+}
+
+.btn{
+    
+    margin-top: -100px;
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+    background-color:#ededed;
+    text-indent:0;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#777777;
+    font-family:Arial;
+    font-size:12px;
+    font-weight:bold;
+    font-style:normal;
+    height:40px;
+    line-height:50px;
+    width:auto;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ffffff;
+}
+
+.btn:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+    background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+    background-color:#dfdfdf;
+}
+
+#lebutton4{
+   margin-left: 100px;
+}
+ 
+#table_container2, #table_container3{
+    float:right;
+    margin-left:20px;
+    margin-top: 65px;
+
+}
+
+#table_container2{
+    margin-right: 20px;
+}
+    
+
+    
+      .csvTable table {
+        border-collapse: collapse;
+        text-align: left;
+        width: 100%;
+    }
+
+    .csvTable {
+        font: normal 9px/150% Arial, Helvetica, sans-serif;
+
+    }
+
+    #vis{
+        margin-top: -56px;
+        overflow:hidden;
+    }
+
+    #left_box{
+        margin-left:-50px;
+    }
+
 
 
 </style>
@@ -151,34 +279,33 @@
 <script type="text/javascript" src="../libs/underscore.js"></script>
 
 
-
-
 <table>
     <tr>
-        <td><div id="vis"></div>
-            <div id="table_container1" class="csvTable"  style="white" align="center"></div>
+        <td id="left_box"><div id="vis">
+
+        </div>
+            <button align="right" class="btn" type="button" id="lebutton4" data-toggle="dropdown">History Every Month (Fast)</button>
+            <button align="right" class="btn" type="button" id="lebutton3" data-toggle="dropdown">History Every Month (Normal)</button>
+            <button align="right" class="btn" type="button" id="lebutton" data-toggle="dropdown">History Every 6 Months</button>
+            <button align="right" class="btn" type="button" id="lebutton2" data-toggle="dropdown">History By Year</button>
+             
             
         </td>
         <td>
-            <div id="table_container2" class="csvTable"  style="white" align="center"></div>
-            <div id="table_container3" class="csvTable"  style="white" align="center"></div>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton" data-toggle="dropdown">History Every 6 Months</button>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton2" data-toggle="dropdown">History By Year</button>
-             <br>
-              <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton4" data-toggle="dropdown">History Every Month (Fast)</button>
-             <button align="left" class="btn btn-default dropdown-toggle" type="button" id="lebutton3" data-toggle="dropdown">History Every Month (Normal)</button>
-
             <div id="vis"></div>
-            <div id="textLabel"></div></td>
+            
+            <div id="textLabel">
+            <div id="table_container2" class="csvTable" style="white" align="center"></div>
+            <div id="table_container3" class="csvTable" align="center"></div>
+            </div>
+             <div id="table_container1" style="white" align="center"></div>
+        </td>
 
     </tr>
 </table>
 
 
  <div id="lineVis"> </div>
- 
-
- <!-- <iframe id="lineSearch" width="1024" height="768" src="http://www.bbc.com" style="-webkit-transform:scale(0.5);-moz-transform-scale(0.5);"></iframe> -->
 
 
 
@@ -190,7 +317,7 @@
 
 </body>
 
-->
+
 </footer>
 
 </html>
