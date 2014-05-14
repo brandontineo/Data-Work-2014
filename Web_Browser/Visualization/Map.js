@@ -1037,7 +1037,6 @@ console.log(country_name);
       }
 
 
-      createLineGraph(country_name);
 
     });
 
@@ -1129,6 +1128,13 @@ d3.select("#PieButton").on("click", function() {
       bar_check = false;
       make_piechart(selected_country, country_name);
 
+
+});
+
+d3.select("#LineButton").on("click", function() {
+
+
+      createLineGraph(country_name);
 
 });
 
