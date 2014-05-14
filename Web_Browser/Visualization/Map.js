@@ -10,6 +10,8 @@ var height = 650 - margin.bottom - margin.top;
 var centered;
 
 
+var bar_height = 300;
+
 
 var bbVis = {
     x: 100,
@@ -361,6 +363,11 @@ var pie = d3.layout.pie()
     .value(function(d) { return d; });
 
 
+
+
+
+
+
  var g = d3.select("#pie_chart_place").selectAll(".arc")
       .data(pie(values))
     .enter().append("g")
@@ -389,7 +396,7 @@ var labelr = 120;
       .style("text-anchor", "middle")
       .text(function (d,i) { return values[i] + "%"; });
 
-console.log(labels);
+//console.log(labels);
 
 textOffset = 35
 
@@ -479,7 +486,14 @@ yeararray.pop();
 }
 
 
-
+var svg2 = d3.select("#textLabel").append("svg")
+    .attr({
+      width: width + margin.left + margin.right - 400,
+      height: height + margin.top + margin.bottom + 10 + 300
+      })
+    .append("g").attr({
+      transform: "translate(" + margin.left + "," + (margin.top - 20) + ")"
+    });
 
 
 
@@ -535,6 +549,161 @@ for (i = 0 ;  i <53 ; i ++)
 
 
 
+var make_bars = function(selected_country, country_name, world_data)
+{
+
+
+d3.selectAll(".thedetail").remove();
+
+tooltip2.style("display", "none");
+
+
+country_list = [];
+world_list = [];
+
+browser_list = Object.keys(selected_country);
+
+console.log(browser_list);
+
+
+for (i in selected_country)
+{
+  country_list.push(+selected_country[i]);
+  world_list.push(+world_data[i])
+}
+
+
+
+
+
+var x = d3.scale.ordinal()
+      .rangeRoundBands([0, 250], .1)
+      .domain(browser_list);
+
+var y = d3.scale.linear().range([bar_height, 0]).domain([0, 100]);
+
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left")
+      .ticks(12);
+
+
+    svg2.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + (bar_height) + ")")
+    .attr("class", "axis")
+    .call(xAxis)
+    .attr("class", "thedetail")
+    .selectAll("text") 
+    .style("text-anchor", "end")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", function(d) {
+        return "rotate(-35)" 
+        })
+    .attr("class", "thedetail")
+    ;
+
+/* make a y-axis */
+    svg2.append("g")
+        .attr("class", "y axis")
+        .attr("class", "thedetail")
+        .attr("class", "axis")
+        .call(yAxis)
+        .attr("class", "thedetail")
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -50)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text(function () { "Browser Usage %"})
+        .attr("class", "thedetail")
+        .attr("x", -30);
+
+
+    svg2.selectAll(".bar")
+        .data(country_list)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("class", "thedetail")
+        .attr("x", function (d,i) { return x(browser_list[i])+ 20; })
+        .attr("width", x.rangeBand() - 20)
+        .attr("y", function(d) {  return y(d); })
+        .attr("height", function(d) {console.log(d); return bar_height - y(d); })
+        .style("fill", function(d,i){return colorDict[browser_list[i]];})
+
+
+svg2.selectAll(".bar")
+        .data(world_list)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("class", "thedetail")
+        .attr("x", function (d,i) { return x(browser_list[i]); })
+        .attr("width", x.rangeBand() - 20)
+        .attr("y", function (d,i) { return y(d); })
+        .attr("height", function (d,i) { return bar_height - y(d); })
+        .style("fill", function(d,i){return colorDict[browser_list[i]]})
+        .style("opacity", 0.25)
+
+    svg2.append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +50 + "," + 10 + ")").style("float","center");    
+
+
+    var ext_color_domain = [];
+
+    for (i in browser_list)
+    {
+     ext_color_domain.push(colorDict[browser_list[i]]);
+    }
+
+    var legend_labels = [country_name + " Data", "World Data", ]
+
+    var legend = svg2.selectAll("g.legend")
+    .data(ext_color_domain)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("class", "thedetail");
+
+    var ls_w = 15, ls_h = 15;
+
+    legend.append("rect")
+    .attr("class", "legendgradient")
+    .attr("x", 90)
+    .attr("y", function(d, i){ return (height - (i*ls_h) - 670);})
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function(d, i) { return ext_color_domain[i]; })
+     .attr("transform", function(d) {
+          return "rotate(90)" 
+          });
+
+    legend.append("rect")
+    .attr("class", "legendgradient")
+    .attr("x", 70)
+    .attr("y", function(d, i){ return (height - (i*ls_h) - 670);})
+    .attr("width", ls_w)
+    .attr("height", ls_h)
+    .style("fill", function(d, i) { return ext_color_domain[i]; })
+    .attr("opacity", 0.25)
+     .attr("transform", function(d) {
+          return "rotate(90)" 
+          });
+
+
+
+    legend.append("text")
+    .attr("x", 220)
+    .attr("y", function(d, i){ return (height - (i*ls_h*1.25) - 448);})
+    .text(function(d, i){ return legend_labels[i]; });
+
+}
+
+
+
 var createLineGraph = function(lineDisplayOption)
 {
 
@@ -564,7 +733,7 @@ for (i in lineDict)
   lineList.push(lineDict[i])
 }
 
-console.log(lineList);
+//console.log(lineList);
 
 
 
@@ -748,11 +917,15 @@ var tooltip3 = d3.select("body")
 
           selected_country = _.object(merged_data[country_name]);
 
-          make_piechart(selected_country, country_name);})
-        .on("click", function(d){ zooming(d); 
 
-          
-      });
+          world_data = _.object(merged_data["World"]);
+
+
+          make_bars(selected_country, country_name, world_data);
+
+         // make_piechart(selected_country, country_name);
+        })
+        .on("click", function(d){ zooming(d);});
       
 
 
@@ -1084,6 +1257,7 @@ setTimeout(function() { running = false; }, 10500);
 updateVis(year_selected, year_selected_text);
 
 }
+
 
 
 
