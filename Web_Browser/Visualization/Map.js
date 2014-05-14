@@ -368,7 +368,7 @@ var pie = d3.layout.pie()
       .attr("transform", "translate(" + 150 + "," + 175 + ")");
 
 
-d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +80 + "," + 20 + ")").style("float","center");    
+d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html(country_name).attr("transform", "translate(" +50 + "," + 10 + ")").style("float","center");    
 
 
   g.append("path")
@@ -376,7 +376,7 @@ d3.select("#pie_chart_place").append("text").attr("class", "arc thedetail").html
       .style("fill", function (d,i) { return colorDict[keys[i]];});     
 
 var labelr = 120;
-  g.append("text")
+  var labels = g.append("text")
       .attr("class", "thedetail")
       .attr("transform", function(d) {
         var c = arc.centroid(d),
@@ -389,6 +389,34 @@ var labelr = 120;
       .style("text-anchor", "middle")
       .text(function (d,i) { return values[i] + "%"; });
 
+console.log(labels);
+
+textOffset = 35
+
+var prev;
+labels.each(function(d, i) {
+  if(i > 0) {
+    var thisbb = this.getBoundingClientRect(),
+        prevbb = prev.getBoundingClientRect();
+    // move if they overlap
+    if(!(thisbb.right < prevbb.left || 
+            thisbb.left > prevbb.right || 
+            thisbb.bottom < prevbb.top || 
+            thisbb.top > prevbb.bottom)) {
+        var ctx = thisbb.left + (thisbb.right - thisbb.left)/2,
+            cty = thisbb.top + (thisbb.bottom - thisbb.top)/2,
+            cpx = prevbb.left + (prevbb.right - prevbb.left)/2,
+            cpy = prevbb.top + (prevbb.bottom - prevbb.top)/2,
+            off = Math.sqrt(Math.pow(ctx - cpx, 2) + Math.pow(cty - cpy, 2))/2;
+        d3.select(this).attr("transform",
+            "translate(" + Math.cos(((d.startAngle + d.endAngle - Math.PI) / 2)) *
+                                    (radius + textOffset + 10 + off) + "," +
+                           Math.sin((d.startAngle + d.endAngle - Math.PI) / 2) *
+                                    (radius + textOffset + off) + ")");
+    }
+  }
+  prev = this;
+});
 
 
 }
@@ -646,7 +674,7 @@ for (var y =0 ; y <7; y++)
         .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
         .on("click", function (d) {console.log(d.date)
 
-          tooltipSearch.html("<iframe id='lineSearch' width='600' height='475' src='http://www.bing.com/search?q=" + lineDisplayOption + "+" + d.date + "+" + d.browser_name + "+web+browser' style='-webkit-transform:scale(0.75);-moz-transform-scale(0.5);''></iframe>");
+          tooltipSearch.html("<iframe id='lineSearch' width='600' height='475' src='http://www.bing.com/search?q=" + lineDisplayOption + "+" + d.date + "+" + d.browser_name + "+web+browser' style='-webkit-transform:scale(0.75);  -ms-transform: scale(0.75); transform: scale(0.90); -moz-transform-scale(0.75);''></iframe>");
 
 
 

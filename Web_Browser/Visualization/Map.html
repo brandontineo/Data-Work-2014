@@ -38,7 +38,7 @@ tbody{
     }
     text{
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 12pt;
+        font-size: 10pt;
         font-weight: bold;
     }
 
@@ -177,9 +177,9 @@ select{
 
 #vis, #lineVis
 {
-    -ms-transform: scale(0.80); /* IE 9 */
-    -webkit-transform: scale(0.80); /* Chrome, Safari, Opera */
-    transform: scale(0.80);
+    -ms-transform: scale(0.90); /* IE 9 */
+    -webkit-transform: scale(0.90); /* Chrome, Safari, Opera */
+    transform: scale(0.90);
 }
 
 #lineVis{
@@ -193,8 +193,8 @@ select{
 
 #table_container1{
     z-index: 20;
-    margin-top: 140px;
-   
+    margin-top: 70px;
+   margin-right: 40px;
 }
 
 .btn{
@@ -212,10 +212,10 @@ select{
     display:inline-block;
     color:#777777;
     font-family:Arial;
-    font-size:12px;
+    font-size:14px;
     font-weight:bold;
     font-style:normal;
-    height:40px;
+    height:50px;
     line-height:50px;
     width:auto;
     text-decoration:none;
@@ -231,18 +231,20 @@ select{
 }
 
 #lebutton4{
-   margin-left: 100px;
+   margin-left: 30px;
 }
+
+
  
 #table_container2, #table_container3{
     float:right;
-    margin-left:20px;
-    margin-top: 65px;
+    margin-left:5px; 
+    margin-top: 50px;
 
 }
 
 #table_container2{
-    margin-right: 20px;
+    margin-right: 45px;
 }
     
 
@@ -264,7 +266,10 @@ select{
     }
 
     #left_box{
-        margin-left:-50px;
+    margin-left:-50px;
+     -ms-transform: scale(0.90); /* IE 9 */
+     -webkit-transform: scale(0.90); /* Chrome, Safari, Opera */
+     transform: scale(0.90);
     }
 
 
@@ -281,14 +286,17 @@ select{
 
 <table>
     <tr>
-        <td id="left_box"><div id="vis">
+        <td id="left_box">
+
+        <div id="vis">
 
         </div>
+        <diV id="buttons">
             <button align="right" class="btn" type="button" id="lebutton4" data-toggle="dropdown">History Every Month (Fast)</button>
             <button align="right" class="btn" type="button" id="lebutton3" data-toggle="dropdown">History Every Month (Normal)</button>
             <button align="right" class="btn" type="button" id="lebutton" data-toggle="dropdown">History Every 6 Months</button>
             <button align="right" class="btn" type="button" id="lebutton2" data-toggle="dropdown">History By Year</button>
-             
+             </div>
             
         </td>
         <td>
