@@ -66,11 +66,11 @@ select{
     color: black;
     border-radius: none;
     cursor: pointer;
-    width: 160px;
+    width: 140px;
     display: inline-block;
     padding: 4px 6px;
     margin-bottom: 10px;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 20px;
     color: #555555;
     vertical-align: middle;
@@ -191,11 +191,7 @@ select{
     height: 400px;
 }
 
-#table_container1{
-    z-index: 20;
-    margin-top: 70px;
-   margin-right: 40px;
-}
+
 
 .btn{
     
@@ -215,8 +211,8 @@ select{
     font-size:14px;
     font-weight:bold;
     font-style:normal;
-    height:50px;
-    line-height:50px;
+    height:40px;
+    line-height:40px;
     width:auto;
     text-decoration:none;
     text-align:center;
@@ -230,24 +226,60 @@ select{
     background-color:#dfdfdf;
 }
 
+.btn2{
+    
+    margin-top: -100px;
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, white) );
+    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#dfdfdf');
+    background-color:white;
+    text-indent:0;
+    border:1px solid #dcdcdc; 
+    border-bottom:1px solid white; 
+    display:inline-block;
+    color:gray;
+    font-family:Arial;
+    font-size:14px;
+    font-weight:bold;
+    font-style:normal;
+    height:40px;
+    line-height:40px;
+    width:auto;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ffffff;
+}
+
+.btn2:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, white), color-stop(1, white) );
+    background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='white');
+    background-color:white;
+}
+
+
 #lebutton4{
    margin-left: 30px;
 }
 
 
  
-#table_container2, #table_container3{
-    float:right;
-    margin-left:5px; 
-    margin-top: 50px;
-
-}
-
-#table_container2{
-    margin-right: 45px;
-}
+#table_container2, #table_container3, #table_container1{
+    float:left;
+    margin-top: 25px;
+    margin-right: 5px;
     
 
+}
+
+
+#table_container1{
+    margin-left: -15px;
+}
+  
     
       .csvTable table {
         border-collapse: collapse;
@@ -272,6 +304,15 @@ select{
      transform: scale(0.90);
     }
 
+    #BarButton, #PieButton{
+     margin-bottom: -50px;
+        margin-left: -5px;
+    }
+
+    #BarButton{
+        margin-left: -10px;
+        margin-right: 5px;
+    }
 
 
 </style>
@@ -303,10 +344,19 @@ select{
             <div id="vis"></div>
             
             <div id="textLabel">
-            <div id="table_container2" class="csvTable" style="white" align="center"></div>
-            <div id="table_container3" class="csvTable" align="center"></div>
+                 <div id="table_container1" style="white"></div>
+             <div id="table_container2" class="csvTable" style="white" ></div>
+            <div id="table_container3" class="csvTable"></div>
+               
+                <br>
             </div>
-             <div id="table_container1" style="white" align="center"></div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+            <button align="center" class="btn2" type="button" id="BarButton" data-toggle="dropdown">Bar Chart</button>
+            <button align="center" class="btn2" type="button" id="PieButton" data-toggle="dropdown">Pie Chart</button>
         </td>
 
     </tr>

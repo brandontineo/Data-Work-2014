@@ -10,7 +10,7 @@ var height = 650 - margin.bottom - margin.top;
 var centered;
 
 
-var bar_height = 300;
+var bar_height = 270;
 
 
 var bbVis = {
@@ -33,6 +33,10 @@ var color_option = "Most Popular";
 var color_option_val = "Most Popular N"
 
 var dataSet = {};
+
+var bar_check = true
+var pie_check = false
+
 
 var svg = d3.select("#vis").append("svg").attr({
     width: width, //+ margin.left + margin.right,
@@ -91,6 +95,20 @@ var grey_color = d3.scale.quantize().range(colorbrewer.Greys[5]).domain(color_do
           .style("color", "black")
           .style("font-size", "20px")
           .attr("class", "tooltip");
+
+
+        var tooltip2 = d3.select("body")
+          .append("div")
+          .style("position", "absolute")
+          .style("z-index", "1")
+          .style("visibility", "visble")
+          .style("color", "black")
+          .style("font-size", "15px")
+          .attr("class", "tooltip2")
+          .style("height", "350px")
+          .style("width", "300px")
+          .style("top", "140px").style("left", "820px")
+          .html("<svg id='pie_chart_place' style='height:350px; width:300px''><svg>");
 
 
 
@@ -334,6 +352,12 @@ d3.selectAll(".arc").remove();
 //d3.selectAll(".arc").remove();
 
 
+d3.selectAll(".thedetail").remove();
+
+tooltip2.style("display", "block");
+
+
+/*
 for (browser in country_obj)
 {
   if (country_obj[browser] == "0.00")
@@ -341,6 +365,7 @@ for (browser in country_obj)
     delete country_obj[browser];
   }
 }
+*/
 
 
 keys = Object.keys(country_obj);
@@ -394,7 +419,8 @@ var labelr = 120;
         return "translate(" + (x/h * labelr) +  ',' + (y/h * labelr) +  ")";})
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
-      .text(function (d,i) { return values[i] + "%"; });
+      .text(function (d,i) { if (values[i] == 0.00) {return ""} else {return values[i] + "%"; }
+       });
 
 //console.log(labels);
 
@@ -489,7 +515,7 @@ yeararray.pop();
 var svg2 = d3.select("#textLabel").append("svg")
     .attr({
       width: width + margin.left + margin.right - 400,
-      height: height + margin.top + margin.bottom + 10 + 300
+      height: 400
       })
     .append("g").attr({
       transform: "translate(" + margin.left + "," + (margin.top - 20) + ")"
@@ -523,18 +549,6 @@ for (i = 0 ;  i <53 ; i ++)
 
 //console.log(yearDict);
 
-        var tooltip2 = d3.select("body")
-          .append("div")
-          .style("position", "absolute")
-          .style("z-index", "1")
-          .style("visibility", "visble")
-          .style("color", "black")
-          .style("font-size", "15px")
-          .attr("class", "tooltip2")
-          .style("height", "350px")
-          .style("width", "300px")
-          .style("top", "140px").style("left", "820px")
-          .html("<svg id='pie_chart_place' style='height:350px; width:300px''><svg>");
 
 
         var tooltipSearch = d3.select("body")
@@ -552,10 +566,12 @@ for (i = 0 ;  i <53 ; i ++)
 var make_bars = function(selected_country, country_name, world_data)
 {
 
+d3.selectAll(".arc").remove();
 
 d3.selectAll(".thedetail").remove();
 
 tooltip2.style("display", "none");
+
 
 
 country_list = [];
@@ -576,19 +592,19 @@ for (i in selected_country)
 
 
 
-var x = d3.scale.ordinal()
-      .rangeRoundBands([0, 250], .1)
+var x2 = d3.scale.ordinal()
+      .rangeRoundBands([0, 350], .1)
       .domain(browser_list);
 
-var y = d3.scale.linear().range([bar_height, 0]).domain([0, 100]);
+var y2 = d3.scale.linear().range([bar_height, 0]).domain([0, 100]);
 
 
-  var xAxis = d3.svg.axis()
-      .scale(x)
+  var xAxis2 = d3.svg.axis()
+      .scale(x2)
       .orient("bottom");
 
-  var yAxis = d3.svg.axis()
-      .scale(y)
+  var yAxis2 = d3.svg.axis()
+      .scale(y2)
       .orient("left")
       .ticks(12);
 
@@ -597,7 +613,7 @@ var y = d3.scale.linear().range([bar_height, 0]).domain([0, 100]);
     .attr("class", "x axis")
     .attr("transform", "translate(0," + (bar_height) + ")")
     .attr("class", "axis")
-    .call(xAxis)
+    .call(xAxis2)
     .attr("class", "thedetail")
     .selectAll("text") 
     .style("text-anchor", "end")
@@ -614,7 +630,7 @@ var y = d3.scale.linear().range([bar_height, 0]).domain([0, 100]);
         .attr("class", "y axis")
         .attr("class", "thedetail")
         .attr("class", "axis")
-        .call(yAxis)
+        .call(yAxis2)
         .attr("class", "thedetail")
         .append("text")
         .attr("transform", "rotate(-90)")
@@ -631,10 +647,10 @@ var y = d3.scale.linear().range([bar_height, 0]).domain([0, 100]);
         .enter().append("rect")
         .attr("class", "bar")
         .attr("class", "thedetail")
-        .attr("x", function (d,i) { return x(browser_list[i])+ 20; })
-        .attr("width", x.rangeBand() - 20)
-        .attr("y", function(d) {  return y(d); })
-        .attr("height", function(d) {console.log(d); return bar_height - y(d); })
+        .attr("x", function (d,i) { return x2(browser_list[i])+ 20; })
+        .attr("width", x2.rangeBand() - 23)
+        .attr("y", function(d) {  return y2(d); })
+        .attr("height", function(d) {console.log(d); return bar_height - y2(d); })
         .style("fill", function(d,i){return colorDict[browser_list[i]];})
 
 
@@ -643,10 +659,10 @@ svg2.selectAll(".bar")
         .enter().append("rect")
         .attr("class", "bar")
         .attr("class", "thedetail")
-        .attr("x", function (d,i) { return x(browser_list[i]); })
-        .attr("width", x.rangeBand() - 20)
-        .attr("y", function (d,i) { return y(d); })
-        .attr("height", function (d,i) { return bar_height - y(d); })
+        .attr("x", function (d,i) { return x2(browser_list[i]); })
+        .attr("width", x2.rangeBand() - 24)
+        .attr("y", function (d,i) { return y2(d); })
+        .attr("height", function (d,i) { return bar_height - y2(d); })
         .style("fill", function(d,i){return colorDict[browser_list[i]]})
         .style("opacity", 0.25)
 
@@ -878,7 +894,18 @@ if (selected_country != undefined)
 {
 
 selected_country = _.object(merged_data[country_name]);
+
+if (bar_check)
+{
+  make_bars(selected_country, country_name, world_data);
+}
+
+if (pie_check)
+{
+
 make_piechart(selected_country, country_name);
+
+}
 
 }
 
@@ -920,10 +947,17 @@ var tooltip3 = d3.select("body")
 
           world_data = _.object(merged_data["World"]);
 
+          if (bar_check)
+          {
+            make_bars(selected_country, country_name, world_data);
+          }
+          if (pie_check)
+          {
+              make_piechart(selected_country, country_name);
+          }
+         
 
-          make_bars(selected_country, country_name, world_data);
-
-         // make_piechart(selected_country, country_name);
+         
         })
         .on("click", function(d){ zooming(d);});
       
@@ -989,7 +1023,19 @@ console.log(country_name);
 
       selected_country = _.object(merged_data[country_name]);
 
+
+      if (bar_check)
+      {
+        make_bars(selected_country, country_name, world_data);
+      }
+
+      if (pie_check)
+      {
+
       make_piechart(selected_country, country_name);
+
+      }
+
 
       createLineGraph(country_name);
 
@@ -1063,10 +1109,30 @@ var yearOpts2 = yearDrop.selectAll("option")
       .attr("value", function (d) { return d; });
 
 
+
 d3.selectAll("dropdown").remove()
 
 
 }
+
+
+
+d3.select("#BarButton").on("click", function() {
+  bar_check = true;
+  pie_check = false;
+  make_bars(selected_country, country_name, world_data);
+
+});
+
+d3.select("#PieButton").on("click", function() {
+      pie_check = true;
+      bar_check = false;
+      make_piechart(selected_country, country_name);
+
+
+});
+
+
 
 
 var running = false;
