@@ -949,7 +949,7 @@ for (i in merged_data)
 }
 
 
-all_keys.unshift("<Select a country>")
+all_keys.unshift("<Select country>")
 
   var countryDrop = d3.select("#table_container1")
     .data(all_keys)
