@@ -591,15 +591,15 @@ var y2 = d3.scale.linear()
     svg2.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + (bar_height + 2) + ")")
-    .attr("class", "axis")
+    //.attr("class", "axis")
     .call(xAxis2)
-    .attr("class", "thedetail")
+    .attr("class", "x axis thedetail")
     .selectAll("text") 
     .style("text-anchor", "end")
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
-    .attr("transform", function(d) {return "rotate(-35)"})
-    .attr("class", "thedetail");
+    .attr("transform", function(d) {return "rotate(-35)"});
+   // .attr("class", "thedetail");
 
 /* make a y-axis */
     svg2.append("g")
@@ -607,7 +607,7 @@ var y2 = d3.scale.linear()
         .attr("class", "thedetail")
         .attr("class", "axis")
         .call(yAxis2)
-        .attr("class", "thedetail")
+        .attr("class", "y axis thedetail")
         .append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", -50)
@@ -748,8 +748,7 @@ yAxis = d3.svg.axis()
 
 // appending x axis
  d3.select(".lineDetail").append("g")
-  .attr("class", "x axis")
-  .attr("class", "lineDetail")
+  .attr("class", "x axis lineDetail")
   .attr({"transform": "translate(" + (margin.left*2) + "," + (bbVis.y + bbVis.h + margin.top) + ")",})
   .call(xAxis)
     .selectAll("text")  
@@ -763,8 +762,7 @@ yAxis = d3.svg.axis()
 
 // appending y axis
  d3.select(".lineDetail").append("g")
-    .attr("class", "y axis")
-    .attr("class", "lineDetail")
+    .attr("class", "y axis lineDetail")
     .attr({"transform": "translate(" + (margin.left*2) + "," + (margin.top) + ")",})
     .call(yAxis)
   .append("text")
@@ -892,7 +890,7 @@ var country_paths = svg.selectAll("path")
     .attr("d", path)
     .attr("class", "country")
     .style("fill", function(d) {return colorMap(d, merged_data);})
-    .on("mouseover", function(d){ country_name = d["properties"]["name"];
+    .on("mouseover", function(d){country_name = d["properties"]["name"];
       selected_country = _.object(merged_data[country_name]);
       world_data = _.object(merged_data["World"]);
       if (bar_check)
@@ -1296,6 +1294,31 @@ queue()
 
 
 function zooming(d) {
+  var x, y, k;
+
+  if (d && centered !== d) {
+    var centroid = path.centroid(d);
+    x = centroid[0];
+    y = centroid[1];
+    k = 4;
+    centered = d;
+  } else {
+    x = width / 2 ;
+    y = height / 2 - margin.top;
+    k = 1;
+    centered = null;
+  }
+
+  svg.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
+
+  svg.transition()
+      .duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .style("stroke-width", 1.5 / k + "px");
+}
+
+function zooming2(d) {
   var x, y, k;
 
   if (d && centered !== d) {
