@@ -29,7 +29,7 @@ Years = [2010, 2011, 2012, 2013, 2014];
 
 
 var country_name;
-var year_selected_text = "January 2010";
+var year_selected_text = "May 2014";
 var selected_country;
 
 var color_option = "Most Popular";
@@ -510,7 +510,7 @@ var initVis = function(error, world, cities, usage1, usage2, usage3, usage4, usa
 {
 
 
-year_selected = usage1;
+year_selected = usage53;
 
 var usage_list = [usage1, usage2, usage3, usage4, usage5, usage6, usage7, usage8, 
 usage9, usage10, usage11, usage12, usage13, usage14, usage15, usage16, usage17, 
@@ -590,7 +590,7 @@ var y2 = d3.scale.linear()
 
     svg2.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0," + (bar_height) + ")")
+    .attr("transform", "translate(0," + (bar_height + 2) + ")")
     .attr("class", "axis")
     .call(xAxis2)
     .attr("class", "thedetail")
@@ -874,10 +874,16 @@ var tooltip3 = d3.select("body")
     .style("top", "64px")
     .style("left", "65px")
     .style("height", "0px")
-    .attr("class", "tooltip3")
-  //  .attr("class", "thedetail")
-    .html("<h2 class='thedetails city_name'>" + year_title + "</h2>").attr("class", "thedetails");
+    .attr("class", "tooltip3");
 
+    if (year_title == "<Select a date>")
+    {
+      tooltip3.html("<h2 class='thedetails city_name'>" + "Select a date!" + "</h2>").attr("class", "thedetails");
+    }
+    else
+    {
+    tooltip3.html("<h2 class='thedetails city_name'>" + year_title + "</h2>").attr("class", "thedetails");
+    }
 
 var country_paths = svg.selectAll("path")
     .data(world.features.filter(function(d) {return d.id != -99; }))
@@ -943,6 +949,7 @@ for (i in merged_data)
 }
 
 
+all_keys.unshift("<Select a city>")
 
   var countryDrop = d3.select("#table_container1")
     .data(all_keys)
@@ -1001,10 +1008,14 @@ var countryOpts2 = countryDrop.selectAll("option")
 
 }
 
+var yeararrayOptions = yeararray.slice(0);
 
+yeararrayOptions.unshift("<Select a date>");
+
+console.log(yeararrayOptions);
 
   var yearDrop = d3.select("#table_container3")
-    .data(yeararray)
+    .data(yeararrayOptions)
     .append("form2")
     .append("select")
     .on("change", function() {
@@ -1018,7 +1029,7 @@ var countryOpts2 = countryDrop.selectAll("option")
 
 
 var yearOpts2 = yearDrop.selectAll("option")
-    .data(yeararray)
+    .data(yeararrayOptions)
     .enter()
     .append("option")
       .text(function (d) { return d; })

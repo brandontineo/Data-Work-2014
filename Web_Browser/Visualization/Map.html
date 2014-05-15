@@ -20,7 +20,15 @@ height:70px;
 border-bottom:solid;
 border-width:1.5px;
 border-color: #ccc;
+    opacity: 0.3;
+
 }
+
+.headerDiv2 {
+    opacity: 0.3;
+    filter: alpha(opacity=30); /* msie */
+}
+
 
 tbody{
 border-bottom:solid;
@@ -320,6 +328,46 @@ margin-left: -10px;
 margin-right: 5px;
 }
 
+.footer{
+height:40px;
+line-height: 40px;
+text-align: center;
+background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+text-indent:0;
+color:gray;
+font-family:Arial;
+font-size:14px;
+font-weight:bold;
+font-style:normal;
+text-decoration:none;
+text-shadow:1px 1px 0px #ffffff;
+}
+
+select{
+text-indent:0;
+color:gray;
+font-family:Arial;
+font-size:14px;
+font-weight:bold;
+font-style:normal;
+text-decoration:none;
+text-shadow:1px 1px 0px #ffffff;
+}
+
+.domain { 
+  fill: none; 
+  stroke: black; 
+  stroke-width: 2px; 
+} 
+
+table{
+-ms-transform: scale(0.95); /* IE 9 */
+-webkit-transform: scale(0.95); /* Chrome, Safari, Opera */
+transform: scale(0.95);
+}
+
 
 </style>
 
@@ -339,9 +387,9 @@ margin-right: 5px;
 
         </div>
         <diV id="buttons">
-            <button align="right" class="btn" type="button" id="lebutton4" data-toggle="dropdown">History Every Month (Fast)</button>
-            <button align="right" class="btn" type="button" id="lebutton3" data-toggle="dropdown">History Every Month (Normal)</button>
-            <button align="right" class="btn" type="button" id="lebutton" data-toggle="dropdown">History Every 6 Months</button>
+            <button align="right" class="btn" type="button" id="lebutton4" data-toggle="dropdown">History By Month (Fast)</button>
+            <button align="right" class="btn" type="button" id="lebutton3" data-toggle="dropdown">History By Month (Normal)</button>
+            <button align="right" class="btn" type="button" id="lebutton" data-toggle="dropdown">History By 6 Months</button>
             <button align="right" class="btn" type="button" id="lebutton2" data-toggle="dropdown">History By Year</button>
              </div>
             
@@ -382,7 +430,15 @@ margin-right: 5px;
 
 </body>
 
+<div class="footer">
+<p>Brandon Tineo &copy 2014</p>
+</div>
+<div class="headerDiv2">
+<img src="../Visualization/browser_banner.png"  height="70" alt="Browser Banner"></img>
+<img src="../Visualization/browser_banner.png"  height="70" alt="Browser Banner"></img>
+<img src="../Visualization/browser_banner.png"  height="70" alt="Browser Banner"></img>
+<img src="../Visualization/browser_banner.png"  height="70" alt="Browser Banner"></img>
 
-</footer>
+</div>
 
 </html>
