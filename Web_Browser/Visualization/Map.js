@@ -22,7 +22,8 @@ var bbVis = {
 
 Months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 browser_array = ["None", "Other", "Mobile", "Safari", "Opera", "IE", "Firefox", "Chrome"];
-browser_array2 = ["Other", "Mobile", "Safari", "Opera", "IE", "Firefox", "Chrome"];
+browser_array2 = ["Chrome", "Firefox", "IE", "Opera", "Safari", "Mobile", "Other"];
+
 color_display = ["Most Popular", "2nd Most Popular", "3rd Most Popular"];
 Years = [2010, 2011, 2012, 2013, 2014];
 
@@ -571,7 +572,7 @@ for (i in selected_country)
 
 var x2 = d3.scale.ordinal()
   .rangeRoundBands([0, 350], .1)
-  .domain(browser_list);
+  .domain(browser_array2);
 
 var y2 = d3.scale.linear()
   .range([bar_height, 0])
@@ -816,7 +817,7 @@ for (var y =0 ; y <7; y++)
          .attr("r", function(d, i) { return 4 })
          .attr({"transform": "translate(" + (margin.left*2) + "," + (margin.top) + ")",})
          .on("mouseover", function(d){ console.log(d); tooltip.style("visibility", "visible"); tooltip.html("<strong>" + d.usage + "%</strong>");})
-         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
+         .on("mousemove", function(){return tooltip.style("top", (event.pageY-40)+"px").style("left",(event.pageX-40)+"px");})
          .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
          .on("click", function (d) {console.log(d.date)
 
