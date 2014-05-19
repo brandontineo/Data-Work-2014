@@ -891,7 +891,7 @@ var country_paths = svg.selectAll("path")
     .attr("d", path)
     .attr("class", "country")
     .style("fill", function(d) {return colorMap(d, merged_data);})
-    .on("mouseover", function(d){country_name = d["properties"]["name"];
+    .on("click", function(d){country_name = d["properties"]["name"];
       selected_country = _.object(merged_data[country_name]);
       world_data = _.object(merged_data["World"]);
       if (bar_check)
@@ -902,8 +902,8 @@ var country_paths = svg.selectAll("path")
       {
           make_piechart(selected_country, country_name);
       } 
-    })
-    .on("click", function(d){ zooming(d);});
+      zooming(d);
+    });
       
     data_list = []
 
@@ -1301,7 +1301,7 @@ function zooming(d) {
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
-    k = 4;
+    k = 3.5;
     centered = d;
   } else {
     x = width / 2 ;
