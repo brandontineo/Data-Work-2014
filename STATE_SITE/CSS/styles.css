@@ -27,6 +27,7 @@ img:hover {
 	position: relative;
 	margin: 0 auto;
 	background-color: #181009;
+	float:center;
 }
 
 #site-title {
