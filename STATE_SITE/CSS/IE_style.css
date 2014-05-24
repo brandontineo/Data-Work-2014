@@ -1,0 +1,500 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: black;
+}
+
+#site-head{
+	margin-bottom: 60px;
+}
+
+html {
+	font: normal .9em/1.5em Helvetica, Arial, sans-serif;
+	color: #222;
+}
+
+#addQuestionChoices{display:none;}
+
+.heading{
+
+	color:lightsteelblue;
+}
+
+
+.formSpan {
+	display: block;
+	margin-bottom: 1.25em;
+}
+
+.thumbs{
+	width:48px;
+	height:48px;
+	width:60px;
+	height:60px;
+	margin:2px 2px;
+}
+
+.FrontPic
+{
+	margin: 8px; 
+	width: 590px; 
+	height: 376px;
+}
+
+.location
+{
+	margin-left:130px;
+}
+
+.passport_logo{
+	width: 100%;
+	border:0px;
+}
+
+.specialeventpic1{
+	margin: 8px;
+	margin-top: 25px; 
+	width: 303px; 
+	height: 455px;
+	float:right;
+	border:0px;
+}
+
+.specialeventspic2{
+	margin: 8px; 
+	width: 229px; 
+	height: 344px;
+	float:left;
+}
+
+.specialeventspic3{
+	margin:8px; 
+	width: 182px; 
+	height: 273px;
+	float:right;
+}
+
+
+
+table{
+	cellspacing:0px; 
+	padding:0px;
+	border:0px;
+}
+
+td{
+	align:center;
+	width:25%;
+}
+
+.table-data{
+	color:white; 
+}
+
+a img { border: 0px; text-decoration: none; }
+img {
+	border:0px;
+}
+
+img:hover { text-decoration: none; }
+
+#site-container2 {
+	height: 2900px;
+	width: 1300px;
+	overflow:hidden;
+
+}
+
+#site-head {
+	position: relative;
+	padding: 55px 0 45px;
+	height: 80px;
+	/*overflow: hidden; */
+}
+
+#site-title, #site-nav-menu, #site-blockContainer {
+	margin:auto;
+	padding: 0 .75em;
+	width: 990px;
+	height:auto;
+}
+#site-blockContainer{
+	margin-left: 100px;
+	margin-right: -100px !important;
+}
+
+#site-title {
+	padding: 0 .33em;
+	font-size: 4.25em;
+	line-height: 1em;
+	letter-spacing: -.06em;
+	margin-left: 130px;
+	color: #fff;
+}
+
+#site-titlelink {
+	/*color: #fff; */
+	text-decoration: none;
+	position: relative; z-index: 1;
+    border-bottom: 0px !important;
+}
+
+
+
+.site-logo {
+	position: absolute;
+	height: 140px;
+	width: 100%;
+    top: 0;
+    right: 0;
+    background-position: right top;
+}
+
+
+
+#site-blockContainer {
+	color: #222;
+	overflow: hidden;
+}
+
+#site-container a, #site-container a:hover, #site-container a:visited {
+	text-decoration: none;
+
+}
+
+
+.lastbullet{
+	padding-top: 10px;
+}   
+
+#site-mainnavwrap {
+	font-size: 1.0em;
+	font-weight: bold;
+	cursor: default;
+	height: auto;
+	overflow:hidden;
+}
+
+
+#site-nav-menu ul {
+	padding-left: 0;
+	padding-right:0;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	list-style: none;
+}
+
+#site-nav-menu .site-nav-level-0 {
+	line-height: 2.5em;
+	margin: 0 0 0 -0.75em;
+
+}
+
+#site-nav-menu li {
+	display: inline;
+}
+
+#site-nav-menu a {
+	border:0px;
+	padding: .75em;
+	text-decoration: none;
+	background-color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px; 
+    -webkit-box-shadow: 4px 4px 10px #00DEFF;
+    -moz-box-shadow: 4px 4px 10px #00DEFF;
+    box-shadow: 4px 4px 10px #00DEFF;
+   	border-style:solid; 
+	border-color:black;
+	margin-top: 10px;
+}
+
+
+#site-nav-menu .site-nav-level-0 ul a:hover { background-color: #000; color: #fff; }
+
+.navtype-Top #site-nav-menu li:hover > .site-nav-level-2 { left: 94%; top: -2px; }
+.navtype-Top #site-nav-menu .sfhover .sfhover .site-nav-level-2 { left: 94%; top: -2px; margin-left: -10px;	 }
+
+
+
+#site-blockContainer {
+	padding-right: 0;
+	color: white;
+	border-right: 1px solid #222;
+	height:auto; /* why doesn't auto work? */
+}
+
+
+#site-blockContainer2{
+	padding-right: 0px;
+	margin-left: 70px;
+	color: white;
+	border-right: 1px solid #222;
+	height:auto;
+}
+
+
+
+.picture_container{
+
+	background-color: lightgray;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin:10px;
+    margin-bottom: 20px;
+    padding:10px;
+    border-style:solid; 
+	border-color:steelblue;
+   
+}
+.picture_container2{
+
+	background-color: steelblue;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin:10px;
+    margin-bottom: 20px;
+    padding:10px;
+    border-style:solid; 
+	border-color:lightgray;
+   
+}
+
+
+.picture_container3{
+
+	background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin:10px;
+    margin-bottom: 20px;
+    padding:10px;
+    border-style:solid; 
+	border-color:red;
+   
+}
+
+.picture_container4{
+
+	background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    margin-top:10px;
+    margin-bottom: 20px;
+    border-style:solid; 
+	border-color:red;
+	padding:10px;
+	width:700px;
+	margin-left:45px;
+   
+}
+
+.picture_container:hover, .picture_container2:hover, .picture_container3:hover, .picture_container4:hover{
+	border-style:solid; 
+	border-color:yellow;
+
+}
+
+#site-bigcontain {
+	float: left;
+	width:659px;
+	height:auto;
+	margin: 2.5em 0 0;
+	padding-right: 20px;
+	margin-right: 20px;
+	/*border-right: 1px solid #ededed; */
+
+}
+
+
+
+#site-bigcontain{
+	margin-top: 10px !important;
+}
+
+
+#site-bigcontain .site-paragraph {
+	margin-bottom: 2.5em;
+}
+
+#site-bigcontain .site-title, #site-sidebar .site-title {
+	margin: 0 0 .5em;
+	font-size: 1.4em;
+}
+
+
+#site-sidebar .site-paragraph {
+	margin: 13px;
+}
+
+#site-sidebar .site-title {
+	font-size: 1.1em;
+    border-bottom: 1px solid #DFDFDF;
+    margin-bottom: 12px;
+    color:#000;
+}
+
+#site-sidebar .site-title a,
+#site-sidebar .site-title a:hover,
+#site-sidebar .site-title a:visited {
+	color: #000;
+}
+
+#site-sidebar .site-text, #site-sidebar .site-text p {
+    margin-top: 0px;
+    color:#000;
+    padding-top:4px;
+    padding-bottom:6px;
+    font-size:0.95em;
+}
+
+#site-sidebar{
+	margin-top: 70px;
+}
+
+
+
+.noSidebar #site-sidebar .site-paragraph {
+	display: none;
+}
+
+#site-sidebar {
+	float: right;
+	margin-left: -301px;
+	padding: 2.5em 0;
+	padding-top: 20px;
+	width: 300px;
+	border-left: 1px solid #222;
+
+	background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+ 
+   border-style:solid; 
+	border-color:lightgray;
+
+}
+
+#boxad {
+	margin: 0;
+	padding: 0;
+}
+
+.clears {
+	clear: both;
+}
+
+#site-footer {
+	border-width: 10px 0 0;
+	border-style: solid;
+	text-align: center;
+    float: left;
+    clear: both;
+    width: 100%;
+    height: 60px;
+    overflow:hidden;
+}
+
+#site-footer p {
+	margin: 0;
+	padding: 1em;
+}
+
+#site-footer a {
+	color: #fff;
+}
+
+
+#wildfire {
+	float: none !important;
+	text-align: right !important;
+}
+
+#site-head {
+	background: black url(../images/IE.png) no-repeat;
+}
+
+#site-smalltitle {
+	color: white;
+	background-color: black;
+	float: left;
+	margin:auto;
+	padding: 0 .75em;
+	height:auto;
+	padding-top: 15px;
+	font-size: 1.8em;
+
+}
+
+#site-mainnavwrap {
+	background: black;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #222;
+	border-bottom-color:#222;
+}
+
+#site-nav-menu a {
+	color: #548eab;
+}
+
+#site-nav-menu a:hover, #site-nav-menu a:focus {
+	background: #f0f9ff
+}
+
+a, a:visited {
+	color: #005081;
+	border-bottom-color: #cddde7;
+}
+
+a:hover, a:focus {
+	color: #001b2b;
+	border-color: #81abc6;
+}
+
+#site-footer {
+	background: black;
+	border-weight: 0.1px;
+	border-color: #222;
+	color: #8badcf;
+}
+
+
+.NEONbluetxt {
+font-family: "Brush Script MTs",Monospace;
+color: #fff;
+text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0 150px #00DEFF;
+}
+ 
+ #map_canvas 
+ {
+        width: 620px;
+        height: 400px;
+ }
+
+
+
+
+
+
