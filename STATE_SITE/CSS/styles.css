@@ -45,7 +45,7 @@ img:hover {
 
 #site-smalltitle {
 	color: #c9c9c9;
-	font-size: 16px;
+	font-size: 24px;
 	top: 140px;
 	left: -100px;
 	width: 446px;
@@ -55,6 +55,8 @@ img:hover {
 	z-index: 100;
 	letter-spacing: .1em;
 	line-height: 18px;
+	padding-left: 140px;
+	margin-left: -25px;
 }
 
 #site-nav-menu {
@@ -65,6 +67,15 @@ img:hover {
 	text-align: left;
 	margin: 0 auto;
 	width: 950px;
+}
+
+.dp-cite-testimonial-msg, .dp-sig-nametitle-item
+{
+	font-size: 12px;
+}
+.dp-cite-testimonial-msg
+{
+	font-style: italic;
 }
 
 .site-current-nav-link,
