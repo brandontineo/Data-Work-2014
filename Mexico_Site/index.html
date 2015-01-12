@@ -13,8 +13,8 @@
 	<div class="container">
 
 	<!-- tried to add navbar-fixed-top class but it causes problems with coordination -->
-		<nav id="navbar" class="navbar navbar-inverse" role="navigation">
-        	<div class="navbar-header">
+		<nav id="navbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        	<div style="margin-left:20px" class="navbar-header">
 	            <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
 		            <span class="sr-only">Toggle navigation</span>
 		            <span class="icon-bar"></span>
@@ -46,6 +46,7 @@
 <!--/.header-->
 
 <div class="page-section intro">
+	<div style="height:50px"></div>
 	<div class="container">
 		<img width="200" height="150" style="float:left; margin-top:50px; margin-right: 30px"src="images/logo.jpg">
 		<h1>Children of Mexico International</h1>
@@ -71,8 +72,8 @@
 <div id="africa" class="page-section">
 	<div class="container">
 		<h2>Mission Statement</h2>
-		<p class="caption">Children of Mexico International is committed to enhancing the lives of children and young adults by sharing evidence-based communication techniques, therapy materials and equipment, education and research to those with a need.  Children of Mexico International currently serves children in an orphanage in Guadalajara, and at a central location in Cotija, Mexico.  In Guadalajara, augmentative and alternative communication (AAC) techniques are emphasized and in Cotija, hippotherapy, (the practice of using the therapeutic movement of the horse to strengthen core muscles and improve balance), is one of the strategies being used.</p>
-		<p class="caption"><u>What we do...</u><br>We are a non-profit organization providing direct therapy, education, and training to disabled children and young adults living in orphanages throughout Latin America.  Many of these children have limited communication skills due to a variety of disorders including cerebral palsy, autism, birth defects, and other neurological disorders.  Children of Mexico brings together teams of skilled professionals, students, and volunteers to help disenfranchised, forgotten, and needy children who otherwise might not receive intervention.  Additionally, we train staff, provide presentations for families and professionals with the goal of improving communication skills and enhancing lives.<br/><a href="#" class="scroll-top back-to-top">&uarr;</a></p>
+		<p class="caption">Children of Mexico International is committed to enhancing the lives of children and young adults by sharing evidence-based communication techniques, therapy materials and equipment, education and research to those with a need. Children of Mexico International currently serves children in an orphanage in Guadalajara, and at a central location in Cotija, Mexico. In Guadalajara, augmentative and alternative communication (AAC) techniques are emphasized and in Cotija, hippotherapy, (the practice of using the therapeutic movement of the horse to strengthen core muscles and improve balance), is one of the strategies being used.</p>
+		<p class="caption"><u>What we do...</u><br>We are a non-profit organization providing direct therapy, education, and training to disabled children and young adults living in orphanages throughout Latin America. Many of these children have limited communication skills due to a variety of disorders including cerebral palsy, autism, birth defects, and other neurological disorders.  Children of Mexico brings together teams of skilled professionals, students, and volunteers to help disenfranchised, forgotten, and needy children who otherwise might not receive intervention. Additionally, we train staff, provide presentations for families and professionals with the goal of improving communication skills and enhancing lives.<br/><a href="#" class="scroll-top back-to-top">&uarr;</a></p>
 	</div>
 	<!--/.container-->
 </div>
@@ -483,7 +484,7 @@ function scrollToID(id, speed){
 	var mainNav = $('#main-nav');
 	if (!mainNav.hasClass("open")){
 		console.log("not mobile");
-		var targetOffset = $(id).offset().top ;
+		var targetOffset = $(id).offset().top - 50;
 		$('html,body').animate({scrollTop:targetOffset}, speed);
 
 	}
