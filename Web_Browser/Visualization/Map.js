@@ -45,6 +45,7 @@ var running = false;
 var textOffset = 35;
 var labelr = 120;
 
+var world_data;
 
 var ls_w = 20, ls_h = 20;
 
