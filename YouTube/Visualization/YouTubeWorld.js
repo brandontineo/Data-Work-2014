@@ -102,7 +102,8 @@ var color_scale = d3.scale.ordinal()
 
 function formatNumber(x) {
 
-  if (isInt(x) && size_by != "Average Views") 
+
+  if (isInt(x)) 
   {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -506,7 +507,7 @@ svg2.append("g")
         .attr("y", function(d) { return y(d); })
         .attr("height", function(d) { return bar_height - y(d); })
         .style("fill", function(d,i){ return color_scale(genre_array[i]);})
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(city_values_lst[i]) + " City " + genre_array[i] + " Entries." )})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_values_lst[i] + " City " + genre_array[i] + " Entries." )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
@@ -555,7 +556,7 @@ svg2.append("g")
         .attr("height", function (d,i) { return bar_height - y(d); })
         .style("fill", function(d,i){return color_scale(genre_array[i])})
         .style("opacity", 0.4)
-        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(formatNumber(city_values_lst_2[i]) + " City " + genre_array[i] + " Entries." )})
+        .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(city_values_lst_2[i] + " City " + genre_array[i] + " Entries." )})
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-20)+"px").style("left",(event.pageX+20)+"px");})
         .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
