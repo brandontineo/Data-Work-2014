@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>Prototype</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+</head>
+
+
+<style type="text/css">
+    
+.1_path {
+  fill: steelblue ;
+  color: steelblue ;
+  background-color: steelblue ;
+
+
+}
+
+path.1_path:hover {
+  fill: blue ;
+
+}
+
+
+</style>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Demo Prototype</a>
+            </div>
+
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="sideBar">
+                        <a href="#"><i class="fa fa-fw fa-cogs"></i>Meta Data Management</a>
+                    </li>
+                    <li class="sideBar">
+                        <a href="#"><i class="fa fa-fw fa-code-fork"></i>Data Modeling</a>
+                    </li>
+                    <li class="active sideBar">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-wrench"></i> Data Quality <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="tables.html">Report 1</a>
+                            </li>
+                            <li>
+                                <a href="tables2.html">Report 2</a>
+                            </li>
+                            <li>
+                                <a href="tables3.html">Report 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Data Quality
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-wrench"></i> Data Quality
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Report 2: Incorrect Data</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr class="correct">
+                                        <th>Borrower Name</th>
+                                        <th>Mortgage Interest</th>
+                                        <th>Original Principal Balance Amount</th>
+                                        <th>Current Principal Balance Amount</th>
+                                        <th>Mortgage Term</th>
+                                        <th>Mortgage Origination Date</th>
+                                        <th>Mortgage Payoff Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Borrower A</td>
+                                        <td>4%</td>
+                                        <td>$0</td>
+                                        <td>$150,000</td>
+                                        <td>30 year</td>
+                                        <td>2/1/2040</td>
+                                        <td>2/1/2010</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Borrower B</td>
+                                        <td>10%</td>
+                                        <td>$15,000</td>
+                                        <td>$30,000</td>                                        
+                                        <td>30 year</td>
+                                        <td>12/10/2000</td>
+                                        <td>12/10/2030</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Borrower C</td>
+                                        <td>4%</td>
+                                        <td>$2,000,000</td>
+                                        <td>$1,300,000</td>
+                                        <td>15 year</td>
+                                        <td>3/5/2015</td>
+                                        <td>3/5/2030</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Borrower D</td>
+                                        <td>0%</td>
+                                        <td>$500,000</td>
+                                        <td>$240,000</td>
+                                        <td>15 year</td>
+                                        <td>6/20/2012</td>
+                                        <td>6/20/2027</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Borrower E</td>
+                                        <td>3.5%</td>
+                                        <td>$300,000</td>
+                                        <td>$15,000</td>
+                                        <td>40 years</td>
+                                        <td>7/15/2005</td>
+                                        <td>7/15/2035</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="segmentTitle">Segmented Data</h2>
+                        <div style="height: 200px" class="table-responsive">
+                            <table class="segmentedTable table table-hover table-striped">
+                                <thead>
+                                    <tr class="correctSeg">
+                                        <th>Borrower Name</th>
+                                        <th>Mortgage Interest</th>
+                                        <th>Original Principal Balance Amount</th>
+                                        <th>Current Principal Balance Amount</th>
+                                        <th>Mortgage Term</th>
+                                        <th>Mortgage Origination Date</th>
+                                        <th>Mortgage Payoff Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="borA">
+                                        <td>Borrower A</td>
+                                        <td>4%</td>
+                                        <td>$0</td>
+                                        <td>$150,000</td>
+                                        <td>30 year</td>
+                                        <td>2/1/2040</td>
+                                        <td>2/1/2010</td>
+                                    </tr>
+                                    <tr class="borB">
+                                        <td>Borrower B</td>
+                                        <td>10%</td>
+                                        <td>$15,000</td>
+                                        <td>$30,000</td>                                        
+                                        <td>30 year</td>
+                                        <td>12/10/2000</td>
+                                        <td>12/10/2030</td>
+                                    </tr>
+                                    <tr class="borC">
+                                        <td>Borrower C</td>
+                                        <td>4%</td>
+                                        <td>$2,000,000</td>
+                                        <td>$1,300,000</td>
+                                        <td>15 year</td>
+                                        <td>3/5/2015</td>
+                                        <td>3/5/2030</td>
+                                    </tr>
+                                    <tr class="borD">
+                                        <td>Borrower D</td>
+                                        <td>0%</td>
+                                        <td>$500,000</td>
+                                        <td>$240,000</td>
+                                        <td>15 year</td>
+                                        <td>6/20/2012</td>
+                                        <td>6/20/2027</td>
+                                    </tr>
+                                    <tr class="borE">
+                                        <td>Borrower E</td>
+                                        <td>3.5%</td>
+                                        <td>$300,000</td>
+                                        <td>$15,000</td>
+                                        <td>40 years</td>
+                                        <td>7/15/2005</td>
+                                        <td>7/15/2035</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4> Interest Drilldown</h4>
+                        <svg id="barVis" style="background-color: white" width="650" height="330">
+
+                        </svg>
+                    </div>
+                    <div style="background-color: white" class="col-md-3">
+                        <h4> Mortgage Term Drilldown</h4>
+                        <svg id="pieVis" width="230" height="330" >
+
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src="d3/d3.min.js" charset="utf-8"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+
+
+    <!-- jQuery -->
+    <script src="js/tables2.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
