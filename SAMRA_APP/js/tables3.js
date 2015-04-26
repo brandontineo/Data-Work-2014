@@ -23,7 +23,7 @@ var DQrulesDict = {
 
 "DQ1001" : "Mortgage Interest Rate should be greater than 0.", 
 "DQ1002" : "Original Principal Balance Amount should be greater than 0.", 
-"DQ1003" : "Current Principal Balance Amount should be equal or less than Orginal Principal Balance Amount", 
+"DQ1003" : "Current Principal Balance Amount should be equal or less than Original Principal Balance Amount", 
 "DQ1004" : "Mortgage Payoff data shall be greater than mortgage orgination date", 
 "DQ1005" : "Mortgage Term shall be greater than 0 but equal or less than 30 years", 
 }
