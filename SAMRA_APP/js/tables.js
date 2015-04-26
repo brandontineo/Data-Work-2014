@@ -166,18 +166,38 @@ d3.selectAll(".years")
 d3.selectAll(".path1")
       .on('mouseover',  function(d,i){
         d3.selectAll(".path0").attr('fill-opacity', 0.2);
+        d3.selectAll(".path2").attr('fill-opacity', 0.2);
+
       })
       .on('mouseout',  function(d,i){
         d3.selectAll(".path0").attr('fill-opacity', 1);
+        d3.selectAll(".path2").attr('fill-opacity', 1);
+
       })
 
 d3.selectAll(".path0")
       .on('mouseover',  function(d,i){
         d3.selectAll(".path1").attr('fill-opacity', 0.2);
+        d3.selectAll(".path2").attr('fill-opacity', 0.2);
+
       })
       .on('mouseout',  function(d,i){
         d3.selectAll(".path1").attr('fill-opacity', 1);
+        d3.selectAll(".path2").attr('fill-opacity', 1);
       })
+
+d3.selectAll(".path2")
+      .on('mouseover',  function(d,i){
+        d3.selectAll(".path1").attr('fill-opacity', 0.2);
+        d3.selectAll(".path0").attr('fill-opacity', 0.2);
+
+      })
+      .on('mouseout',  function(d,i){
+        d3.selectAll(".path1").attr('fill-opacity', 1);
+        d3.selectAll(".path0").attr('fill-opacity', 1);
+      })
+
+
 
 $( ".15" ).click(function() {
   generateTable(15);
