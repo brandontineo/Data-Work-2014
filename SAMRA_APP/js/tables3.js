@@ -48,7 +48,7 @@ var tooltip2 = d3.select("body")
   .style("visibility", "hidden")
   .style("color", "black")
   .style("font-size", "15px")
-  .attr("class", "tooltip2");
+  .attr("class", "tooltip3");
 
 
 d3.selectAll(".correct > th")
@@ -66,9 +66,9 @@ d3.selectAll(".correctSeg > th")
 
 
 d3.selectAll(".warning")
-  .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); var dq = this.className.split(' ')[1]; tooltip.html("<strong>" + dq + " rule </strong>: " + DQrulesDict[dq])})
-  .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
-  .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
+  .on("mouseover", function (d, i){ tooltip2.style("visibility", "visible"); var dq = this.className.split(' ')[1]; tooltip2.html("<strong style='color:red'>" + dq + " rule </strong>: " + DQrulesDict[dq])})
+  .on("mousemove", function(){return tooltip2.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
+  .on("mouseout", function(){ return tooltip2.style("visibility", "hidden");});
 
 
 
