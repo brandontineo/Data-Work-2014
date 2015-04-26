@@ -35,14 +35,14 @@ var tooltip = d3.select("body")
 d3.selectAll(".correct > th")
   .data(titles)
   .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html("<strong>Definition</strong>: " + dict[d])})
-  .on("mousemove", function(){return tooltip.style("top", (event.pageY+30)+"px").style("left",(event.pageX-180)+"px");})
+  .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
   .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
 
 d3.selectAll(".correctSeg > th")
   .data(titles)
   .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(dict[d])})
-  .on("mousemove", function(){return tooltip.style("top", (event.pageY+30)+"px").style("left",(event.pageX-180)+"px");})
+  .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
   .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
 });
