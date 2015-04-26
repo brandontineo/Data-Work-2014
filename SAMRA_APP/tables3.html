@@ -74,24 +74,14 @@ path.1_path:hover {
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="sideBar">
-                        <a href="#"><i class="fa fa-fw fa-cogs"></i>Meta Data Management</a>
+                        <a href="tables.html"><i class="fa fa-fw fa-wrench"></i>Data Quality: Report 1</a>
+                    </li>
+
+                    <li class="sideBar">
+                        <a href="tables2.html"><i class="fa fa-fw fa-warning"></i>Data Quality: Report 2</a>
                     </li>
                     <li class="sideBar">
-                        <a href="#"><i class="fa fa-fw fa-code-fork"></i>Data Modeling</a>
-                    </li>
-                    <li class="active sideBar">
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-wrench"></i> Data Quality <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="tables.html">Report 1</a>
-                            </li>
-                            <li>
-                                <a href="tables2.html">Report 2</a>
-                            </li>
-                            <li>
-                                <a href="tables3.html">Report 3</a>
-                            </li>
-                        </ul>
+                        <a href="tables3.html"><i class="fa fa-fw fa-search"></i>Data Quality: Report 3</a>
                     </li>
                 </ul>
             </div>
@@ -194,9 +184,25 @@ path.1_path:hover {
                         </div>
                     </div>
                 </div>
+
                 <!-- /.row -->
 
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4> Interest Drilldown</h4>
+                        <svg id="barVis" style="background-color: white" width="650" height="330">
 
+                        </svg>
+                    </div>
+                    <div style="background-color: white" class="col-md-3">
+                        <h4> Mortgage Term Drilldown</h4>
+                        <svg id="pieVis" width="230" height="330" >
+
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- /.row -->
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="segmentTitle">Segmented Data</h2>
@@ -269,22 +275,6 @@ path.1_path:hover {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="col-md-9">
-                        <h4> Interest Drilldown</h4>
-                        <svg id="barVis" style="background-color: white" width="650" height="330">
-
-                        </svg>
-                    </div>
-                    <div style="background-color: white" class="col-md-3">
-                        <h4> Mortgage Term Drilldown</h4>
-                        <svg id="pieVis" width="230" height="330" >
-
-                        </svg>
                     </div>
                 </div>
 
