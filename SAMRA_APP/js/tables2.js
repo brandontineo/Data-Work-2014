@@ -15,7 +15,7 @@ var dict = {
 "Current Principal Amount": "Outstanding loan amount",
 "Mortgage Term" : "Period over which a loan agreement is in force, and before or at the end of which the loan should either be repaid or renegotiated for another term.",
 "Mortgage Origination Date": "The date that the mortgage was orginated",
-"Mortgage Payoff Date" :"The date that that the mortgage needs to be fully paid."
+"Mortgage Payoff Date" :"The date that the mortgage needs to be fully paid."
 }
 
 var titles = ["Borrower Name", "Mortgage Interest", "Original Principal Balance Amount", "Current Principal Amount", "Mortgage Term", "Mortgage Origination Date", "Mortgage Payoff Date"];
