@@ -290,11 +290,11 @@ ul.alert-dropdown {
 }
 
 .bar {
-  fill: orange;
+  fill: #715099;
 }
 
 .bar:hover {
-  fill: orangered ;
+  fill: #BC288F ;
 }
 
 .x.axis path {
@@ -488,7 +488,13 @@ table, tr, th, td{
     }
 }
 
-footer {
-    padding: 50px 0;
+.overrideHref{
+    color: black !important;
+    text-decoration: none !important;
+}
+
+#footer {
+    padding: 10px 0;
+    padding-left: 10px;
     background-color: #f8f8f8;
 }

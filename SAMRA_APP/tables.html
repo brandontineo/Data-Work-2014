@@ -74,14 +74,14 @@ path.1_path:hover {
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="sideBar">
-                        <a href="tables.html"><i class="fa fa-fw fa-wrench"></i>Data Quality: Report 1</a>
+                        <a href="tables.html"><i class="fa fa-fw fa-wrench"></i>Mortgage Loan Report 1</a>
                     </li>
 
                     <li class="sideBar">
-                        <a href="tables2.html"><i class="fa fa-fw fa-warning"></i>Data Quality: Report 2</a>
+                        <a href="tables2.html"><i class="fa fa-fw fa-warning"></i>Mortgage Loan Report 2</a>
                     </li>
                     <li class="sideBar">
-                        <a href="tables3.html"><i class="fa fa-fw fa-search"></i>Data Quality: Report 3</a>
+                        <a href="tables3.html"><i class="fa fa-fw fa-search"></i>Mortgage Loan Report 3</a>
                     </li>
                 </ul>
             </div>
@@ -96,14 +96,15 @@ path.1_path:hover {
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Data Quality
+                            Mortgage Loan Report
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <a href="index.html">Home</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-wrench"></i> Data Quality
+                                <i class="fa fa-wrench"></i> Mortgage Loan Report 1
+
                             </li>
                         </ol>
                     </div>
@@ -117,6 +118,7 @@ path.1_path:hover {
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr class="correct">
+                                        <th><a class="overrideHref" href="http://us.adaptive.com/FIBO/a3/viewobject.jsp?uid=spec.edmcouncil.org%2Ffibo%2Fred%2Floan%2Floan-types%2Fmortgage-loans%2FMortgageLoan&source=search#panelId=1&id=FMMData_ObjectViewSimple_Noun_Concept&url=objectViewOutput.jsp?uid=spec.edmcouncil.org%2Ffibo%2Fred%2Floan%2Floan-types%2Fmortgage-loans%2FMortgageLoan&ovuid=FMMData_ObjectViewSimple_Noun_Concept&&uid=spec.edmcouncil.org/fibo/red/loan/loan-types/mortgage-loans/MortgageLoan&source=search">Loan Type</a></th>
                                         <th>Borrower Name</th>
                                         <th>Mortgage Interest</th>
                                         <th>Original Principal Balance Amount</th>
@@ -124,10 +126,12 @@ path.1_path:hover {
                                         <th>Mortgage Term</th>
                                         <th>Mortgage Origination Date</th>
                                         <th>Mortgage Payoff Date</th>
+                                        <th><a class="overrideHref" href="https://www.iso.org/obp/ui/#search">Country Code</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>Investment Home</td>
                                         <td>Borrower A</td>
                                         <td>4%</td>
                                         <td>$200,000</td>
@@ -135,8 +139,10 @@ path.1_path:hover {
                                         <td>30 year</td>
                                         <td>2/1/2010</td>
                                         <td>2/1/2040</td>
+                                        <td class="correctUS">US</td>
                                     </tr>
                                     <tr>
+                                        <td>Reverse Mortgage</td>
                                         <td>Borrower B</td>
                                         <td>10%</td>
                                         <td>$15,000</td>
@@ -144,8 +150,10 @@ path.1_path:hover {
                                         <td>30 year</td>
                                         <td>12/10/2000</td>
                                         <td>12/10/2030</td>
+                                        <td class="correctUS">U.S.</td> 
                                     </tr>
                                     <tr>
+                                        <td>Second Home Loan</td>
                                         <td>Borrower C</td>
                                         <td>4%</td>
                                         <td>$2,000,000</td>
@@ -153,8 +161,11 @@ path.1_path:hover {
                                         <td>15 year</td>
                                         <td>3/5/2015</td>
                                         <td>3/5/2030</td>
+                                        <td class="correctUS">1</td>
+
                                     </tr>
                                     <tr>
+                                        <td>Investment Home</td>
                                         <td>Borrower D</td>
                                         <td>5%</td>
                                         <td>$500,000</td>
@@ -162,9 +173,11 @@ path.1_path:hover {
                                         <td>15 year</td>
                                         <td>6/20/2012</td>
                                         <td>6/20/2027</td>
+                                        <td class="correctUS">12</td>
 
                                     </tr>
                                     <tr>
+                                        <td>Second Home Loan</td>
                                         <td>Borrower E</td>
                                         <td>3.5%</td>
                                         <td>$300,000</td>
@@ -172,6 +185,7 @@ path.1_path:hover {
                                         <td>5 year</td>
                                         <td>7/15/2015</td>
                                         <td>7/15/2020</td>
+                                        <td class="correctUS">US</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -204,17 +218,19 @@ path.1_path:hover {
                             <table class="segmentedTable table table-hover table-striped">
                                 <thead>
                                     <tr class="correctSeg">
-                                        <th>Borrower Name</th>
+                                        <th><a class="overrideHref" href="http://us.adaptive.com/FIBO/a3/viewobject.jsp?uid=spec.edmcouncil.org%2Ffibo%2Fred%2Floan%2Floan-types%2Fmortgage-loans%2FMortgageLoan&source=search#panelId=1&id=FMMData_ObjectViewSimple_Noun_Concept&url=objectViewOutput.jsp?uid=spec.edmcouncil.org%2Ffibo%2Fred%2Floan%2Floan-types%2Fmortgage-loans%2FMortgageLoan&ovuid=FMMData_ObjectViewSimple_Noun_Concept&&uid=spec.edmcouncil.org/fibo/red/loan/loan-types/mortgage-loans/MortgageLoan&source=search">Loan Type</a></th>    <th>Borrower Name</th>
                                         <th>Mortgage Interest</th>
                                         <th>Original Principal Balance Amount</th>
                                         <th>Current Principal Balance Amount</th>
                                         <th>Mortgage Term</th>
                                         <th>Mortgage Origination Date</th>
                                         <th>Mortgage Payoff Date</th>
+                                        <th><a class="overrideHref" href="https://www.iso.org/obp/ui/#search">Country Code</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="borA">
+                                        <td>Investment Home</td>
                                         <td>Borrower A</td>
                                         <td>4%</td>
                                         <td>$200,000</td>
@@ -222,8 +238,10 @@ path.1_path:hover {
                                         <td>30 year</td>
                                         <td>2/1/2010</td>
                                         <td>2/1/2040</td>
+                                        <td class="correctUS">US</td>
                                     </tr>
                                     <tr class="borB">
+                                        <td>Reverse Mortgage</td>
                                         <td>Borrower B</td>
                                         <td>10%</td>
                                         <td>$15,000</td>
@@ -231,8 +249,11 @@ path.1_path:hover {
                                         <td>30 year</td>
                                         <td>12/10/2000</td>
                                         <td>12/10/2030</td>
+                                        <td class="correctUS">U.S.</td>
+
                                     </tr>
                                     <tr class="borC">
+                                    <td>Second Home Loan</td>
                                         <td>Borrower C</td>
                                          <td>4%</td>
                                         <td>$2,000,000</td>
@@ -240,18 +261,23 @@ path.1_path:hover {
                                         <td>15 year</td>
                                         <td>3/5/2015</td>
                                         <td>3/5/2030</td>
+                                        <td class="correctUS">1</td>
+
                                     </tr>
                                     <tr class="borD">
+                                    <td>Investment Home</td>
                                         <td>Borrower D</td>
                                         <td>5%</td>
                                         <td>$500,000</td>
                                         <td>$240,000</td>
                                         <td>15 year</td>
                                         <td>6/20/2012</td>
-                                        <td>6/20/2027</td>
+                                        <td>6/20/2027</td>                                        
+                                        <td class="correctUS">12</td>
 
                                     </tr>
                                     <tr class="borE">
+                                    <td>Second Home Loan</td>
                                         <td>Borrower E</td>
                                         <td>3.5%</td>
                                         <td>$300,000</td>
@@ -259,6 +285,7 @@ path.1_path:hover {
                                         <td>5 year</td>
                                         <td>7/15/2015</td>
                                         <td>7/15/2020</td>
+                                        <td class="correctUS">US</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -268,7 +295,10 @@ path.1_path:hover {
 
             </div>
             <!-- /.container-fluid -->
+<div id="footer">
 
+Copyright 2015<a href="#"> Sandra Sulaiman</a> :: designed and created by <a href="https://www.linkedin.com/pub/brandon-tineo/5a/559/843"> Brandon Tineo </a>
+</div>
         </div>
         <!-- /#page-wrapper -->
 

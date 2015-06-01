@@ -18,7 +18,7 @@ var dict = {
 "Mortgage Payoff Date" :"The date that that the mortgage needs to be fully paid."
 }
 
-var titles = ["Borrower Name", "Mortgage Interest", "Original Principal Balance Amount", "Current Principal Amount", "Mortgage Term", "Mortgage Origination Date", "Mortgage Payoff Date"];
+var titles = ["Loan Type","Borrower Name", "Mortgage Interest", "Original Principal Balance Amount", "Current Principal Amount", "Mortgage Term", "Mortgage Origination Date", "Mortgage Payoff Date", "Country Code"];
 
 
 //tooltip 
@@ -31,19 +31,43 @@ var tooltip = d3.select("body")
   .style("font-size", "15px")
   .attr("class", "tooltip2");
 
-
 d3.selectAll(".correct > th")
   .data(titles)
-  .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html("<strong>Definition</strong>: " + dict[d])})
+  .on("mouseover", function (d, i){
+
+    if (i != 0 && i != 8){
+      tooltip.style("visibility", "visible");
+      tooltip.html("<strong>Definition</strong>: " + dict[d])
+    }
+
+
+  })
   .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
   .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
 
 d3.selectAll(".correctSeg > th")
   .data(titles)
-  .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html(dict[d])})
+  .on("mouseover", function (d, i){ 
+      
+      if (i != 0 && i != 8){
+
+        tooltip.style("visibility", "visible"); tooltip.html(dict[d])
+      }
+
+
+  })
   .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
   .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
+
+
+
+d3.selectAll(".correctUS")
+  .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html("<strong style='color:red'>ISO Standard</strong>: U.S." )})
+  .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
+  .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
+
+
 
 });
 
@@ -97,7 +121,7 @@ var generateTable =function(number){
 
 
 var color = d3.scale.ordinal()
-    .range(["steelblue", "red", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+    .range(["#DBBC21", "#3290A0", "#939598", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
 var arc = d3.svg.arc()
     .outerRadius(radius - 10)
@@ -160,9 +184,10 @@ var tip_pie = d3.tip()
   })
 svg.call(tip_pie)
 
+
 d3.selectAll(".years")
-      .on('mouseover', tip_pie.show)
-      .on('mouseout',  tip_pie.hide)
+     .on('mouseover', tip_pie.show)
+     .on('mouseout',  tip_pie.hide)
 
 d3.selectAll(".path1")
       .on('mouseover',  function(d,i){
@@ -245,6 +270,7 @@ var tip = d3.tip()
   .html(function(d) {
     return "<strong>Interest:</strong> <span style='color:red'>" + Math.round(d.frequency * 100 * 100) / 100 + " %</span>";
   })
+  
 
 var svg2 = d3.select("#barVis")
   .append("g")
@@ -282,8 +308,8 @@ d3.csv("interest2.csv", type, function(error, data) {
       .attr("width", x_bar.rangeBand())
       .attr("y", function(d) { return y_bar(d.frequency); })
       .attr("height", function(d) { return height_bar - y_bar(d.frequency); })
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
+     .on('mouseover', tip.show)
+     .on('mouseout', tip.hide)
 
 d3.selectAll(".bar").on("click", function(d,i){
 
