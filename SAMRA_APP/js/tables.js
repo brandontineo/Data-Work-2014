@@ -63,7 +63,7 @@ d3.selectAll(".correctSeg > th")
 
 
 d3.selectAll(".correctUS")
-  .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html("<strong style='color:red'>ISO Standard</strong>: U.S." )})
+  .on("mouseover", function (d, i){ tooltip.style("visibility", "visible"); tooltip.html("<strong style='color:red'>ISO Standard</strong>: US" )})
   .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+30)+"px").style("left",(d3.event.pageX-180)+"px");})
   .on("mouseout", function(){ return tooltip.style("visibility", "hidden");});
 
