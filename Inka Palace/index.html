@@ -91,11 +91,21 @@
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome To Inka Palace!</div>
-                <p class="section-heading" style="margin-top: -25px; font-size: 16px"><em>(###) ### #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1645 A Street, Antioch, CA 94509</em></p>
+                <p class="section-heading" style="margin-top: -25px; font-size: 16px"><em>(925) 706-1976 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1645 A Street, Antioch, CA 94509</em></p>
                 <div class="intro-heading" style="margin-top: 35px;">Peruvian Cuisine that will electrify your pallate</div>
                 <a href="#portfolio" class="page-scroll btn btn-xl">Look at our menu</a>
             </div>
         </div>
+        <div style="visibility:hidden" class="portfolio-item">
+            <a id="comingSoon" href="#portfolioModal" class="portfolio-link" data-toggle="modal">
+                <div class="portfolio-hover">
+                    <div class="portfolio-hover-content">
+                        <i class="fa fa-plus fa-3x"></i>
+                    </div>
+                </div>
+        </a>
+        </div>
+
     </header>
 
 
@@ -410,6 +420,34 @@
     <!-- Use the modals below to showcase details about your portfolio projects! -->
 
     <!-- Portfolio Modal 1 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" style="width:80%; height: 60%; right: 15%; top: 15%; bottom: 15%; left: 10%; border-radius: 25px; border: 5px solid red;" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2>Grand Opening soon!!!!!</h2>
+                            <h2 style="color:red"> Muy pronto gran apertura!!!!</h2>
+
+                            <p class="item-intro text-muted">Inka Palace will be celebrating its grand opening very soon. Please stay tuned</p>
+                   
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Portfolio Modal 1 -->
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -583,6 +621,17 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
     <script>    
+
+    // A $( document ).ready() block.
+    $( document ).ready(function() {
+
+        setTimeout(function(){
+
+            $("#comingSoon").click();
+
+        },1000)
+
+    });
  
       function init_map() {
         var var_location = new google.maps.LatLng(38.005766, -121.804509);
@@ -628,7 +677,7 @@
 
 <div id="bottom" class="text-center">
 
-<div style="display: inline-block; line-height: 2.5">(###) ### #### | fax: (###) ### #### | <a href="mailto:inka_palace@gmail.com">inka_palace@gmail.com</a> | 1645 A Street, Antioch, CA 94509</div>
+<div style="display: inline-block; line-height: 2.5">(925) 706-1976  <a href="mailto:inka_palace@gmail.com">inka_palace@gmail.com</a> | 1645 A Street, Antioch, CA 94509</div>
 
 </div>
 
