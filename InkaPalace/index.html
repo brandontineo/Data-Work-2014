@@ -656,20 +656,78 @@
       google.maps.event.addDomListener(window, 'load', init_map);
  
         $("header").addClass("trans");
-        setTimeout(function(){$("header").addClass("trans2");},7000)
-        setTimeout(function(){$("header").addClass("trans3");},14000)
-        setTimeout(function(){$("header").addClass("trans4");},21000)
-        setTimeout(function(){$("header").addClass("trans5");},28000)
-        setTimeout(function(){$("header").addClass("trans6");},35000)
-        setTimeout(function(){$("header").addClass("trans7");},42000)
-        setTimeout(function(){$("header").addClass("trans8");},42000)
-        setTimeout(function(){$("header").addClass("trans9");},49000)
-        setTimeout(function(){$("header").addClass("trans10");},56000)
-        setTimeout(function(){$("header").addClass("trans11");},63000)
-        setTimeout(function(){$("header").addClass("trans12");},70000)
-        setTimeout(function(){$("header").addClass("trans13");},77000)
-        setTimeout(function(){$("header").addClass("trans14");},84000)
-        setTimeout(function(){$("header").addClass("trans15");},91000)
+        setTimeout(function(){
+
+            $("header").addClass("trans2");
+            $("header").removeClass("trans");
+
+        },7000)
+        
+        setTimeout(function(){
+            $("header").addClass("trans3");
+            $("header").removeClass("trans2");
+
+        },14000)
+
+        setTimeout(function(){
+            $("header").addClass("trans4");
+            $("header").removeClass("trans3");
+
+        },21000)
+
+        setTimeout(function(){
+            $("header").addClass("trans5");
+            $("header").removeClass("trans4");
+
+        },28000)
+
+        setTimeout(function(){
+            $("header").addClass("trans6");
+            $("header").removeClass("trans5");
+
+        },35000)
+
+        setTimeout(function(){
+            $("header").addClass("trans7");
+            $("header").removeClass("trans6");
+
+        },42000)
+
+        setTimeout(function(){
+            $("header").addClass("trans8");
+            $("header").removeClass("trans7");
+        },42000)
+
+        setTimeout(function(){
+            $("header").addClass("trans9");
+            $("header").removeClass("trans8");
+        },49000)
+        setTimeout(function(){
+            $("header").addClass("trans10");
+            $("header").removeClass("trans9");
+        },56000)
+        setTimeout(function(){
+            $("header").addClass("trans11");
+            $("header").removeClass("trans10");
+        },63000)
+        setTimeout(function(){
+            $("header").addClass("trans12");
+            $("header").removeClass("trans11");
+        },70000)
+        setTimeout(function(){
+            $("header").addClass("trans13");
+            $("header").removeClass("trans12");
+        },77000)
+        setTimeout(function(){
+            $("header").addClass("trans14");
+            $("header").removeClass("trans13");
+        },84000)
+        setTimeout(function(){
+            $("header").addClass("trans15");
+            $("header").removeClass("trans14");
+        },91000)
+        
+
 
     </script>
 
