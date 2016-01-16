@@ -1,0 +1,145 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	background-color: lightslategrey;
+	margin: 0;
+}
+
+img {
+	border: 0px;
+}
+
+
+.noborder {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#logo_container {
+	background-color: #324458;
+	padding: 25px 25px 0px 100px;
+}
+
+#nav {
+	border: 0px;
+	padding: 0px 0px 0px 100px;
+	background-color: #324458;
+	height: 38px;
+	width: auto;
+	float: center;
+}
+
+#main_container {
+	padding-left: 100px;
+	background-color: #8694a4;
+}
+
+#main_home {
+	padding: 25px 0px 25px 0px;
+	background-image: url(bgimage.jpg);
+	background-repeat: no-repeat;
+	height: 469px;
+	width: 819px;
+	color: white;
+}
+
+#main {
+	padding: 25px 0px 25px 0px;
+	background-image: url(bgimage_notext.jpg);
+	background-repeat: no-repeat;
+	background-attachment: inherit;
+	height: auto;
+	overflow: hidden;
+	width: 819px;
+	color: white;
+	line-height: 18pt;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#main_pictures {
+	padding: 25px 0px 25px 0px;
+	height: auto;
+	overflow: auto;
+	width: auto;
+	color: white;
+	line-height: 18pt;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#main_pictures img {
+	border: 3px #324458 solid;
+}
+
+p {
+	font-size: 10pt;
+	padding-left: 30px;
+	padding-right: 30px;
+	line-height: 12pt;
+	font-family: "Copperplate Gothic Light";
+	
+}
+
+h1 {
+	font-size: 12pt;
+	padding-left: 30px;
+	font-family: "Copperplate Gothic Light";
+}
+
+li{
+	font-family: "Copperplate Gothic Light";
+}
+u1 {
+	padding-bottom: 15px;
+	float: left;
+}
+
+.Education
+{
+	float: left;
+}
+
+
+ul {
+	font-size: 10pt;
+}
+
+ul.single {
+	line-height: 12pt;
+}
+
+
+#footer {
+	background-color: #324458;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	padding: 15px 0px 15px 640px;
+}
+
+.right {
+	float: right;
+	width: 400px;
+}
+
+a {
+	color: white;
+}
+
+#self_portrait
+{
+	float: right; 
+	margin: 0px 20px 0px 0px;
+	width: 325px;
+	padding-left: 10px;
+}
+
+#studio
+{
+	float: left; 
+	margin: 0px 20px 0px 0px;
+	width: 425px;
+	padding-left: 10px;
+	padding-right: 20px;
+}
